@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
 
-//map this student class in my db
+//map this student class in my d
 @Entity
 @Table
 public class Student {
