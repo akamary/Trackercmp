@@ -3,6 +3,7 @@ package com.example.demo.student;
 import javax.persistence.*;
 import java.lang.reflect.Constructor;
 import java.time.LocalDate;
+import java.time.Period;
 
 //map this student class in my d
 @Entity
@@ -22,24 +23,27 @@ public class Student {
     private String name;
     private LocalDate date;
     private String email;
+
+    //Transient-> age will be calculated for us
+    @Transient
     private Integer age;
 
     public Student() {
     }
 
-    public Student(Long id, String name, LocalDate date, String email, Integer age) {
+    public Student(Long id, String name, LocalDate date, String email) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.email = email;
-        this.age = age;
+        //this.age = age;
     }
 
-    public Student(String name, LocalDate date, String email, Integer age) {
+    public Student(String name, LocalDate date, String email) {
         this.name = name;
         this.date = date;
         this.email = email;
-        this.age = age;
+        //this.age = age;
     }
 
     public Long getId() {
@@ -75,7 +79,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.date, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
