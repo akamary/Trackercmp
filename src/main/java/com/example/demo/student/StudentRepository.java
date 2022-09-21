@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 //T->type of object this repo works with
-//id-> for the type
+//ID-> for the type
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 

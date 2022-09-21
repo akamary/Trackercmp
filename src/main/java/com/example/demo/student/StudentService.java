@@ -19,11 +19,13 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    // return a list of students
     public List<Student> getStudents(){
         return studentRepository.findAll();
     }
 
     public void addNewStudent(Student student) {
+        // SELECT * FROM Student class WHERE email = ?
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         //if the student email is not present we want to save our student
         if(studentOptional.isPresent()){

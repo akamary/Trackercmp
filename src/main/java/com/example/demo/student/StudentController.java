@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
 
+    // using service layer, creating service obj
     private final StudentService studentService;
 
+    // annotating that everything we pass into it, should be injected to the constructed through service obj
+    // then, we have to say Service class has to be a spring bean
     @Autowired
     public StudentController(StudentService studentService){
         this.studentService = studentService;
@@ -41,6 +44,6 @@ public class StudentController {
             @PathVariable("studentId") Long studentId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email) {
-                studentService.updateStudent(studentId, name, email);
+        studentService.updateStudent(studentId, name, email);
     }
 }
