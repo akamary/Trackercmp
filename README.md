@@ -1,4 +1,3 @@
-# **Spring Boot CRUD**
 
 * Java 11
 * Spring Boot
@@ -6,6 +5,7 @@
 * Postman
 * Spring Data JPA
 * Maven
+* jsoup lib
 
 ## Ref:
 * https://maven.apache.org/guides/index.html
