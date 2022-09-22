@@ -5,6 +5,7 @@
 * Postman
 * Spring Data JPA
 * Maven
+* jsoup lib
 
 ## Ref:
 * https://maven.apache.org/guides/index.html
