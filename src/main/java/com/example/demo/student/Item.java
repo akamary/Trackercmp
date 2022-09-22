@@ -22,6 +22,13 @@ public class Item{
     )
     private Long id;
     private String title;
+    private String price;
+
+    public Item(Long id, String title, String price) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+    }
 
     public Item() {
     }
@@ -29,6 +36,11 @@ public class Item{
     public Item(Long id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    public Item(String title, String price) {
+        this.title = title;
+        this.price = price;
     }
 
     public Long getId() {
@@ -47,11 +59,21 @@ public class Item{
         this.title = title;
     }
 
+
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", price='" + price + '\'' +
                 '}';
     }
 }
