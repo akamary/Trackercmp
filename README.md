@@ -1,4 +1,3 @@
-# **Spring Boot CRUD**
 
 * Java 11
 * Spring Boot
