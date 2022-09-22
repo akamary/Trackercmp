@@ -1,6 +1,6 @@
 # **Spring Boot CRUD**
 
-* Java 17
+* Java 11
 * Spring Boot
 * PostgreSQL
 * Postman
