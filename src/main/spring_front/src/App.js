@@ -6,7 +6,6 @@ import Product from "./components/Product/Product";
 import ProductList from "./components/Product/ProductList";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
-
 import Home from "./components/Home";
 
 const App = () => {
@@ -22,14 +21,12 @@ const App = () => {
   return (
     <Router>
       <div className="app" />
-
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/add" element={<Product />} />
         <Route path="/edit/:id" element={<Product />} />
         <Route path="/list" element={<ProductList />} />
-
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route
