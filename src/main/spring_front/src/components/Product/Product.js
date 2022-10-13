@@ -9,22 +9,12 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = this.initialState;
-    this.state = {
-      genres: [],
-      languages: [],
-      show: false,
-    };
   }
 
   initialState = {
     id: "",
-    title: "",
-    author: "",
-    coverPhotoURL: "",
-    isbnNumber: "",
+    name: "",
     price: "",
-    language: "",
-    genre: "",
   };
 
   componentDidMount() {
@@ -32,41 +22,8 @@ class Product extends Component {
     if (productId) {
       this.findProductById(productId);
     }
-    this.findAllLanguages();
+    this.findAllProducts();
   }
-
-  findAllLanguages = () => {
-    this.props.fetchLanguages();
-    setTimeout(() => {
-      let productLanguages = this.props.productObject.languages;
-      if (productLanguages) {
-        this.setState({
-          languages: [{ value: "", display: "Select Language" }].concat(
-            productLanguages.map((language) => {
-              return { value: language, display: language };
-            })
-          ),
-        });
-        this.findAllGenres();
-      }
-    }, 100);
-  };
-
-  findAllGenres = () => {
-    this.props.fetchGenres();
-    setTimeout(() => {
-      let productGenres = this.props.productObject.genres;
-      if (productGenres) {
-        this.setState({
-          genres: [{ value: "", display: "Select Genre" }].concat(
-            productGenres.map((genre) => {
-              return { value: genre, display: genre };
-            })
-          ),
-        });
-      }
-    }, 100);
-  };
 
   findProductById = (productId) => {
     this.props.fetchProduct(productId);
@@ -75,13 +32,8 @@ class Product extends Component {
       if (product != null) {
         this.setState({
           id: product.id,
-          title: product.title,
-          author: product.author,
-          coverPhotoURL: product.coverPhotoURL,
-          isbnNumber: product.isbnNumber,
+          name: product.name,
           price: product.price,
-          language: product.language,
-          genre: product.genre,
         });
       }
     }, 1000);
@@ -95,13 +47,8 @@ class Product extends Component {
     event.preventDefault();
 
     const product = {
-      title: this.state.title,
-      author: this.state.author,
-      coverPhotoURL: this.state.coverPhotoURL,
-      isbnNumber: this.state.isbnNumber,
+      name: this.state.name,
       price: this.state.price,
-      language: this.state.language,
-      genre: this.state.genre,
     };
 
     this.props.saveProduct(product);
@@ -120,14 +67,9 @@ class Product extends Component {
     event.preventDefault();
 
     const product = {
-      id: this.state.id,
-      title: this.state.title,
-      author: this.state.author,
-      coverPhotoURL: this.state.coverPhotoURL,
-      isbnNumber: this.state.isbnNumber,
-      price: this.state.price,
-      language: this.state.language,
-      genre: this.state.genre,
+      id: this.product.id,
+      name: this.product.name,
+      price: this.product.price,
     };
     this.props.updateProduct(product);
     setTimeout(() => {
@@ -152,8 +94,7 @@ class Product extends Component {
   };
 
   render() {
-    const { title, author, coverPhotoURL, isbnNumber, price, language, genre } =
-      this.state;
+    const { name, price } = this.state;
 
     return (
       <div>
@@ -170,62 +111,11 @@ class Product extends Component {
               required
               autoComplete="off"
               type="test"
-              name="title"
-              value={title}
+              name="name"
+              value={name}
               onChange={this.productChange}
               className={"bg-dark text-white"}
-              placeholder="Enter Product Title"
-            />
-          </Form.Group>
-          <Form.Group controlId="formGridAuthor">
-            <Form.Label>Author</Form.Label>
-            <Form.Control
-              required
-              autoComplete="off"
-              type="test"
-              name="author"
-              value={author}
-              onChange={this.productChange}
-              className={"bg-dark text-white"}
-              placeholder="Enter Product Author"
-            />
-          </Form.Group>
-          <Form.Group controlId="formGridCoverPhotoURL">
-            <Form.Label>Cover Photo URL</Form.Label>
-            <InputGroup>
-              <Form.Control
-                required
-                autoComplete="off"
-                type="test"
-                name="coverPhotoURL"
-                value={coverPhotoURL}
-                onChange={this.productChange}
-                className={"bg-dark text-white"}
-                placeholder="Enter Product Cover Photo URL"
-              />
-              <InputGroup.Append>
-                {this.state.coverPhotoURL !== "" && (
-                  <Image
-                    src={this.state.coverPhotoURL}
-                    roundedRight
-                    width="40"
-                    height="38"
-                  />
-                )}
-              </InputGroup.Append>
-            </InputGroup>
-          </Form.Group>
-          <Form.Group controlId="formGridISBNNumber">
-            <Form.Label>ISBN Number</Form.Label>
-            <Form.Control
-              required
-              autoComplete="off"
-              type="test"
-              name="isbnNumber"
-              value={isbnNumber}
-              onChange={this.productChange}
-              className={"bg-dark text-white"}
-              placeholder="Enter Product ISBN Number"
+              placeholder="Enter Product name"
             />
           </Form.Group>
           <Form.Group controlId="formGridPrice">
@@ -241,33 +131,6 @@ class Product extends Component {
               placeholder="Enter Product Price"
             />
           </Form.Group>
-          <Form.Group controlId="formGridLanguage">
-            <Form.Label>Language</Form.Label>
-            <Form.Control
-              required
-              as="select"
-              custom
-              onChange={this.productChange}
-              name="language"
-              value={language}
-              className={"bg-dark text-white"}
-            >
-              {this.state.languages.map((language) => (
-                <option key={language.value} value={language.value}>
-                  {language.display}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
-          <Form.Label>Genre</Form.Label>
-          required as="select" custom onChange={this.productChange}
-          name="genre" value={genre}
-          className={"bg-dark text-white"}
-          {this.state.genres.map((genre) => (
-            <option key={genre.value} value={genre.value}>
-              {genre.display}
-            </option>
-          ))}
         </Form>
       </div>
     );
