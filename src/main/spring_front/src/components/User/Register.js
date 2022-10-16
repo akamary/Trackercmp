@@ -1,35 +1,34 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./RegisterScreen.css";
 import "./background.css";
 
 import { registerUser } from "../../services/index";
 
 const Register = (props) => {
-  let navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
+  let navigate = useNavigate();
 
   const initialState = {
-    username: "",
     email: "",
     fullname: "",
     password: "",
+    username: "",
   };
 
   const [user, setUser] = useState(initialState);
 
-  const dispatch = useDispatch;
+  const userChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
 
-  const saveUser = () => {
+  const dispatch = useDispatch();
+
+  const saveUser = (e) => {
+    e.preventDefault();
     dispatch(registerUser(user))
       .then((response) => {
         setShow(true);
@@ -45,24 +44,6 @@ const Register = (props) => {
       });
   };
 
-  const registerHandler = async (e) => {
-    e.preventDefault();
-
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (password !== confirmPassword) {
-      setPassword("");
-      setConfirmPassword("");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-      return setError("Password do not match");
-    }
-    saveUser();
-  };
   const resetRegisterForm = () => {
     setUser(initialState);
   };
@@ -70,63 +51,61 @@ const Register = (props) => {
   return (
     <div className="background-image">
       <div className="register-screen">
-        <form onSubmit={registerHandler} className="register-screen__form">
+        <form onSubmit={saveUser} className="register-screen__form">
           <h3 className="register-screen__title">Register</h3>
-          {error && <span className="error-message">{error}</span>}
+
           <div className="form-group">
-            <label htmlFor="name">Username:</label>
+            <label htmlFor="name">Full Name:</label>
             <input
+              autoComplete="off"
               type="text"
-              required
-              id="name"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="fullname"
+              value={user.fullname}
+              onChange={userChange}
+              placeholder="Enter Name"
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="name">Email:</label>
             <input
-              type="email"
               required
-              id="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off"
+              type="text"
+              name="email"
+              value={user.email}
+              onChange={userChange}
+              placeholder="Enter Email Address"
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
-              type="password"
               required
-              id="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={userChange}
+              placeholder="Enter Password"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmpassword">Confirm Password:</label>
+            <label htmlFor="name">User Name:</label>
             <input
-              type="password"
               required
-              id="confirmpassword"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              autoComplete="off"
+              type="username"
+              name="username"
+              value={user.username}
+              onChange={userChange}
+              placeholder="Enter username"
             />
+            <button type="submit" className="btn btn-primary">
+              Register
+            </button>
           </div>
-
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-
-          <span className="register-screen__subtext">
-            Already have an account? <Link to="/login">Login</Link>
-          </span>
         </form>
       </div>
     </div>

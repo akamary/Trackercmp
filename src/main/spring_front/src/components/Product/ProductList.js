@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import Table from "@mui/material/Table";
 import { deleteProduct } from "../../services/index";
-
-import {
-  Card,
-  Table,
-  Image,
-  ButtonGroup,
-  Button,
-  InputGroup,
-  FormControl,
-} from "react-bootstrap";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import Paper from "@mui/material/Paper";
+import TableHead from "@mui/material/TableHead";
+import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
+import "./../User/backscreens.css";
+import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,7 @@ class ProductList extends Component {
       products: [],
       search: "",
       currentPage: 1,
-      productsPerPage: 5,
+      productsPerPage: 10,
       sortDir: "asc",
     };
   }
@@ -46,7 +46,7 @@ class ProductList extends Component {
     currentPage -= 1;
     axios
       .get(
-        "http://localhost:8081/rest/products?pageNumber=" +
+        "http://localhost:8080/rest/products?pageNumber=" +
           currentPage +
           "&pageSize=" +
           this.state.productsPerPage +
@@ -179,156 +179,130 @@ class ProductList extends Component {
     const { products, currentPage, totalPages, search } = this.state;
 
     return (
-      <div>
-        <div style={{ display: this.state.show ? "block" : "none" }}></div>
-        <Card className={"border border-dark bg-dark text-white"}>
-          <Card.Header>
-            <div style={{ float: "left" }}>Product List</div>
-            <div style={{ float: "right" }}>
-              <InputGroup size="sm">
-                <FormControl
-                  placeholder="Search"
-                  name="search"
-                  value={search}
-                  className={"info-border bg-dark text-white"}
-                  onChange={this.searchChange}
-                />
-                <InputGroup.Append>
-                  <Button
-                    size="sm"
-                    variant="outline-info"
-                    type="button"
-                    onClick={this.searchData}
-                  ></Button>
-                  <Button
-                    size="sm"
-                    variant="outline-danger"
-                    type="button"
-                    onClick={this.cancelSearch}
-                  ></Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </div>
-          </Card.Header>
-          <Card.Body>
-            <Table bordered hover striped variant="dark">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>ISBN Number</th>
-                  <th onClick={this.sortData}>
-                    Price{" "}
-                    <div
-                      className={
-                        this.state.sortDir === "asc"
-                          ? "arrow arrow-up"
-                          : "arrow arrow-down"
-                      }
-                    >
-                      {" "}
-                    </div>
-                  </th>
-                  <th>Language</th>
-                  <th>Genre</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.length === 0 ? (
-                  <tr align="center">
-                    <td colSpan="7">No Products Available.</td>
-                  </tr>
-                ) : (
-                  products.map((product) => (
-                    <tr key={product.id}>
-                      <td>
-                        <Image
-                          src={product.coverPhotoURL}
-                          roundedCircle
-                          width="25"
-                          height="25"
-                        />{" "}
-                        {product.title}
-                      </td>
-                      <td>{product.author}</td>
-                      <td>{product.isbnNumber}</td>
-                      <td>{product.price}</td>
-                      <td>{product.language}</td>
-                      <td>{product.genre}</td>
-                      <td>
-                        <ButtonGroup>
-                          <Link
-                            to={"edit/" + product.id}
-                            className="btn btn-sm btn-outline-primary"
-                          ></Link>{" "}
-                          <Button
-                            size="sm"
-                            variant="outline-danger"
-                            onClick={() => this.deleteProduct(product.id)}
-                          ></Button>
-                        </ButtonGroup>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </Table>
-          </Card.Body>
-          {products.length > 0 ? (
-            <Card.Footer>
-              <div style={{ float: "left" }}>
-                Showing Page {currentPage} of {totalPages}
-              </div>
-              <div style={{ float: "right" }}>
-                <InputGroup size="sm">
-                  <InputGroup.Prepend>
-                    <Button
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === 1 ? true : false}
-                      onClick={this.firstPage}
-                    >
-                      First
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === 1 ? true : false}
-                      onClick={this.prevPage}
-                    >
-                      Prev
-                    </Button>
-                  </InputGroup.Prepend>
-                  <FormControl
-                    className={"page-num bg-dark"}
-                    name="currentPage"
-                    value={currentPage}
-                    onChange={this.changePage}
-                  />
-                  <InputGroup.Append>
-                    <Button
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === totalPages ? true : false}
-                      onClick={this.nextPage}
-                    >
-                      Next
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline-info"
-                      disabled={currentPage === totalPages ? true : false}
-                      onClick={this.lastPage}
-                    >
-                      Last
-                    </Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              </div>
-            </Card.Footer>
-          ) : null}
-        </Card>
+      <div className="background-screens">
+        <div className="App">
+          <Container maxWidth="md">
+            <div style={{ display: this.state.show ? "block" : "none" }}></div>
+            <Card className={"border border-dark bg-dark text-white"}>
+              <Card.Header>
+                <div style={{ float: "left" }}>Product List</div>
+                <div style={{ float: "right" }}>
+                  <InputGroup size="sm">
+                    <FormControl
+                      placeholder="Search"
+                      name="search"
+                      value={search}
+                      className={"info-border bg-dark text-white"}
+                      onChange={this.searchChange}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        size="sm"
+                        variant="outline-info"
+                        type="button"
+                        onClick={this.searchData}
+                      ></Button>
+                      <Button
+                        size="sm"
+                        variant="outline-danger"
+                        type="button"
+                        onClick={this.cancelSearch}
+                      ></Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                </div>
+              </Card.Header>
+
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        Product Name
+                      </TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        Price
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {products.map((product) => (
+                      <TableRow
+                        key={product.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {product.name}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {product.price}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <br></br>
+              <br></br>
+
+              {products.length > 0 ? (
+                <Card.Footer>
+                  <div style={{ float: "left" }}>
+                    Showing Page {currentPage} of {totalPages}
+                  </div>
+                  <div style={{ float: "right" }}>
+                    <InputGroup size="sm">
+                      <InputGroup.Prepend>
+                        <Button
+                          type="button"
+                          variant="outline-info"
+                          disabled={currentPage === 1 ? true : false}
+                          onClick={this.firstPage}
+                        >
+                          First
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline-info"
+                          disabled={currentPage === 1 ? true : false}
+                          onClick={this.prevPage}
+                        >
+                          Prev
+                        </Button>
+                      </InputGroup.Prepend>
+                      <FormControl
+                        className={"page-num bg-dark"}
+                        name="currentPage"
+                        value={currentPage}
+                        onChange={this.changePage}
+                      />
+                      <InputGroup.Append>
+                        <Button
+                          type="button"
+                          variant="outline-info"
+                          disabled={currentPage === totalPages ? true : false}
+                          onClick={this.nextPage}
+                        >
+                          Next
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline-info"
+                          disabled={currentPage === totalPages ? true : false}
+                          onClick={this.lastPage}
+                        >
+                          Last
+                        </Button>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </div>
+                </Card.Footer>
+              ) : null}
+            </Card>
+          </Container>
+        </div>
       </div>
     );
   }

@@ -40,12 +40,14 @@ public class UserResourceImpl {
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody User user) {
-        log.info("UserResourceImpl : register");
         JSONObject jsonObject = new JSONObject();
+        if(userRepository.findByEmail(user.getEmail()) != null) return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
+        log.info("UserResourceImpl : register");
+
         try {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setRole(roleRepository.findByName(ConstantUtils.USER.toString()));
-            User savedUser = userRepository.save(user);
+            User savedUser = userRepository.saveAndFlush(user);
             jsonObject.put("message", savedUser.getUsername() + " saved succesfully");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (JSONException e) {
