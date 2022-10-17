@@ -12,8 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 import "./../User/backscreens.css";
 import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
-
-import { Link } from "react-router-dom";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 import axios from "axios";
 
@@ -28,7 +27,7 @@ class ProductList extends Component {
       sortDir: "asc",
     };
   }
-
+  handleAddProduct = () => {};
   sortData = () => {
     setTimeout(() => {
       this.state.sortDir === "asc"
@@ -181,7 +180,7 @@ class ProductList extends Component {
     return (
       <div className="background-screens">
         <div className="App">
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <div style={{ display: this.state.show ? "block" : "none" }}></div>
             <Card className={"border border-dark bg-dark text-white"}>
               <Card.Header>
@@ -223,6 +222,9 @@ class ProductList extends Component {
                       <TableCell style={{ fontWeight: "bold" }}>
                         Price
                       </TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        Add Product
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -238,6 +240,13 @@ class ProductList extends Component {
                         </TableCell>
                         <TableCell component="th" scope="row">
                           {product.price}
+                        </TableCell>
+                        <TableCell>
+                          <Button>
+                            <AddShoppingCartOutlinedIcon
+                              onClick={this.handleAddProduct}
+                            />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}

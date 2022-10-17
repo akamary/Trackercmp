@@ -4,6 +4,7 @@ package com.kama.scraper.domain;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_product")
@@ -36,14 +37,14 @@ public class Product {
         this.id = id;
         this.name = name;
     }
-
     public Product(Long id, String name, String price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
-
+    @ManyToMany(targetEntity = User.class, mappedBy = "myProducts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> myUser;
     public Long getId() {
         return id;
     }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { saveProduct, fetchProduct, updateProduct } from "../../services/index";
-
+import { useNavigate } from "react-router-dom";
 import { Form, InputGroup, Image } from "react-bootstrap";
 
 class Product extends Component {
@@ -16,7 +16,7 @@ class Product extends Component {
     name: "",
     price: "",
   };
-
+  navigate = useNavigate();
   componentDidMount() {
     const productId = +this.props.match.params.id;
     if (productId) {
@@ -90,7 +90,7 @@ class Product extends Component {
   };
 
   productList = () => {
-    return this.props.history.push("/list");
+    return this.navigate("/list");
   };
 
   render() {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "./LoginScreen.css";
 import "./background.css";
