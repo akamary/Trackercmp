@@ -2,19 +2,19 @@
 The goal of this project is to implement an application for tracking Products by implementing a backend app using Spring Boot in addition to a frontend app usgin Reactjs.
 Authentication and Authorization for securing both apps.
 
-# Technologies used
+## Technologies used
 >backend
-* java 17
-* spring boot
-* spring boot security
+* Java 17
+* Spring Boot
+* Spring Boot security
 * JWT
 * PostgreSQL
-* spring data JPA
-* jsoup library for fetching products data
+* Spring Data JPA
+* jsoup library, for fetching products data
 * postman for checking the API
 >frontend
-* Reactjs
-* redux
+* React
+* Redux
 * MaterialUI
 * Bootstrap
 ## Docs and more:
