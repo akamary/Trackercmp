@@ -1,6 +1,9 @@
 package com.kama.scraper.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,9 +38,10 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany
-    @JoinColumn(name = "product_id")
-    private Set<Product> myProducts;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "userProducts")
+    private Set<Product> myProducts = new HashSet<>();
     public Long getId() {
         return id;
     }
@@ -78,6 +82,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+    public Set<Product> getMyProducts() {
+        return myProducts;
+    }
+
+    public void setMyProducts(Set<Product> myProducts) {
+        this.myProducts = myProducts;
     }
 
 }

@@ -1,7 +1,9 @@
 package com.kama.scraper.service.implement;
 
 import com.kama.scraper.domain.Product;
+import com.kama.scraper.domain.User;
 import com.kama.scraper.repository.ProductRepository;
+import com.kama.scraper.repository.UserRepository;
 import com.kama.scraper.service.IPageService;
 import com.kama.scraper.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public Collection<Product> findAll() {
         return (Collection<Product>) productRepository.findAll();
@@ -45,6 +49,13 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         return productRepository.save(product);
     }
 
+    @Override
+    public Product save(Long productId, Long userId){
+        Product product = productRepository.findById(productId).get();
+        User user = userRepository.findById(userId).get();
+        product.saveToUser(user);
+        return productRepository.save(product);
+    }
     @Override
     public String deleteById(Long id) {
         JSONObject jsonObject = new JSONObject();

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,5 +60,11 @@ public class ProductResourceImpl implements Resource<Product> {
     @Override
     public ResponseEntity<String> deleteById(Long id) {
         return new ResponseEntity<>(productService.deleteById(id), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){
+        return new ResponseEntity<>(productService.save(productId, userId),HttpStatus.OK);
+
     }
 }

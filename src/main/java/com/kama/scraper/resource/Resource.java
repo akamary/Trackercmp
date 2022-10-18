@@ -1,5 +1,6 @@
 package com.kama.scraper.resource;
 
+import com.kama.scraper.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -24,4 +25,7 @@ public interface Resource<T> {
 
     @DeleteMapping("{id}")
     ResponseEntity<String> deleteById(@PathVariable Long id);
+
+    @PostMapping("/{productId}/users/{userId}")
+    public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId);
 }

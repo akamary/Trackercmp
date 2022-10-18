@@ -53,4 +53,9 @@ public class RoleServiceImpl implements IRoleService<Role> {
     public void save(Role product) {
 
     }
+
+    @Override
+    public Role save(Long productId, Long userId) {
+        return null;
+    }
 }

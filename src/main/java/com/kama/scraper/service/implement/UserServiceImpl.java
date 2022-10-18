@@ -48,4 +48,9 @@ public class UserServiceImpl implements IService<User> {
     public void save(User product) {
 
     }
+
+    @Override
+    public User save(Long productId, Long userId) {
+        return null;
+    }
 }

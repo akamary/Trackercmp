@@ -1,9 +1,7 @@
 package com.kama.scraper.domain;
 
-
-
-
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,8 +41,15 @@ public class Product {
         this.price = price;
     }
 
-    @ManyToMany(targetEntity = User.class, mappedBy = "myProducts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> myUser;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> userProducts = new HashSet<>();
     public Long getId() {
         return id;
     }
@@ -77,6 +82,17 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
+    }
+    public Set<User> getUserProducts() {
+        return userProducts;
+    }
+
+    public void setUserProducts(Set<User> userProducts) {
+        this.userProducts = userProducts;
+    }
+
+    public void saveToUser(User user) {
+        userProducts.add(user);
     }
 }
 
