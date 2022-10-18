@@ -17,6 +17,24 @@ export const saveProduct = (product) => {
   };
 };
 
+export const saveProductToUser = (productId, userId) => {
+  return (dispatch) => {
+    dispatch({
+      type: PT.SAVE_PRODUCT_REQUEST,
+    });
+    axios
+      .post(
+        "http://localhost:8080/rest/products/" + productId + "/users/" + userId
+      )
+      .then((response) => {
+        dispatch(productSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(productFailure(error));
+      });
+  };
+};
+
 export const fetchProduct = (productId) => {
   return (dispatch) => {
     dispatch({

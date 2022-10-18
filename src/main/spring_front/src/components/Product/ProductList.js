@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
+import Product from "./Product";
 import { connect } from "react-redux";
 import Table from "@mui/material/Table";
-import { deleteProduct } from "../../services/index";
+import { deleteProduct, saveProductToUser } from "../../services/index";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -15,6 +15,8 @@ import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import addToUser from "./addToUser.js";
 
 class ProductList extends Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class ProductList extends Component {
       sortDir: "asc",
     };
   }
-  handleAddProduct = () => {};
+
   sortData = () => {
     setTimeout(() => {
       this.state.sortDir === "asc"
@@ -39,6 +41,29 @@ class ProductList extends Component {
 
   componentDidMount() {
     this.findAllProducts(this.state.currentPage);
+  }
+  handleOnAdd(productId) {
+    const userId = this.props.userId;
+    axios
+      .post(
+        "http://localhost:8080/rest/products/" + productId + "/users/" + userId
+      )
+
+      .then((response) => response.data)
+      .then((data) => {
+        this.setState({
+          products: data.content,
+          totalPages: data.totalPages,
+          totalElements: data.totalElements,
+          currentPage: data.number + 1,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("id");
+        this.props.history.push("/");
+      });
   }
 
   findAllProducts(currentPage) {
@@ -64,6 +89,7 @@ class ProductList extends Component {
       .catch((error) => {
         console.log(error);
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("id");
         this.props.history.push("/");
       });
   }
@@ -242,10 +268,12 @@ class ProductList extends Component {
                           {product.price}
                         </TableCell>
                         <TableCell>
-                          <Button>
-                            <AddShoppingCartOutlinedIcon
-                              onClick={this.handleAddProduct}
-                            />
+                          <Button
+                            onClick={() => {
+                              addToUser(product.id);
+                            }}
+                          >
+                            <AddShoppingCartOutlinedIcon />
                           </Button>
                         </TableCell>
                       </TableRow>

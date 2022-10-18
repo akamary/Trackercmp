@@ -72,6 +72,7 @@ public class UserResourceImpl {
                 jsonObject.put("name", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
                 jsonObject.put("token", tokenProvider.createToken(email, userRepository.findByEmail(email).getRole()));
+                jsonObject.put("id", userRepository.findByEmail(email).getId());
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
