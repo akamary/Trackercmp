@@ -1,4 +1,4 @@
-# Spring-boot_react_scraper_security
+# TrackerCompare Spring-boot_react_scraper_security
 The goal of this project is to implement an application for tracking Products by implementing a backend app using Spring Boot in addition to a frontend app usgin Reactjs.
 Authentication and Authorization for securing both apps.
 
