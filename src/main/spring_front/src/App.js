@@ -8,6 +8,7 @@ import Login from "./components/User/Login";
 import Home from "./components/Home";
 import ABar from "./components/ABar";
 import "./components/User/backscreens.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const App = () => {
   window.onbeforeunload = (event) => {
@@ -18,7 +19,16 @@ const App = () => {
     }
     return "";
   };
-
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#66718F",
+      },
+      secondary: {
+        main: "#f50057",
+      },
+    },
+  });
   return (
     <Router>
       <ABar />

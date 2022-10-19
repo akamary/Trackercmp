@@ -1,10 +1,12 @@
 import * as UT from "./userTypes";
 
+// default store
 const initialState = {
   users: [],
   error: "",
 };
 
+// the actual reducer,
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case UT.USER_REQUEST:

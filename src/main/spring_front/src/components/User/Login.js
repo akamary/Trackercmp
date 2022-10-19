@@ -45,6 +45,7 @@ const Login = (props) => {
           <h3 className="login-screen__title">Sign in</h3>
           {error && <span className="error-message">{error}</span>}
           <div className="form-group">
+            <label htmlFor="email">Email:</label>
             <input
               required
               autoComplete="off"

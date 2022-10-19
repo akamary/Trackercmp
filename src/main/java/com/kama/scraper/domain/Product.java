@@ -10,13 +10,13 @@ public class Product {
 
     @Id
     @SequenceGenerator(
-            name = "title_sequence",
-            sequenceName = "title_sequence",
+            name = "product_sequence",
+            sequenceName = "product_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "title_sequence"
+            generator = "product_sequence"
     )
     private Long id;
 
