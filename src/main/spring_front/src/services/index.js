@@ -1,3 +1,3 @@
-export * from "./user/userActions";
-export * from "./user/auth/authActions";
-export * from "./product/productActions";
+export * from "./actions/userActions";
+export * from "./actions/authActions";
+export * from "./actions/productActions";

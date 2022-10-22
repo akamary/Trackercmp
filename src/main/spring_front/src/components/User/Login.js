@@ -53,7 +53,6 @@ const Login = (props) => {
               name="email"
               value={user.email}
               onChange={credentialChange}
-              className={"bg-dark text-white"}
               placeholder="Enter Email Address"
             />
           </div>
@@ -67,7 +66,6 @@ const Login = (props) => {
               name="password"
               value={user.password}
               onChange={credentialChange}
-              className={"bg-dark text-white"}
               placeholder="Enter Password"
             />
           </div>

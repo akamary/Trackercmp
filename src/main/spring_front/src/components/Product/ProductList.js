@@ -69,7 +69,6 @@ class ProductList extends Component {
   }
 
   submitProduct = (productId) => {
-    //const productId = product.id;
     this.props.saveProduct(productId);
     setTimeout(() => {
       if (this.props.productObject.product != null) {
