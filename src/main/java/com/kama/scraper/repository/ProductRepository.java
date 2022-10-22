@@ -13,4 +13,5 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     @Query("FROM Product b WHERE b.name LIKE %:searchText% OR b.price LIKE %:searchText% ORDER BY b.price ASC")
     Page<Product> findAllProducts(Pageable pageable, @Param("searchText") String searchText);
+
 }

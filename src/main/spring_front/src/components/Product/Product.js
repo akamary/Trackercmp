@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { saveProduct, fetchProduct, updateProduct } from "../../services/index";
+import { fetchProduct, updateProduct } from "../../services/index";
 import { useNavigate } from "react-router-dom";
 import { Form, InputGroup, Image } from "react-bootstrap";
 
@@ -43,25 +43,25 @@ class Product extends Component {
     this.setState(() => this.initialState);
   };
 
-  submitProduct = (event) => {
-    event.preventDefault();
+  // submitProduct = (event) => {
+  //   event.preventDefault();
 
-    const product = {
-      name: this.state.name,
-      price: this.state.price,
-    };
+  //   const product = {
+  //     name: this.state.name,
+  //     price: this.state.price,
+  //   };
 
-    this.props.saveProduct(product);
-    setTimeout(() => {
-      if (this.props.productObject.product != null) {
-        this.setState({ show: true, method: "post" });
-        setTimeout(() => this.setState({ show: false }), 3000);
-      } else {
-        this.setState({ show: false });
-      }
-    }, 2000);
-    this.setState(this.initialState);
-  };
+  //   this.props.saveProduct(product);
+  //   setTimeout(() => {
+  //     if (this.props.productObject.product != null) {
+  //       this.setState({ show: true, method: "post" });
+  //       setTimeout(() => this.setState({ show: false }), 3000);
+  //     } else {
+  //       this.setState({ show: false });
+  //     }
+  //   }, 2000);
+  //   this.setState(this.initialState);
+  // };
 
   updateProduct = (event) => {
     event.preventDefault();
@@ -145,7 +145,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveProduct: (product) => dispatch(saveProduct(product)),
+    //saveProduct: (product) => dispatch(saveProduct(product)),
     fetchProduct: (productId) => dispatch(fetchProduct(productId)),
     updateProduct: (product) => dispatch(updateProduct(product)),
   };

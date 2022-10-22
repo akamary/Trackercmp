@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 @CrossOrigin(origins="http://localhost:3000")
@@ -31,7 +34,10 @@ public class ProductResourceImpl implements Resource<Product> {
     public ResponseEntity<Page<Product>> findAll(Pageable pageable, String searchText) {
         return new ResponseEntity<>(productPageService.findAll(pageable, searchText), HttpStatus.OK);
     }
-
+    @Override
+    public ResponseEntity<Collection<Product>> findAll(){
+        return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
+    }
     @Override
     public ResponseEntity<Page<Product>> findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
         return new ResponseEntity<>(productPageService.findAll(
@@ -61,6 +67,7 @@ public class ProductResourceImpl implements Resource<Product> {
     public ResponseEntity<String> deleteById(Long id) {
         return new ResponseEntity<>(productService.deleteById(id), HttpStatus.OK);
     }
+
 
     @Override
     public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){

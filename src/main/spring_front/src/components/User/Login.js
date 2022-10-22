@@ -8,14 +8,14 @@ import { authenticateUser } from "../../services/index";
 const Login = (props) => {
   const [error, setError] = useState();
   const [show, setShow] = useState(true);
+
   let navigate = useNavigate();
+
   const initialState = {
     email: "",
     password: "",
   };
-
   const [user, setUser] = useState(initialState);
-
   const credentialChange = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
@@ -33,7 +33,7 @@ const Login = (props) => {
       .catch((error) => {
         console.log(error.message);
         setShow(true);
-
+        navigate("/");
         setError("Invalid email and password");
       });
   };

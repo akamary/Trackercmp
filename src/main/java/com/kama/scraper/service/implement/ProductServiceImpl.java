@@ -61,7 +61,7 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         JSONObject jsonObject = new JSONObject();
         try {
             productRepository.deleteById(id);
-            jsonObject.put("message", "Book deleted successfully");
+            jsonObject.put("message", "Product deleted successfully");
         } catch (JSONException e) {
             e.printStackTrace();
         }

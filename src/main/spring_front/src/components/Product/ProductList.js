@@ -1,22 +1,19 @@
 import React, { Component } from "react";
-import Product from "./Product";
 import { connect } from "react-redux";
 import Table from "@mui/material/Table";
-import { deleteProduct, saveProductToUser } from "../../services/index";
+import { deleteProduct, saveProduct } from "../../services/index";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import Paper from "@mui/material/Paper";
 import TableHead from "@mui/material/TableHead";
-import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import "./../User/backscreens.css";
 import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import addToUser from "./addToUser.js";
 
 class ProductList extends Component {
   constructor(props) {
@@ -41,29 +38,6 @@ class ProductList extends Component {
 
   componentDidMount() {
     this.findAllProducts(this.state.currentPage);
-  }
-  handleOnAdd(productId) {
-    const userId = this.props.userId;
-    axios
-      .post(
-        "http://localhost:8080/rest/products/" + productId + "/users/" + userId
-      )
-
-      .then((response) => response.data)
-      .then((data) => {
-        this.setState({
-          products: data.content,
-          totalPages: data.totalPages,
-          totalElements: data.totalElements,
-          currentPage: data.number + 1,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("id");
-        this.props.history.push("/");
-      });
   }
 
   findAllProducts(currentPage) {
@@ -93,6 +67,20 @@ class ProductList extends Component {
         this.props.history.push("/");
       });
   }
+
+  submitProduct = (productId) => {
+    //const productId = product.id;
+    this.props.saveProduct(productId);
+    setTimeout(() => {
+      if (this.props.productObject.product != null) {
+        this.setState({ show: true, method: "post" });
+        setTimeout(() => this.setState({ show: false }), 3000);
+      } else {
+        this.setState({ show: false });
+      }
+    }, 2000);
+    this.setState(this.initialState);
+  };
 
   deleteProduct = (productId) => {
     this.props.deleteProduct(productId);
@@ -269,8 +257,11 @@ class ProductList extends Component {
                         </TableCell>
                         <TableCell>
                           <Button
-                            onClick={() => {
-                              addToUser(product.id);
+                            onClick={(e) => {
+                              e.preventDefault();
+                              {
+                                this.submitProduct(product.id);
+                              }
                             }}
                           >
                             <AddShoppingCartOutlinedIcon />
@@ -348,12 +339,14 @@ class ProductList extends Component {
 const mapStateToProps = (state) => {
   return {
     productObject: state.product,
+    products: state.product.products,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteProduct: (productId) => dispatch(deleteProduct(productId)),
+    saveProduct: (productId) => dispatch(saveProduct(productId)),
   };
 };
 

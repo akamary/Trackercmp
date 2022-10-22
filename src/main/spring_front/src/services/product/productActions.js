@@ -1,33 +1,21 @@
 import * as PT from "./productTypes";
 import axios from "axios";
 
-export const saveProduct = (product) => {
+export const saveProduct = (productId) => {
   return (dispatch) => {
     dispatch({
       type: PT.SAVE_PRODUCT_REQUEST,
     });
-    axios
-      .post("http://localhost:8080/rest/products", product)
-      .then((response) => {
-        dispatch(productSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(productFailure(error));
-      });
-  };
-};
-
-export const saveProductToUser = (productId, userId) => {
-  return (dispatch) => {
-    dispatch({
-      type: PT.SAVE_PRODUCT_REQUEST,
-    });
+    const userId = localStorage.getItem("id");
     axios
       .post(
         "http://localhost:8080/rest/products/" + productId + "/users/" + userId
       )
-      .then((response) => {
-        dispatch(productSuccess(response.data));
+
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(data);
+        dispatch(productSuccess(data));
       })
       .catch((error) => {
         dispatch(productFailure(error));
@@ -94,5 +82,14 @@ const productFailure = (error) => {
   return {
     type: PT.PRODUCT_FAILURE,
     payload: error,
+  };
+};
+export const adjustQty = (productId, value) => {
+  return {
+    type: PT.ADJUST_QTY,
+    payload: {
+      id: productId,
+      qty: value,
+    },
   };
 };
