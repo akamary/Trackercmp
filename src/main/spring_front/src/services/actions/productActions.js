@@ -7,7 +7,9 @@ export const saveProduct = (product) => {
       type: PT.SAVE_PRODUCT_REQUEST,
       payload: {
         id: product.id,
+        name: product.name,
         price: product.price,
+        image: product.image,
       },
     });
     const userId = localStorage.getItem("id");
@@ -109,7 +111,9 @@ const productSuccess = (data) => {
     type: PT.PRODUCT_SUCCESS,
     payload: {
       id: data.id,
+      name: data.name,
       price: data.price,
+      image: data.image,
     },
   };
 };

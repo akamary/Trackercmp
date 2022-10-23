@@ -69,6 +69,7 @@ public class ScraperApplication implements CommandLineRunner {
 			final String url = "https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1313&_nkw=4k+smart+tv&_sacat=0";
 			// itemList - list of Items entity
 			List<Product> productList = new ArrayList<Product>();
+
 			// StringBuilder toSend = new StringBuilder();
 			try {
 				// loading URL in docu, fetching title and print to the console
@@ -78,8 +79,17 @@ public class ScraperApplication implements CommandLineRunner {
 				// printing only for checking how many items fetched
 				System.out.println(liList.size());
 
+
+
+
 				// iterates over all elements in the list
 				for (Element e : liList) {
+					// fetching some images
+
+					String img = e.select("div.s-item__image-wrapper img").attr("src");
+					String imgSend = img.toString();
+					System.out.println(imgSend);
+
 					Elements t = e.select("div.s-item__title");
 					String toSend = t.text();
 					System.out.println(t.text());
@@ -92,7 +102,7 @@ public class ScraperApplication implements CommandLineRunner {
 					Product product = new Product();
 					product.setName(toSend);
 					product.setPrice(priceSend);
-
+					product.setImage(imgSend);
 					productList.add(product);
 					productService.saveOrUpdate(product);
 				}

@@ -20,9 +20,13 @@ const CartItem = ({ itemData, adjustQty, removeFromCart }) => {
 
   return (
     <div className={styles.cartItem}>
+      <img
+        className={styles.cartItem__image}
+        src={itemData.image}
+        alt={itemData.title}
+      />
       <div className={styles.cartItem__details}>
         <p className={styles.details__title}>{itemData.name}</p>
-
         <p className={styles.details__price}> {itemData.price}</p>
       </div>
       <div className={styles.cartItem__actions}>

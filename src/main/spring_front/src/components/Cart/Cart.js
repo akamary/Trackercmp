@@ -40,7 +40,7 @@ const Cart = ({ cart }) => {
         <h4 className={styles.summary__title}>Cart Summary</h4>
         <div className={styles.summary__price}>
           <span>TOTAL: ({totalItems} items)</span>
-          <span>ILS {totalPrice}</span>
+          <span> {parseFloat(totalPrice.toFixed(2))} ILS</span>
         </div>
         <button className={styles.summary__checkoutBtn}>
           Proceed To Checkout

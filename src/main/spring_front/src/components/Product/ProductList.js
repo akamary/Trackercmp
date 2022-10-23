@@ -12,7 +12,7 @@ import { Container } from "@mui/material";
 import "./../User/backscreens.css";
 import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-
+import styles from "./../ProductList.css";
 import axios from "axios";
 
 class ProductList extends Component {
@@ -230,7 +230,10 @@ class ProductList extends Component {
                   <TableHead>
                     <TableRow>
                       <TableCell style={{ fontWeight: "bold" }}>
-                        Product Name
+                        Image
+                      </TableCell>
+                      <TableCell style={{ fontWeight: "bold" }}>
+                        Title
                       </TableCell>
                       <TableCell style={{ fontWeight: "bold" }}>
                         Price
@@ -249,18 +252,28 @@ class ProductList extends Component {
                         }}
                       >
                         <TableCell component="th" scope="row">
+                          <div className={styles.productItem}>
+                            <img
+                              className={styles.productItem__image}
+                              src={product.image}
+                              alt={product.name}
+                            />
+                          </div>
+                        </TableCell>
+
+                        <TableCell component="th" scope="row">
                           {product.name}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {product.price.substring(4)}
+                          {product.price}
                         </TableCell>
                         <TableCell>
                           <Button
                             onClick={(e) => {
                               e.preventDefault();
                               {
+                                // changed to product cuz with product.id there's no data
                                 this.submitProduct(product);
-                                //this.submitProduct(product.id);
                               }
                             }}
                           >

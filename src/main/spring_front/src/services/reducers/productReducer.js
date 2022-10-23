@@ -49,7 +49,9 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productId: action.payload.id,
+        name: action.payload.name,
         price: action.payload.price,
+        image: action.payload.image,
         error: "",
       };
     case PT.PRODUCT_FAILURE:
