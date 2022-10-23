@@ -68,8 +68,8 @@ class ProductList extends Component {
       });
   }
 
-  submitProduct = (productId) => {
-    this.props.saveProduct(productId);
+  submitProduct = (product) => {
+    this.props.saveProduct(product);
     setTimeout(() => {
       if (this.props.productObject.product != null) {
         this.setState({ show: true, method: "post" });
@@ -252,14 +252,15 @@ class ProductList extends Component {
                           {product.name}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {product.price}
+                          {product.price.substring(4)}
                         </TableCell>
                         <TableCell>
                           <Button
                             onClick={(e) => {
                               e.preventDefault();
                               {
-                                this.submitProduct(product.id);
+                                this.submitProduct(product);
+                                //this.submitProduct(product.id);
                               }
                             }}
                           >

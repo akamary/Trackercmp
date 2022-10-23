@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import styles from "./CartItem.module.css";
-
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { connect } from "react-redux";
 import {
   adjustQty,
   removeFromCart,
 } from "./../../../services/actions/productActions";
+import Tooltip from "@mui/material/Tooltip";
 
 const CartItem = ({ itemData, adjustQty, removeFromCart }) => {
   const [input, setInput] = useState(itemData.qty);
   console.log("", itemData.qty);
 
   const onChangeHandler = (e) => {
-    let y = parseInt(e.target.value);
-    setInput(e.target.value);
-    adjustQty(itemData.id, y);
+    setInput(parseInt(e.target.value));
+    adjustQty(itemData.id, parseInt(e.target.value));
   };
 
   return (
@@ -22,7 +23,7 @@ const CartItem = ({ itemData, adjustQty, removeFromCart }) => {
       <div className={styles.cartItem__details}>
         <p className={styles.details__title}>{itemData.name}</p>
 
-        <p className={styles.details__price}>$ {itemData.price}</p>
+        <p className={styles.details__price}> {itemData.price}</p>
       </div>
       <div className={styles.cartItem__actions}>
         <div className={styles.cartItem__qty}>
@@ -32,19 +33,19 @@ const CartItem = ({ itemData, adjustQty, removeFromCart }) => {
             type="number"
             id="qty"
             name="qty"
-            value={itemData.qty}
+            value={input}
             onChange={onChangeHandler}
           />
         </div>
-        <button
-          onClick={() => removeFromCart(itemData.id)}
-          className={styles.actions__deleteItemBtn}
-        >
-          <img
-            src="https://image.flaticon.com/icons/svg/709/709519.svg"
-            alt=""
-          />
-        </button>
+        <Tooltip title="Delete">
+          <IconButton aria-label="delete">
+            <DeleteIcon
+              fontSize="medium"
+              onClick={() => removeFromCart(itemData.id)}
+              className={styles.actions__deleteItemBtn}
+            />
+          </IconButton>
+        </Tooltip>
       </div>
     </div>
   );

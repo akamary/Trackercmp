@@ -12,28 +12,35 @@ const Cart = ({ cart }) => {
   useEffect(() => {
     let items = 0;
     let price = 0;
+    let onlyNumbers = 0;
 
     cart.forEach((item) => {
-      items += item.qty;
-      price += item.qty * item.price;
+      onlyNumbers = item.price.replace(
+        /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
+        "$1"
+      );
+
+      items += parseFloat(item.qty);
+      price += item.qty * parseFloat(onlyNumbers);
     });
-    //console.log("", item.price);
+    setTotalPrice(parseFloat(price));
     setTotalItems(items);
-    setTotalPrice(parseInt(price));
-  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+
+    console.log(totalPrice);
+  }, [cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
 
   return (
     <div className={styles.cart}>
       <div className={styles.cart__items}>
         {cart.map((item) => (
-          <CartItem key={item.id} itemData={item} />
+          <CartItem itemData={item} key={item.id} />
         ))}
       </div>
       <div className={styles.cart__summary}>
         <h4 className={styles.summary__title}>Cart Summary</h4>
         <div className={styles.summary__price}>
           <span>TOTAL: ({totalItems} items)</span>
-          <span>$ {parseInt(totalPrice)}</span>
+          <span>ILS {totalPrice}</span>
         </div>
         <button className={styles.summary__checkoutBtn}>
           Proceed To Checkout

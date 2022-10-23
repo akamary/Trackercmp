@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { logoutUser } from "../services/index";
 import { AppBar, Typography, Toolbar, IconButton } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
 import "./User/backscreens.css";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import * as React from "react";
-import Menu from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
 import HomeIcon from "@mui/icons-material/Home";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Tooltip from "@mui/material/Tooltip";
+import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
+import Stack from "@mui/material/Stack";
+import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { fontSize } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,18 +60,23 @@ const ABar = ({ cart }) => {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         Products Track and Compare
       </Typography>
-      <Box fontSize={{ sm: 12 }}>
-        <Toolbar>
-          <Link to="/login">
-            <LoginOutlinedIcon fontSize="small" color="inherit" />
-            Login
-          </Link>
-          <Link to={"register"}>
-            <PersonAddAltOutlinedIcon fontSize="small" color="inherit" />
-            Register
-          </Link>
-        </Toolbar>
-      </Box>
+
+      <Stack direction="row" spacing={1}>
+        <Link to="/login">
+          <Tooltip title="Login">
+            <IconButton size="medium">
+              <LoginRoundedIcon fontSize="medium" color="inherit" />
+            </IconButton>
+          </Tooltip>
+        </Link>
+        <Link to={"register"}>
+          <Tooltip title="Register">
+            <IconButton size="medium">
+              <PersonAddTwoToneIcon fontSize="medium" color="inherit" />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      </Stack>
     </>
   );
   const userLinks = (
@@ -79,48 +84,53 @@ const ABar = ({ cart }) => {
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
         Products Track and Compare
       </Typography>
-      <Box fontSize={{ sm: 12 }}>
+      <Stack direction="row" spacing={1}>
         <Toolbar>
           <Link to={"home"}>
-            <HomeIcon fontSize="small" color="inherit" />
-            Home
+            <Tooltip title="Home">
+              <IconButton size="medium">
+                <HomeIcon fontSize="medium" color="inherit" />
+              </IconButton>
+            </Tooltip>
           </Link>
+
           <Link to={"list"}>
-            <Inventory2OutlinedIcon fontSize="small" color="inherit" />
-            All Products
+            <Tooltip title="Products">
+              <IconButton size="medium">
+                <FormatListBulletedIcon fontSize="medium" color="inherit" />
+              </IconButton>
+            </Tooltip>
           </Link>
+
           <Link to="/cart">
-            <IconButton color="inherit" aria-label="add to shopping cart">
-              <AddShoppingCartIcon fontSize="small" color="inherit" />
-              {cartCount}
-            </IconButton>
-          </Link>
-          <Link to="/cart">
-            <AddShoppingCartOutlinedIcon fontSize="small" color="inherit" />
-            {cartCount} in Cart!
+            <Tooltip title="Cart">
+              <IconButton size="medium">
+                <AddShoppingCartIcon fontSize="medium" />
+                {cartCount}
+              </IconButton>
+            </Tooltip>
           </Link>
 
           <Link to={"login"} onClick={logout}>
-            <LogoutOutlinedIcon fontSize="small" color="inherit" />
-            Logout
+            <Tooltip title="Logout">
+              <IconButton size="medium">
+                <LogoutOutlinedIcon fontSize="small" color="inherit" />
+              </IconButton>
+            </Tooltip>
           </Link>
         </Toolbar>
-      </Box>
+      </Stack>
     </>
   );
 
   return (
-    <AppBar position="sticky" className={classes.root} enableColorOnDark>
+    <AppBar
+      position="sticky"
+      className={classes.root}
+      enableColorOnDark
+      color="primary"
+    >
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <Menu />
-        </IconButton>
         <Link to={auth.isLoggedIn ? "home" : ""}></Link>
         {auth.isLoggedIn ? userLinks : guestLinks}
       </Toolbar>

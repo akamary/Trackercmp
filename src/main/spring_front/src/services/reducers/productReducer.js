@@ -14,7 +14,7 @@ const productReducer = (state = initialState, action) => {
       const prod = action.payload;
       // checking if the item is in the user's cart
       const inCart = state.cart.find((item) =>
-        item === action.payload ? true : false
+        item.id === action.payload.id ? true : false
       );
 
       return {
@@ -33,7 +33,7 @@ const productReducer = (state = initialState, action) => {
         ...state,
         cart: state.cart.map((item) =>
           item.id === action.payload.id
-            ? { ...item, qty: action.payload.qty }
+            ? { ...item, qty: +parseInt(action.payload.qty) }
             : item
         ),
       };
@@ -49,6 +49,7 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productId: action.payload.id,
+        price: action.payload.price,
         error: "",
       };
     case PT.PRODUCT_FAILURE:

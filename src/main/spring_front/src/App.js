@@ -10,7 +10,7 @@ import "./components/User/backscreens.css";
 import { connect } from "react-redux";
 import Cart from "./components/Cart/Cart";
 
-const App = () => {
+const App = (current) => {
   // window.onbeforeunload = (event) => {
   //   const e = event || window.event;
   //   e.preventDefault();
