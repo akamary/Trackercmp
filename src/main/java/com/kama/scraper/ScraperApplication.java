@@ -88,6 +88,7 @@ public class ScraperApplication implements CommandLineRunner {
 
 					String img = e.select("div.s-item__image-wrapper img").attr("src");
 					String imgSend = img.toString();
+					imgSend=imgSend.replace("s-l225","s-l500");
 					System.out.println(imgSend);
 
 					Elements t = e.select("div.s-item__title");

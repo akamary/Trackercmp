@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Table from "@mui/material/Table";
-import { deleteProduct, saveProduct } from "../../services/index";
-import TableCell from "@mui/material/TableCell";
+import {
+  deleteProduct,
+  loadCurrentItem,
+  saveProduct,
+} from "../../services/index";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
@@ -14,6 +18,43 @@ import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import styles from "./../ProductList.css";
 import axios from "axios";
+import { styled } from "@mui/material/styles";
+import { blue, blueGrey } from "@mui/material/colors";
+import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Categories from "./../categories";
+import PreviewIcon from "@mui/icons-material/Preview";
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(blue[200]),
+  backgroundColor: blue[200],
+  class: "btn btn-primary btn-lg",
+  borderRadius: 20,
+
+  "&:hover": {
+    backgroundColor: blueGrey[700],
+  },
+}));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 class ProductList extends Component {
   constructor(props) {
@@ -22,7 +63,7 @@ class ProductList extends Component {
       products: [],
       search: "",
       currentPage: 1,
-      productsPerPage: 10,
+      productsPerPage: 6,
       sortDir: "asc",
     };
   }
@@ -68,6 +109,19 @@ class ProductList extends Component {
       });
   }
 
+  handleView = (product) => {
+    this.props.loadCurrentItem(product);
+    setTimeout(() => {
+      if (this.props.productObject.product != null) {
+        this.setState({ show: true, method: "post" });
+        setTimeout(() => this.setState({ show: false }), 3000);
+      } else {
+        this.setState({ show: false });
+      }
+    }, 2000);
+
+    this.setState(this.initialState);
+  };
   submitProduct = (product) => {
     this.props.saveProduct(product);
     setTimeout(() => {
@@ -191,160 +245,178 @@ class ProductList extends Component {
     const { products, currentPage, totalPages, search } = this.state;
 
     return (
-      <div className="background-screens">
-        <div className="App">
-          <Container maxWidth="lg">
-            <div style={{ display: this.state.show ? "block" : "none" }}></div>
-            <Card className={"border border-dark bg-dark text-white"}>
-              <Card.Header>
-                <div style={{ float: "left" }}>Product List</div>
+      <>
+        <Categories />
+        <Container maxWidth="md">
+          <div style={{ display: this.state.show ? "block" : "none" }}></div>
+          <Card className={"border border-dark bg-dark text-black"}>
+            <Card.Header>
+              <div style={{ float: "right" }}>
+                <InputGroup size="sm">
+                  <FormControl
+                    placeholder="Search"
+                    name="search"
+                    value={search}
+                    className={"info-border bg-dark text-black"}
+                    onChange={this.searchChange}
+                  />
+                  <InputGroup.Append>
+                    <Button
+                      size="sm"
+                      variant="outline-info"
+                      type="button"
+                      onClick={this.searchData}
+                    >
+                      Search
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline-danger"
+                      type="button"
+                      onClick={this.cancelSearch}
+                    >
+                      Reset
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </div>
+            </Card.Header>
+
+            <TableContainer component={Paper} variant="outlined">
+              <Table
+                sx={{ minWidth: 50, color: "primary" }}
+                aria-label="customized table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>View</StyledTableCell>
+                    <StyledTableCell>Image</StyledTableCell>
+                    <StyledTableCell align="left">Title</StyledTableCell>
+                    <StyledTableCell align="left">Price</StyledTableCell>
+                    <StyledTableCell align="left">Add To Cart</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {products.map((product) => (
+                    <StyledTableRow key={product.id}>
+                      <StyledTableCell>
+                        <Link to={`/list/product/${product.id}`}>
+                          <IconButton>
+                            <PreviewIcon
+                              size="medium"
+                              color="primary"
+                              onClick={(e) => {
+                                //e.preventDefault();
+                                {
+                                  this.handleView(product);
+                                }
+                              }}
+                            />
+                          </IconButton>
+                        </Link>
+                      </StyledTableCell>
+                      <StyledTableCell component="th" scope="row" border="5px">
+                        <div className={styles.productItem}>
+                          <img
+                            width="80px"
+                            className={styles.productItem__image}
+                            src={product.image}
+                            alt={product.name}
+                          />
+                        </div>
+                      </StyledTableCell>
+
+                      <StyledTableCell component="th" scope="row">
+                        {product.name}
+                      </StyledTableCell>
+                      <StyledTableCell component="th" scope="row">
+                        {product.price}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <ColorButton
+                          variant="contained"
+                          size="large"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            {
+                              // changed to product cuz with product.id there's no data
+                              this.submitProduct(product);
+                            }
+                          }}
+                        >
+                          <IconButton>
+                            <AddShoppingCartOutlinedIcon
+                              fontSize="small"
+                              color="primary"
+                            />
+                          </IconButton>
+                        </ColorButton>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            <br></br>
+            <br></br>
+
+            {products.length > 0 ? (
+              <Card.Footer>
+                <div style={{ float: "left" }}>
+                  Showing Page {currentPage} of {totalPages}
+                </div>
                 <div style={{ float: "right" }}>
                   <InputGroup size="sm">
+                    <InputGroup.Prepend>
+                      <Button
+                        type="button"
+                        variant="outline-info"
+                        disabled={currentPage === 1 ? true : false}
+                        onClick={this.firstPage}
+                      >
+                        First
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline-info"
+                        disabled={currentPage === 1 ? true : false}
+                        onClick={this.prevPage}
+                      >
+                        Prev
+                      </Button>
+                    </InputGroup.Prepend>
                     <FormControl
-                      placeholder="Search"
-                      name="search"
-                      value={search}
-                      className={"info-border bg-dark text-white"}
-                      onChange={this.searchChange}
+                      className={"page-num bg-dark"}
+                      name="currentPage"
+                      value={currentPage}
+                      onChange={this.changePage}
                     />
                     <InputGroup.Append>
                       <Button
-                        size="sm"
+                        type="button"
                         variant="outline-info"
-                        type="button"
-                        onClick={this.searchData}
-                      ></Button>
+                        disabled={currentPage === totalPages ? true : false}
+                        onClick={this.nextPage}
+                      >
+                        Next
+                      </Button>
                       <Button
-                        size="sm"
-                        variant="outline-danger"
                         type="button"
-                        onClick={this.cancelSearch}
-                      ></Button>
+                        variant="outline-info"
+                        disabled={currentPage === totalPages ? true : false}
+                        onClick={this.lastPage}
+                      >
+                        Last
+                      </Button>
                     </InputGroup.Append>
                   </InputGroup>
                 </div>
-              </Card.Header>
-
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell style={{ fontWeight: "bold" }}>
-                        Image
-                      </TableCell>
-                      <TableCell style={{ fontWeight: "bold" }}>
-                        Title
-                      </TableCell>
-                      <TableCell style={{ fontWeight: "bold" }}>
-                        Price
-                      </TableCell>
-                      <TableCell style={{ fontWeight: "bold" }}>
-                        Add Product
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {products.map((product) => (
-                      <TableRow
-                        key={product.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          <div className={styles.productItem}>
-                            <img
-                              className={styles.productItem__image}
-                              src={product.image}
-                              alt={product.name}
-                            />
-                          </div>
-                        </TableCell>
-
-                        <TableCell component="th" scope="row">
-                          {product.name}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {product.price}
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              {
-                                // changed to product cuz with product.id there's no data
-                                this.submitProduct(product);
-                              }
-                            }}
-                          >
-                            <AddShoppingCartOutlinedIcon />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <br></br>
-              <br></br>
-
-              {products.length > 0 ? (
-                <Card.Footer>
-                  <div style={{ float: "left" }}>
-                    Showing Page {currentPage} of {totalPages}
-                  </div>
-                  <div style={{ float: "right" }}>
-                    <InputGroup size="sm">
-                      <InputGroup.Prepend>
-                        <Button
-                          type="button"
-                          variant="outline-info"
-                          disabled={currentPage === 1 ? true : false}
-                          onClick={this.firstPage}
-                        >
-                          First
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline-info"
-                          disabled={currentPage === 1 ? true : false}
-                          onClick={this.prevPage}
-                        >
-                          Prev
-                        </Button>
-                      </InputGroup.Prepend>
-                      <FormControl
-                        className={"page-num bg-dark"}
-                        name="currentPage"
-                        value={currentPage}
-                        onChange={this.changePage}
-                      />
-                      <InputGroup.Append>
-                        <Button
-                          type="button"
-                          variant="outline-info"
-                          disabled={currentPage === totalPages ? true : false}
-                          onClick={this.nextPage}
-                        >
-                          Next
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline-info"
-                          disabled={currentPage === totalPages ? true : false}
-                          onClick={this.lastPage}
-                        >
-                          Last
-                        </Button>
-                      </InputGroup.Append>
-                    </InputGroup>
-                  </div>
-                </Card.Footer>
-              ) : null}
-            </Card>
-          </Container>
-        </div>
-      </div>
+              </Card.Footer>
+            ) : null}
+          </Card>
+        </Container>
+      </>
     );
   }
 }
@@ -360,6 +432,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteProduct: (productId) => dispatch(deleteProduct(productId)),
     saveProduct: (productId) => dispatch(saveProduct(productId)),
+    loadCurrentItem: (product) => dispatch(loadCurrentItem(product)),
   };
 };
 

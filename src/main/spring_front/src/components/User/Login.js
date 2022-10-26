@@ -39,41 +39,47 @@ const Login = (props) => {
   };
 
   return (
-    <div className="background-image">
-      <div className="login-screen">
-        <form onSubmit={validateUser} className="login-screen__form">
-          <h3 className="login-screen__title">Sign in</h3>
-          {error && <span className="error-message">{error}</span>}
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              required
-              autoComplete="off"
-              type="text"
-              name="email"
-              value={user.email}
-              onChange={credentialChange}
-              placeholder="Enter Email Address"
-            />
-          </div>
+    <div id="wrapper">
+      <div className="container">
+        <h1>Sign in</h1>
+        {error && <span className="error-message">{error}</span>}
+        <form onSubmit={validateUser} className="form">
+          <input
+            required
+            autoComplete="off"
+            type="text"
+            name="email"
+            value={user.email}
+            onChange={credentialChange}
+            placeholder="Email"
+          />
 
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              required
-              autoComplete="off"
-              type="password"
-              name="password"
-              value={user.password}
-              onChange={credentialChange}
-              placeholder="Enter Password"
-            />
-          </div>
+          <input
+            required
+            autoComplete="off"
+            type="password"
+            name="password"
+            value={user.password}
+            onChange={credentialChange}
+            placeholder="Password"
+          />
           <button type="submit" className="btn btn-primary">
             Sign in
           </button>
         </form>
       </div>
+      <ul className="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
     </div>
   );
 };

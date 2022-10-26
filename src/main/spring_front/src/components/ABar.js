@@ -2,8 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { logoutUser } from "../services/index";
-import { AppBar, Typography, Toolbar, IconButton } from "@mui/material";
-import { makeStyles } from "@material-ui/core";
+import {
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  Divider,
+  styled,
+  Drawer,
+} from "@mui/material";
 import "./User/backscreens.css";
 import { useState, useEffect } from "react";
 import * as React from "react";
@@ -12,35 +19,34 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Tooltip from "@mui/material/Tooltip";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
-import Stack from "@mui/material/Stack";
 import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { fontSize } from "@mui/system";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+import {
+  AppbarContainer,
+  AppbarHeader,
+  MyList,
+  ActionIconsContainerDesktop,
+  DrawerCloseButton,
+} from "./../styles/appbar";
+import { Colors } from "./../styles/theme";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useUIContext } from "./../components/context/ui";
+import CloseIcon from "@mui/icons-material/Close";
+import { lighten } from "polished";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    borderBottomRightRadius: "0%",
-    borderBottomLeftRadius: "0%",
-    headerOptions: {
-      display: "flex",
-      flex: 1,
-      justifyContent: "space-evenly",
-    },
-  },
-  buttons: {
-    fontSize: "8",
-  },
-  title: {
-    fontSize: 14,
-  },
-}));
+const MiddleDivider = styled((props) => (
+  <Divider variant="middle" {...props} />
+))``;
 
 const ABar = ({ cart }) => {
-  const classes = useStyles();
+  const theme = useTheme();
   const [cartCount, setCartCount] = useState(0);
   const auth = useSelector((state) => state.auth);
-
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
+  const { drawerOpen, setDrawerOpen } = useUIContext();
 
   useEffect(() => {
     let count = 0;
@@ -56,85 +62,259 @@ const ABar = ({ cart }) => {
   };
 
   const guestLinks = (
-    <>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        Products Track and Compare
-      </Typography>
-
-      <Stack direction="row" spacing={1}>
-        <Link to="/login">
-          <Tooltip title="Login">
-            <IconButton size="medium">
-              <LoginRoundedIcon fontSize="medium" color="inherit" />
-            </IconButton>
-          </Tooltip>
-        </Link>
-        <Link to={"register"}>
-          <Tooltip title="Register">
-            <IconButton size="medium">
-              <PersonAddTwoToneIcon fontSize="medium" color="inherit" />
-            </IconButton>
-          </Tooltip>
-        </Link>
-      </Stack>
-    </>
+    <MyList type="row">
+      <Link to="/login">
+        <Tooltip title="Login">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <LoginRoundedIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+      <Link to={"register"}>
+        <Tooltip title="Register">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <PersonAddTwoToneIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+    </MyList>
   );
   const userLinks = (
+    <MyList type="row">
+      <Link to={"home"}>
+        <Tooltip title="Home">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <HomeIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+
+      <Link to={"list"}>
+        <Tooltip title="Products">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <FormatListBulletedIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+
+      <Link to="/cart">
+        <Tooltip title="Cart">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <AddShoppingCartIcon />
+              {cartCount}
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+
+      <Link to={"login"} onClick={logout}>
+        <Tooltip title="Logout">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: matches && Colors.secondary,
+              }}
+            >
+              <LogoutOutlinedIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </Tooltip>
+      </Link>
+      <Divider orientation="vertical" flexItem />
+    </MyList>
+  );
+  const guestLinksMobile = (
     <>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        Products Track and Compare
-      </Typography>
-      <Stack direction="row" spacing={1}>
-        <Toolbar>
-          <Link to={"home"}>
-            <Tooltip title="Home">
-              <IconButton size="medium">
-                <HomeIcon fontSize="medium" color="inherit" />
-              </IconButton>
+      {drawerOpen && (
+        <DrawerCloseButton onClick={() => setDrawerOpen(false)}>
+          <CloseIcon
+            sx={{
+              fontSize: "2.5rem",
+              color: lighten(0.09, Colors.secondary),
+            }}
+          />
+        </DrawerCloseButton>
+      )}
+      <Drawer open={drawerOpen}>
+        <List>
+          <Link to="/login">
+            <Tooltip title="Login">
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <LoginRoundedIcon />
+                </ListItemIcon>
+              </ListItemButton>
             </Tooltip>
           </Link>
+          <MiddleDivider />
+
+          <Link to={"register"}>
+            <Tooltip title="Register">
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <PersonAddTwoToneIcon />
+                </ListItemIcon>
+              </ListItemButton>
+            </Tooltip>
+          </Link>
+          <MiddleDivider />
+        </List>
+      </Drawer>
+    </>
+  );
+
+  const userLinksMobile = (
+    <>
+      {drawerOpen && (
+        <DrawerCloseButton onClick={() => setDrawerOpen(false)}>
+          <CloseIcon
+            sx={{
+              fontSize: "2.5rem",
+              color: lighten(0.09, Colors.secondary),
+            }}
+          />
+        </DrawerCloseButton>
+      )}
+      <Drawer open={drawerOpen}>
+        <List>
+          <Link to={"home"}>
+            <Tooltip title="Home">
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <HomeIcon />
+                </ListItemIcon>
+              </ListItemButton>
+            </Tooltip>
+          </Link>
+          <MiddleDivider />
 
           <Link to={"list"}>
             <Tooltip title="Products">
-              <IconButton size="medium">
-                <FormatListBulletedIcon fontSize="medium" color="inherit" />
-              </IconButton>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <FormatListBulletedIcon />
+                </ListItemIcon>
+              </ListItemButton>
             </Tooltip>
           </Link>
+          <MiddleDivider />
 
-          <Link to="/cart">
+          <Link to={"cart"}>
             <Tooltip title="Cart">
-              <IconButton size="medium">
-                <AddShoppingCartIcon fontSize="medium" />
-                {cartCount}
-              </IconButton>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <AddShoppingCartIcon />
+                </ListItemIcon>
+              </ListItemButton>
             </Tooltip>
           </Link>
+          <MiddleDivider />
 
           <Link to={"login"} onClick={logout}>
             <Tooltip title="Logout">
-              <IconButton size="medium">
-                <LogoutOutlinedIcon fontSize="small" color="inherit" />
-              </IconButton>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: Colors.secondary }}>
+                  <LogoutOutlinedIcon />
+                </ListItemIcon>
+              </ListItemButton>
             </Tooltip>
           </Link>
-        </Toolbar>
-      </Stack>
+          <MiddleDivider />
+        </List>
+      </Drawer>
     </>
   );
-
   return (
-    <AppBar
-      position="sticky"
-      className={classes.root}
-      enableColorOnDark
-      color="primary"
-    >
-      <Toolbar>
-        <Link to={auth.isLoggedIn ? "home" : ""}></Link>
-        {auth.isLoggedIn ? userLinks : guestLinks}
-      </Toolbar>
-    </AppBar>
+    <>
+      {matches ? (
+        <AppbarContainer>
+          <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
+          <Link to={auth.isLoggedIn ? "home" : ""}></Link>
+          {auth.isLoggedIn ? userLinksMobile : guestLinksMobile}
+          <IconButton onClick={() => setDrawerOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+        </AppbarContainer>
+      ) : (
+        <AppbarContainer>
+          <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
+          <ActionIconsContainerDesktop>
+            <Link to={auth.isLoggedIn ? "home" : ""}></Link>
+            {auth.isLoggedIn ? userLinks : guestLinks}
+          </ActionIconsContainerDesktop>
+        </AppbarContainer>
+      )}
+    </>
   );
 };
 

@@ -51,10 +51,10 @@ export const adjustQty = (productId, value) => {
   };
 };
 
-export const loadCurrentItem = (item) => {
+export const loadCurrentItem = (product) => {
   return {
     type: PT.LOAD_CURRENT_ITEM,
-    payload: item,
+    payload: product,
   };
 };
 

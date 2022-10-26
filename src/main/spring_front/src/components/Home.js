@@ -1,9 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import authToken from "../utils/authToken";
-import { Alert } from "react-bootstrap";
-import { Container } from "@material-ui/core";
+import Product from "./Product/Product";
 import "./User/backscreens.css";
+import "./Home.css";
+import Banner from "./banner";
+import Categories from "./categories";
+import { Container, Grid } from "@mui/material";
 
 const Home = () => {
   if (localStorage.jwtToken) {
@@ -13,21 +16,22 @@ const Home = () => {
   const auth = useSelector((state) => state.auth);
 
   return (
-    <div className="background-screens">
-      <div className="App">
-        <Container maxWidth="sm">
-          <Alert
-            style={{
-              position: "fixed",
-              textAlign: "center",
-            }}
-          >
-            <h2>Welcome {auth.username}</h2>
-            <h3>We are happy you come back!</h3>
-          </Alert>
-        </Container>
-      </div>
-    </div>
+    <>
+      <Banner />
+      <Categories />
+      <Container>
+        <Grid
+          container
+          justifyContent={"center"}
+          spacing={{ xs: 2, md: 3 }}
+          sx={{ margin: "20px 4px 10px 4px" }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Product name="TV" />
+          <Product name="iPhone" />
+        </Grid>
+      </Container>
+    </>
   );
 };
 
