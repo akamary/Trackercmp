@@ -51,7 +51,7 @@ public class ScraperApplication implements CommandLineRunner {
 			user1.setEmail("test@user.com");
 			user1.setFullname("aviv kamary");
 			user1.setUserame("aviv");
-
+			user1.setQty(0L);
 			user1.setRole(roleService.findByName(ConstantUtils.USER.toString()));
 			user1.setPassword(new BCryptPasswordEncoder().encode("123456"));
 			userService.saveOrUpdate(user1);
@@ -60,6 +60,7 @@ public class ScraperApplication implements CommandLineRunner {
 			user2.setEmail("test@admin.com");
 			user2.setUserame("test");
 			user2.setFullname("aviv kamary");
+			user2.setQty(0L);
 			user2.setRole(roleService.findByName(ConstantUtils.ADMIN.toString()));
 			user2.setPassword(new BCryptPasswordEncoder().encode("123456"));
 			userService.saveOrUpdate(user2);
@@ -104,6 +105,7 @@ public class ScraperApplication implements CommandLineRunner {
 					product.setName(toSend);
 					product.setPrice(priceSend);
 					product.setImage(imgSend);
+					product.setP_qty(0L);
 					productList.add(product);
 					productService.saveOrUpdate(product);
 				}

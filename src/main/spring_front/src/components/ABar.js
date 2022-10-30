@@ -309,8 +309,8 @@ const ABar = ({ cart }) => {
         <AppbarContainer>
           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
           <ActionIconsContainerDesktop>
-            <Link to={auth.isLoggedIn ? "home" : ""}></Link>
-            {auth.isLoggedIn ? userLinks : guestLinks}
+            <Link to={auth.isLoggedIn.isLoggedIn ? "home" : ""}></Link>
+            {auth.isLoggedIn.isLoggedIn ? userLinks : guestLinks}
           </ActionIconsContainerDesktop>
         </AppbarContainer>
       )}
@@ -323,5 +323,9 @@ const mapStateToProps = (state) => {
     cart: state.product.cart,
   };
 };
-
-export default connect(mapStateToProps)(ABar);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutUser: () => dispatch(logoutUser()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ABar);

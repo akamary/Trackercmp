@@ -1,6 +1,9 @@
 import * as PT from "../types/productTypes";
 import axios from "axios";
 
+const userId = localStorage.getItem("id");
+
+//* saving to db
 export const saveProduct = (product) => {
   return (dispatch) => {
     dispatch({
@@ -32,12 +35,22 @@ export const saveProduct = (product) => {
   };
 };
 
+//* remove from cart all qty with p.id===productId
 export const removeFromCart = (productId) => {
-  return {
-    type: PT.REMOVE_FROM_CART,
-    payload: {
-      id: productId,
-    },
+  return (dispatch) => {
+    dispatch({
+      type: PT.REMOVE_FROM_CART,
+      payload: {
+        id: productId,
+      },
+    });
+    axios
+      .delete(
+        "http://localhost:8080/rest/products/" + productId + "/users/" + userId
+      )
+      .then((response) => response.data)
+      .then((data) => {})
+      .catch((error) => {});
   };
 };
 

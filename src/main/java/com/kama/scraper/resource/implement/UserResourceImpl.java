@@ -1,9 +1,12 @@
 package com.kama.scraper.resource.implement;
 
 import com.kama.scraper.config.JwtTokenProvider;
+import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
 import com.kama.scraper.repository.RoleRepository;
 import com.kama.scraper.repository.UserRepository;
+import com.kama.scraper.service.IService;
+import com.kama.scraper.service.implement.UserServiceImpl;
 import com.kama.scraper.utils.ConstantUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -37,6 +43,10 @@ public class UserResourceImpl {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private IService<User> userService;
+
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody User user) {
@@ -69,10 +79,13 @@ public class UserResourceImpl {
                     .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             if (authentication.isAuthenticated()) {
                 String email = user.getEmail();
+                Set<Product> cart = user.getMyProducts();
+
                 jsonObject.put("name", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
                 jsonObject.put("token", tokenProvider.createToken(email, userRepository.findByEmail(email).getRole()));
                 jsonObject.put("id", userRepository.findByEmail(email).getId());
+                jsonObject.put("cart", cart);
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
@@ -85,4 +98,7 @@ public class UserResourceImpl {
         }
         return null;
     }
+
+
+
 }

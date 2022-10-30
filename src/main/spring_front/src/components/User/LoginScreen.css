@@ -39,7 +39,7 @@ body :-ms-input-placeholder {
 
 #wrapper {
   background: #50a3a2;
-  background: linear-gradient(to bottom, #ccd5df 0%, #3a74b4 100%);
+  background: linear-gradient(to bottom, #89bcf3 0%, #0a3e75 100%);
   position: relative;
   left: 0;
   width: 100%;
@@ -55,12 +55,10 @@ body :-ms-input-placeholder {
 
 .container {
   max-width: 400px;
-  border-style: ridge;
-  border-radius: 100px;
   border-color: #acc9e9;
   margin: 0 auto;
   padding: 100px 0;
-  height: auto;
+  height: 100vh;
   text-align: center;
   justify-content: center;
 }
@@ -70,14 +68,31 @@ body :-ms-input-placeholder {
   transition-timing-function: ease-in;
   font-weight: 200;
 }
-
+.login-screen__subtext {
+  font-size: 0.9rem;
+  display: block;
+  margin: 0.5rem 0;
+}
 .form {
   padding: 20px 0;
   position: relative;
   z-index: 2;
   transition-duration: 0.5s;
 }
-
+.button {
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {
+  border-radius: 12px;
+}
 .form input {
   appearance: none;
   outline: 0;

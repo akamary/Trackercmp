@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/products")
@@ -68,10 +69,22 @@ public class ProductResourceImpl implements Resource<Product> {
         return new ResponseEntity<>(productService.deleteById(id), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity deleteFromUser(Long productId, Long userId) {
+        return new ResponseEntity<>(productService.deleteFromUser(productId,userId),HttpStatus.OK);
+    }
+
 
     @Override
     public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){
         return new ResponseEntity<>(productService.save(productId, userId),HttpStatus.OK);
 
     }
+
+    @Override
+    public ResponseEntity<Set<Product>> getProducts(Long userId) {
+        return new ResponseEntity<Set<Product>>(productService.getProducts(userId),HttpStatus.OK);
+    }
+
+
 }

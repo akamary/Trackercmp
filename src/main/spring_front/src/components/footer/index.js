@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Grid,
   List,
@@ -7,14 +6,12 @@ import {
   Typography,
   Button,
   Stack,
-  ButtonBase,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Colors } from "../../styles/theme";
 import IconButton from "@mui/material/IconButton";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { SubscribeTf, FooterTitle } from "../../styles/footer";
 import SendIcon from "@mui/icons-material/Send";
@@ -97,14 +94,14 @@ export default function Footer() {
         <Grid item md={6} lg={2}>
           <FooterTitle variant="body1">my account</FooterTitle>
           <List>
-            <Link to="/login">
+            <Link style={{ textDecoration: "none" }} to="/login">
               <ListItemButton>
                 <Typography lineHeight={2} variant="caption2" color={"white"}>
                   Login
                 </Typography>
               </ListItemButton>
             </Link>
-            <Link to="/cart">
+            <Link style={{ textDecoration: "none" }} to="/cart">
               <ListItemButton>
                 <Typography lineHeight={2} variant="caption2" color={"white"}>
                   My Cart
@@ -112,7 +109,7 @@ export default function Footer() {
               </ListItemButton>
             </Link>
 
-            <Link to="/home">
+            <Link style={{ textDecoration: "none" }} to="/home">
               <ListItemButton>
                 <Typography lineHeight={2} variant="caption2" color={"white"}>
                   My Account

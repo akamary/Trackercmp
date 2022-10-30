@@ -1,7 +1,9 @@
 package com.kama.scraper.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,6 +25,35 @@ public class Product {
 
     private String name;
     private String price;
+    @ManyToOne
+    @JoinTable(
+            name = "user_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private User user ;
+    public Product(Long id, String name, String price, Long p_qty) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.p_qty = p_qty;
+    }
+
+    public Product(String name, String price, Long p_qty) {
+        this.name = name;
+        this.price = price;
+        this.p_qty = p_qty;
+    }
+
+    public Long getP_qty() {
+        return p_qty;
+    }
+
+    public void setP_qty(Long p_qty) {
+        this.p_qty = p_qty;
+    }
+
+    private Long p_qty;
 
     public Product(String name, String price, String image) {
         this.name = name;
@@ -66,13 +97,8 @@ public class Product {
     }
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_products",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> userProducts = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -106,16 +132,21 @@ public class Product {
                 ", price=" + price +
                 '}';
     }
-    public Set<User> getUserProducts() {
-        return userProducts;
+    public User getUserProducts(Long userId) {
+
+        return user;
+    }
+    public void deleteFromUser(User user){
+
+        //userProducts.remove(user);
+    }
+    public void setUserProducts(User userProducts) {
+        this.user = userProducts;
     }
 
-    public void setUserProducts(Set<User> userProducts) {
-        this.userProducts = userProducts;
-    }
-
-    public void saveToUser(User user) {
-        userProducts.add(user);
+    public void saveToUser(User user,Product product) {
+        this.user=user;
+        this.user.addToMyProduct(product);
     }
 }
 

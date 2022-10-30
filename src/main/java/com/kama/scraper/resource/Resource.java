@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Set;
 
 public interface Resource<T> {
     @GetMapping("/search/{searchText}")
@@ -29,6 +30,12 @@ public interface Resource<T> {
     @DeleteMapping("{id}")
     ResponseEntity<String> deleteById(@PathVariable Long id);
 
+
+    @DeleteMapping("/{productId}/users/{userId}")
+     ResponseEntity<String> deleteFromUser(@PathVariable Long productId, @PathVariable Long userId);
     @PostMapping("/{productId}/users/{userId}")
-    public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId);
+     ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId);
+
+    @GetMapping("/user/{userId}")
+     ResponseEntity<Set<Product>> getProducts(@PathVariable Long userId);
 }

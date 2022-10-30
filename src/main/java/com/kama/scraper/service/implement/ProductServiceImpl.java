@@ -11,10 +11,12 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -53,7 +55,9 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     public Product save(Long productId, Long userId){
         Product product = productRepository.findById(productId).get();
         User user = userRepository.findById(userId).get();
-        product.saveToUser(user);
+        Long qty = product.getP_qty();
+        product.setP_qty(qty+1L);
+        product.saveToUser(user,product);
         return productRepository.save(product);
     }
     @Override
@@ -67,6 +71,24 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         }
         return jsonObject.toString();
     }
+    @Override
+    public String deleteFromUser(Long productId, Long userId){
+        JSONObject jsonObject = new JSONObject();
+        Product product = productRepository.findById(productId).get();
+        User user = userRepository.findById(userId).get();
+
+        product.deleteFromUser(user);
+         productRepository.delete(product);
+        return "deleted";
+    }
+
+    @Override
+    public Set<Product> getProducts(Long userId) {
+        User user = userRepository.findById(userId).get();
+
+        return user.getMyProducts();
+    }
+
 
     @Override
     public void save(Product product) {

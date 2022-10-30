@@ -5,11 +5,10 @@ import {
   FAILURE,
 } from "./../types/authTypes";
 
-const user = JSON.parse(localStorage.getItem("user"));
-
 const initialState = {
   username: "",
   isLoggedIn: "",
+  cart: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,12 +20,15 @@ const reducer = (state = initialState, action) => {
     case LOGOUT_REQUEST:
       return {
         ...state,
+        isLoggedIn: false,
+        cart: "",
       };
     case SUCCESS:
       return {
         ...state,
         username: action.payload.username,
         isLoggedIn: action.payload.isLoggedIn,
+        cart: action.payload.cart,
       };
     case FAILURE:
       return {

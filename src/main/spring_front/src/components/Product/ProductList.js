@@ -338,10 +338,9 @@ class ProductList extends Component {
                           size="large"
                           onClick={(e) => {
                             e.preventDefault();
-                            {
-                              // changed to product cuz with product.id there's no data
-                              this.submitProduct(product);
-                            }
+
+                            // changed to product cuz with product.id there's no data
+                            this.submitProduct(product);
                           }}
                         >
                           <IconButton>

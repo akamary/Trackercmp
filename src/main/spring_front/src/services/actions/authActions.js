@@ -13,7 +13,13 @@ export const authenticateUser = (email, password) => async (dispatch) => {
     console.log(JSON.stringify(response.data.id));
     localStorage.setItem("jwtToken", response.data.token);
     localStorage.setItem("id", response.data.id);
-    dispatch(success({ username: response.data.name, isLoggedIn: true }));
+    dispatch(
+      success({
+        username: response.data.name,
+        isLoggedIn: true,
+        cart: response.data.cart,
+      })
+    );
     return Promise.resolve(response.data);
   } catch (error) {
     dispatch(failure());
@@ -26,7 +32,7 @@ export const logoutUser = () => {
     dispatch(logoutRequest());
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("id");
-    dispatch(success({ username: "", isLoggedIn: false }));
+    dispatch(success({ username: "", isLoggedIn: false, cart: "" }));
   };
 };
 
@@ -42,10 +48,13 @@ const logoutRequest = () => {
   };
 };
 
-const success = (isLoggedIn) => {
+const success = (isLoggedIn, cart) => {
   return {
     type: AT.SUCCESS,
-    payload: isLoggedIn,
+    payload: {
+      isLoggedIn,
+      cart,
+    },
   };
 };
 

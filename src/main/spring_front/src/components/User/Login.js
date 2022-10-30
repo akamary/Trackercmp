@@ -4,6 +4,11 @@ import { useDispatch } from "react-redux";
 import "./LoginScreen.css";
 import "./background.css";
 import { authenticateUser } from "../../services/index";
+import { Link } from "react-router-dom";
+import { Typography, Button } from "@mui/material";
+import { Colors } from "./../../styles/theme/";
+import { styled } from "@mui/material/styles";
+import { connect } from "react-redux";
 
 const Login = (props) => {
   const [error, setError] = useState();
@@ -37,7 +42,13 @@ const Login = (props) => {
         setError("Invalid email and password");
       });
   };
-
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText(Colors.primary[500]),
+    backgroundColor: Colors.primary[500],
+    "&:hover": {
+      backgroundColor: Colors.primary[700],
+    },
+  }));
   return (
     <div id="wrapper">
       <div className="container">
@@ -63,9 +74,23 @@ const Login = (props) => {
             onChange={credentialChange}
             placeholder="Password"
           />
-          <button type="submit" className="btn btn-primary">
+          <Button
+            type="submit"
+            variant="outlined"
+            style={{ borderRadius: 50, fontSize: "12px" }}
+          >
             Sign in
-          </button>
+          </Button>
+
+          <span className="login-screen__subtext">
+            Don't have an account?{" "}
+            <Link
+              style={{ textDecoration: "none", color: Colors.white }}
+              to="/register"
+            >
+              Sign up
+            </Link>
+          </span>
         </form>
       </div>
       <ul className="bg-bubbles">
@@ -84,4 +109,10 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticateUser: (email, password) =>
+      dispatch(authenticateUser(email, password)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Login);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements IRoleService<Role> {
@@ -56,6 +57,16 @@ public class RoleServiceImpl implements IRoleService<Role> {
 
     @Override
     public Role save(Long productId, Long userId) {
+        return null;
+    }
+
+    @Override
+    public String deleteFromUser(Long productId, Long userId) {
+        return null;
+    }
+
+    @Override
+    public Set<Role> getProducts(Long userId) {
         return null;
     }
 }
