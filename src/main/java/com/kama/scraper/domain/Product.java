@@ -96,13 +96,9 @@ public class Product {
         this.image = image;
     }
 
-
-
-
     public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -136,8 +132,8 @@ public class Product {
 
         return user;
     }
-    public void deleteFromUser(User user){
-
+    public void deleteFromUser(User user,Product product){
+        user.getMyProducts().remove(product);
         //userProducts.remove(user);
     }
     public void setUserProducts(User userProducts) {

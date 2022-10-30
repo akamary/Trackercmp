@@ -2,8 +2,8 @@ import * as PT from "../types/productTypes";
 
 const initialState = {
   products: [],
-  cart: [],
   currentItem: null,
+  cart: [],
   error: "",
 };
 
@@ -37,7 +37,18 @@ const productReducer = (state = initialState, action) => {
             : item
         ),
       };
-    case PT.FETCH_PRODUCT_REQUEST:
+    case PT.GET_CART_REQUEST:
+      return {
+        ...state,
+      };
+
+    case PT.GET_CART_SUCCESS:
+      return {
+        ...state,
+        cart: [action.payload],
+      };
+    case PT.GET_CART_FAILURE:
+      return { ...state };
     case PT.UPDATE_PRODUCT_REQUEST:
     case PT.DELETE_PRODUCT_REQUEST:
     case PT.REMOVE_FROM_CART:

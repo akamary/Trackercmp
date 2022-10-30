@@ -118,8 +118,6 @@ public class User {
     }
 
     public void addToMyProduct(Product product){
-
-
         this.myProducts.add(product);
     }
     public void setMyProducts(Set<Product> myProducts) {
@@ -128,10 +126,8 @@ public class User {
     }
 
     public Long getQty() {
-        Product product;
         Long total=0L;
-        for(Product p : myProducts){
-
+        for(Product p:myProducts){
             total+=p.getP_qty();
         }
         qty=total;

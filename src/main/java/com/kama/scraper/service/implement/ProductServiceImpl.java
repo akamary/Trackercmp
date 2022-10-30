@@ -76,17 +76,15 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         JSONObject jsonObject = new JSONObject();
         Product product = productRepository.findById(productId).get();
         User user = userRepository.findById(userId).get();
-
-        product.deleteFromUser(user);
+        product.setP_qty(0L);
+        product.deleteFromUser(user,product);
          productRepository.delete(product);
         return "deleted";
     }
 
     @Override
     public Set<Product> getProducts(Long userId) {
-        User user = userRepository.findById(userId).get();
-
-        return user.getMyProducts();
+        return userRepository.findById(userId).get().getMyProducts();
     }
 
 

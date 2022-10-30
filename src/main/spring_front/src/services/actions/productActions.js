@@ -71,22 +71,35 @@ export const loadCurrentItem = (product) => {
   };
 };
 
-export const fetchProduct = (productId) => {
+export const getAllProduct = (userId) => {
   return (dispatch) => {
     dispatch({
-      type: PT.FETCH_PRODUCT_REQUEST,
+      type: PT.GET_CART_REQUEST,
     });
     axios
-      .get("http://localhost:8080/rest/products/" + productId)
-      .then((response) => {
-        dispatch(productSuccess(response.data));
+      .get("http://localhost:8080/rest/products/user/" + userId)
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(JSON.stringify(data));
+        dispatch(cartSuccess({ data }));
       })
       .catch((error) => {
-        dispatch(productFailure(error));
+        dispatch(cartFailure(error));
       });
   };
 };
 
+export const cartSuccess = (data) => {
+  return {
+    type: PT.GET_CART_SUCCESS,
+    payload: { cart: data },
+  };
+};
+export const cartFailure = (response) => {
+  return {
+    type: PT.GET_CART_FAILURE,
+  };
+};
 export const updateProduct = (product) => {
   return (dispatch) => {
     dispatch({

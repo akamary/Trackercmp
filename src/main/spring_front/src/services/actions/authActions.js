@@ -10,6 +10,7 @@ export const authenticateUser = (email, password) => async (dispatch) => {
       email: email,
       password: password,
     });
+
     console.log(JSON.stringify(response.data.id));
     localStorage.setItem("jwtToken", response.data.token);
     localStorage.setItem("id", response.data.id);
@@ -17,7 +18,6 @@ export const authenticateUser = (email, password) => async (dispatch) => {
       success({
         username: response.data.name,
         isLoggedIn: true,
-        cart: response.data.cart,
       })
     );
     return Promise.resolve(response.data);
@@ -48,12 +48,12 @@ const logoutRequest = () => {
   };
 };
 
-const success = (isLoggedIn, cart) => {
+const success = (username, isLoggedIn, cart) => {
   return {
     type: AT.SUCCESS,
     payload: {
-      isLoggedIn,
-      cart,
+      username: username,
+      isLoggedIn: isLoggedIn,
     },
   };
 };

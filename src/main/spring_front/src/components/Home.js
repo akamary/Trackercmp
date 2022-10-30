@@ -7,14 +7,19 @@ import "./Home.css";
 import Banner from "./banner";
 import Categories from "./categories";
 import { Container, Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { getAllProduct } from "../services/index";
+import { connect } from "react-redux";
 
-const Home = () => {
+const Home = ({ cart }) => {
   if (localStorage.jwtToken) {
     authToken(localStorage.jwtToken);
   }
 
   const auth = useSelector((state) => state.auth);
-
+  const userId = localStorage.getItem("id");
+  const dispatch = useDispatch();
+  cart = dispatch(getAllProduct(userId));
   return (
     <>
       <Banner />
@@ -35,4 +40,14 @@ const Home = () => {
   );
 };
 
-export default Home;
+// const mapStateToProps = (state) => {
+//   return {
+//     cart: state.product.cart.cart,
+//   };
+// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllProduct: (userId) => dispatch(getAllProduct(userId)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Home);

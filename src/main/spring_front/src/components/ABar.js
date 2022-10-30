@@ -47,14 +47,37 @@ const ABar = ({ cart }) => {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
   const { drawerOpen, setDrawerOpen } = useUIContext();
+  const newCart = useSelector((state) => state.cart);
+  const cartItems = cart;
 
   useEffect(() => {
     let count = 0;
-    cart.forEach((product) => {
-      count += product.qty;
-    });
+    let countInCart = 0;
+    if (cartItems) {
+      cartItems.forEach((cartItem) => {
+        if (cartItem.cart) {
+          const inDB = cartItem.cart.data;
+          if (inDB) {
+            inDB.map((item) => (countInCart += parseInt(item.p_qty)));
+            setCartCount(parseInt(countInCart));
+            count = parseInt(countInCart);
+          } else {
+            cartItem.forEach((product) => {
+              count += parseInt(product.qty);
+            });
+            setCartCount(parseInt(count));
+          }
+        } else {
+          console.log(cartItem);
 
-    setCartCount(count);
+          count += parseInt(cartItem.qty);
+
+          setCartCount(count);
+        }
+      });
+    } else {
+      setCartCount(0);
+    }
   }, [cart, cartCount]);
 
   const logout = () => {
@@ -309,8 +332,8 @@ const ABar = ({ cart }) => {
         <AppbarContainer>
           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
           <ActionIconsContainerDesktop>
-            <Link to={auth.isLoggedIn.isLoggedIn ? "home" : ""}></Link>
-            {auth.isLoggedIn.isLoggedIn ? userLinks : guestLinks}
+            <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
+            {auth.username.isLoggedIn ? userLinks : guestLinks}
           </ActionIconsContainerDesktop>
         </AppbarContainer>
       )}

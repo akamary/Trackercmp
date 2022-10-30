@@ -16,14 +16,14 @@ import Footer from "./components/footer";
 import { UIProvider } from "./components/context/ui";
 
 const App = (current) => {
-  window.onbeforeunload = (event) => {
-    const e = event || window.event;
-    e.preventDefault();
-    if (e) {
-      e.returnValue = "";
-    }
-    return "";
-  };
+  // window.onbeforeunload = (event) => {
+  //   const e = event || window.event;
+  //   e.preventDefault();
+  //   if (e) {
+  //     e.returnValue = "";
+  //   }
+  //   return "";
+  // };
 
   return (
     <Router>
@@ -67,4 +67,5 @@ const mapStateToProps = (state) => {
     current: state.product.currentItem,
   };
 };
+
 export default connect(mapStateToProps)(App);
