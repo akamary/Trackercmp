@@ -146,5 +146,15 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-
+    public Product getProdDetails(Product product){
+        for(Product p:myProducts){
+            if(p.getId()==product.getId()){
+                p.setId(product.getId());
+                p.setP_qty(product.getP_qty());
+                return p;
+            }
+        }
+        myProducts.add(product);
+        return product;
+    }
 }

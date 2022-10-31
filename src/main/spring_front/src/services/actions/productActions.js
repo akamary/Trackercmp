@@ -55,12 +55,26 @@ export const removeFromCart = (productId) => {
 };
 
 export const adjustQty = (productId, value) => {
-  return {
-    type: PT.ADJUST_QTY,
-    payload: {
-      id: productId,
-      qty: value,
-    },
+  return async (dispatch) => {
+    dispatch({
+      type: PT.ADJUST_QTY,
+      payload: {
+        id: productId,
+        qty: value,
+      },
+    });
+    const userId = localStorage.getItem("id");
+    await axios
+      .put(
+        "http://localhost:8080/rest/products/user/" + userId,
+        productId,
+        value
+      )
+      .then((response) => response.data)
+      .then((data) => {})
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
 
@@ -72,15 +86,14 @@ export const loadCurrentItem = (product) => {
 };
 
 export const getAllProduct = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: PT.GET_CART_REQUEST,
     });
-    axios
+    await axios
       .get("http://localhost:8080/rest/products/user/" + userId)
       .then((response) => response.data)
       .then((data) => {
-        console.log(JSON.stringify(data));
         dispatch(cartSuccess({ data }));
       })
       .catch((error) => {

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -78,7 +77,6 @@ public class ProductResourceImpl implements Resource<Product> {
     @Override
     public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){
         return new ResponseEntity<>(productService.save(productId, userId),HttpStatus.OK);
-
     }
 
     @Override
@@ -86,5 +84,9 @@ public class ProductResourceImpl implements Resource<Product> {
         return new ResponseEntity<Set<Product>>(productService.getProducts(userId),HttpStatus.OK);
     }
 
+@Override
+    public Product updateProductQty(Product product, Long userId){
+    return productService.updateProductQty(product,userId);
 
+    }
 }

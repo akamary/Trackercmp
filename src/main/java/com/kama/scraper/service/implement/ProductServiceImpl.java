@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -85,6 +86,16 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     @Override
     public Set<Product> getProducts(Long userId) {
         return userRepository.findById(userId).get().getMyProducts();
+    }
+
+    @Override
+    public Product updateProductQty(Product product, Long userId) {
+        User user = userRepository.findById(userId).get();
+        Product newProd = user.getProdDetails(product);
+         return productRepository.save(newProd);
+
+        //Product p = user.getProdDetails(product,qty);
+        //productRepository.save(product);
     }
 
 

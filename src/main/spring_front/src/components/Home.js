@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import authToken from "../utils/authToken";
 import Product from "./Product/Product";
 import "./User/backscreens.css";
@@ -7,19 +6,14 @@ import "./Home.css";
 import Banner from "./banner";
 import Categories from "./categories";
 import { Container, Grid } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { getAllProduct } from "../services/index";
 import { connect } from "react-redux";
 
-const Home = ({ cart }) => {
+const Home = () => {
   if (localStorage.jwtToken) {
     authToken(localStorage.jwtToken);
   }
 
-  const auth = useSelector((state) => state.auth);
-  const userId = localStorage.getItem("id");
-  const dispatch = useDispatch();
-  cart = dispatch(getAllProduct(userId));
   return (
     <>
       <Banner />
@@ -40,11 +34,6 @@ const Home = ({ cart }) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     cart: state.product.cart.cart,
-//   };
-// };
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllProduct: (userId) => dispatch(getAllProduct(userId)),

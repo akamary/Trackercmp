@@ -38,4 +38,6 @@ public interface Resource<T> {
 
     @GetMapping("/user/{userId}")
      ResponseEntity<Set<Product>> getProducts(@PathVariable Long userId);
+    @PutMapping(path = "/user/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    Product updateProductQty(@RequestBody Product product,@PathVariable Long userId) ;
 }

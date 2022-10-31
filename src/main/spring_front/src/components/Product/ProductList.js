@@ -127,15 +127,6 @@ class ProductList extends Component {
     this.props.saveProduct(product);
     const userId = localStorage.getItem("id");
     this.props.getAllProduct(userId);
-    setTimeout(() => {
-      if (this.props.productObject.product != null) {
-        this.setState({ show: true, method: "post" });
-        setTimeout(() => this.setState({ show: false }), 3000);
-      } else {
-        this.setState({ show: false });
-      }
-    }, 2000);
-    this.setState(this.initialState);
   };
 
   deleteProduct = (productId) => {

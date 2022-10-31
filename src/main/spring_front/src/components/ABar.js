@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { logoutUser } from "../services/index";
+import { logoutUser, getAllProduct } from "../services/index";
 import {
   IconButton,
   List,
@@ -47,9 +47,9 @@ const ABar = ({ cart }) => {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
   const { drawerOpen, setDrawerOpen } = useUIContext();
-  const newCart = useSelector((state) => state.cart);
   const cartItems = cart;
-
+  // const userId = localStorage.getItem("id");
+  // dispatch(getAllProduct(userId));
   useEffect(() => {
     let count = 0;
     let countInCart = 0;
@@ -72,13 +72,13 @@ const ABar = ({ cart }) => {
 
           count += parseInt(cartItem.qty);
 
-          setCartCount(count);
+          setCartCount(parseInt(count));
         }
       });
     } else {
       setCartCount(0);
     }
-  }, [cart, cartCount]);
+  }, [cart, cartCount, cartItems]);
 
   const logout = () => {
     dispatch(logoutUser());
@@ -349,6 +349,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => dispatch(logoutUser()),
+    getAllProduct: (userId) => dispatch(getAllProduct(userId)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ABar);

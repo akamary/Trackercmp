@@ -23,4 +23,6 @@ public interface IService<T>{
     String deleteFromUser(Long productId, Long userId);
 
     Set<T> getProducts(Long userId);
+
+    Product updateProductQty( Product product, Long userId);
 }

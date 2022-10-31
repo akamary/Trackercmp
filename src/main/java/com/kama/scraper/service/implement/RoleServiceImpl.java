@@ -1,5 +1,6 @@
 package com.kama.scraper.service.implement;
 
+import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.Role;
 import com.kama.scraper.repository.RoleRepository;
 import com.kama.scraper.service.IRoleService;
@@ -67,6 +68,11 @@ public class RoleServiceImpl implements IRoleService<Role> {
 
     @Override
     public Set<Role> getProducts(Long userId) {
+        return null;
+    }
+
+    @Override
+    public Product updateProductQty(Product product, Long userId) {
         return null;
     }
 }
