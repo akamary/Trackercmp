@@ -61,7 +61,7 @@ const ProductView = () => {
 const mapStateToProps = (state) => {
   return {
     productObject: state.product,
-    products: state.product.products,
+    cart: state.product.cart,
   };
 };
 

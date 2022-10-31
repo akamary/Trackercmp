@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Table from "@mui/material/Table";
-import {
-  deleteProduct,
-  loadCurrentItem,
-  saveProduct,
-  getAllProduct,
-} from "../../services/index";
+import * as AT from "./../../services/index";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -14,7 +9,7 @@ import TableBody from "@mui/material/TableBody";
 import Paper from "@mui/material/Paper";
 import TableHead from "@mui/material/TableHead";
 import { Container } from "@mui/material";
-import "./../User/backscreens.css";
+import "./../user/backscreens.css";
 import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import styles from "./../ProductList.css";
@@ -25,6 +20,11 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Categories from "./../categories";
 import PreviewIcon from "@mui/icons-material/Preview";
+import {
+  loadCurrentItem,
+  saveProduct,
+  getAllProduct,
+} from "./../../services/index";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(blue[200]),
@@ -51,7 +51,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+
   "&:last-child td, &:last-child th": {
     border: 0,
   },
@@ -112,34 +112,13 @@ class ProductList extends Component {
 
   handleView = (product) => {
     this.props.loadCurrentItem(product);
-    setTimeout(() => {
-      if (this.props.productObject.product != null) {
-        this.setState({ show: true, method: "post" });
-        setTimeout(() => this.setState({ show: false }), 3000);
-      } else {
-        this.setState({ show: false });
-      }
-    }, 2000);
-
-    this.setState(this.initialState);
+    //this.setState(this.initialState);
   };
+
   submitProduct = (product) => {
     this.props.saveProduct(product);
     const userId = localStorage.getItem("id");
     this.props.getAllProduct(userId);
-  };
-
-  deleteProduct = (productId) => {
-    this.props.deleteProduct(productId);
-    setTimeout(() => {
-      if (this.props.productObject != null) {
-        this.setState({ show: true });
-        setTimeout(() => this.setState({ show: false }), 3000);
-        this.findAllProducts(this.state.currentPage);
-      } else {
-        this.setState({ show: false });
-      }
-    }, 1000);
   };
 
   changePage = (event) => {
@@ -301,9 +280,7 @@ class ProductList extends Component {
                               color="primary"
                               onClick={(e) => {
                                 e.preventDefault();
-                                {
-                                  this.handleView(product);
-                                }
+                                this.handleView(product);
                               }}
                             />
                           </IconButton>
@@ -423,7 +400,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteProduct: (productId) => dispatch(deleteProduct(productId)),
     saveProduct: (productId) => dispatch(saveProduct(productId)),
     loadCurrentItem: (product) => dispatch(loadCurrentItem(product)),
     getAllProduct: (userId) => dispatch(getAllProduct(userId)),

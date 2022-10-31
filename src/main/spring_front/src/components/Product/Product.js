@@ -1,16 +1,13 @@
 import "./Product.css";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import {
   Productc,
   ProductImage,
-  ProductAddToCart,
   ProductMetaWrapper,
-  ProductActionsWrapper,
 } from "./../../styles/product/";
 import Button from "@mui/material/Button";
-import { Colors } from "./../../styles/theme";
 
 const Product = ({ name }) => {
   const theme = useTheme();
