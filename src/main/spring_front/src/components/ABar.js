@@ -322,8 +322,8 @@ const ABar = ({ cart }) => {
       {matches ? (
         <AppbarContainer>
           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
-          <Link to={auth.isLoggedIn ? "home" : ""}></Link>
-          {auth.isLoggedIn ? userLinksMobile : guestLinksMobile}
+          <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
+          {auth.username.isLoggedIn ? userLinksMobile : guestLinksMobile}
           <IconButton onClick={() => setDrawerOpen(true)}>
             <MenuIcon />
           </IconButton>

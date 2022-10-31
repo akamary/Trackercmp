@@ -5,6 +5,7 @@ import {
   deleteProduct,
   loadCurrentItem,
   saveProduct,
+  getAllProduct,
 } from "../../services/index";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -124,6 +125,8 @@ class ProductList extends Component {
   };
   submitProduct = (product) => {
     this.props.saveProduct(product);
+    const userId = localStorage.getItem("id");
+    this.props.getAllProduct(userId);
     setTimeout(() => {
       if (this.props.productObject.product != null) {
         this.setState({ show: true, method: "post" });
@@ -306,7 +309,7 @@ class ProductList extends Component {
                               size="medium"
                               color="primary"
                               onClick={(e) => {
-                                //e.preventDefault();
+                                e.preventDefault();
                                 {
                                   this.handleView(product);
                                 }
@@ -432,6 +435,7 @@ const mapDispatchToProps = (dispatch) => {
     deleteProduct: (productId) => dispatch(deleteProduct(productId)),
     saveProduct: (productId) => dispatch(saveProduct(productId)),
     loadCurrentItem: (product) => dispatch(loadCurrentItem(product)),
+    getAllProduct: (userId) => dispatch(getAllProduct(userId)),
   };
 };
 

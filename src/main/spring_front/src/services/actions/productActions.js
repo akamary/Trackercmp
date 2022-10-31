@@ -5,7 +5,7 @@ const userId = localStorage.getItem("id");
 
 //* saving to db
 export const saveProduct = (product) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: PT.SAVE_PRODUCT_REQUEST,
       payload: {
@@ -16,7 +16,7 @@ export const saveProduct = (product) => {
       },
     });
     const userId = localStorage.getItem("id");
-    axios
+    await axios
       .post(
         "http://localhost:8080/rest/products/" + product.id + "/users/" + userId
       )
@@ -37,14 +37,14 @@ export const saveProduct = (product) => {
 
 //* remove from cart all qty with p.id===productId
 export const removeFromCart = (productId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({
       type: PT.REMOVE_FROM_CART,
       payload: {
         id: productId,
       },
     });
-    axios
+    await axios
       .delete(
         "http://localhost:8080/rest/products/" + productId + "/users/" + userId
       )
