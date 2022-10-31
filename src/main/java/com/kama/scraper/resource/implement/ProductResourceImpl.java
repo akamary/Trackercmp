@@ -73,7 +73,6 @@ public class ProductResourceImpl implements Resource<Product> {
         return new ResponseEntity<>(productService.deleteFromUser(productId,userId),HttpStatus.OK);
     }
 
-
     @Override
     public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){
         return new ResponseEntity<>(productService.save(productId, userId),HttpStatus.OK);
@@ -85,8 +84,7 @@ public class ProductResourceImpl implements Resource<Product> {
     }
 
 @Override
-    public Product updateProductQty(Product product, Long userId){
-    return productService.updateProductQty(product,userId);
-
+    public Product updateProductQty(Long userId,Product product){
+    return productService.updateProductQty(userId, product);
     }
 }

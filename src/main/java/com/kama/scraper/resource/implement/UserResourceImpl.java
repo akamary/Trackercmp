@@ -79,13 +79,13 @@ public class UserResourceImpl {
                     .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             if (authentication.isAuthenticated()) {
                 String email = user.getEmail();
-                Set<Product> cart = user.getMyProducts();
+                //Set<Product> cart = userRepository.findById(user.getId()).get().getMyProducts();
 
                 jsonObject.put("name", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
                 jsonObject.put("token", tokenProvider.createToken(email, userRepository.findByEmail(email).getRole()));
                 jsonObject.put("id", userRepository.findByEmail(email).getId());
-                jsonObject.put("cart", cart);
+                //jsonObject.put("cart", cart);
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {

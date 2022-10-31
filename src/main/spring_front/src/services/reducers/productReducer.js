@@ -50,6 +50,7 @@ const productReducer = (state = initialState, action) => {
     case PT.GET_CART_FAILURE:
       return { ...state };
     case PT.UPDATE_PRODUCT_REQUEST:
+      return { ...state, product: action.payload };
     case PT.DELETE_PRODUCT_REQUEST:
     case PT.REMOVE_FROM_CART:
       return {

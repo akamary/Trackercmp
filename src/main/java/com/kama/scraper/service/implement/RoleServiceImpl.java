@@ -72,7 +72,7 @@ public class RoleServiceImpl implements IRoleService<Role> {
     }
 
     @Override
-    public Product updateProductQty(Product product, Long userId) {
+    public Product updateProductQty(Long userId,Product product) {
         return null;
     }
 }

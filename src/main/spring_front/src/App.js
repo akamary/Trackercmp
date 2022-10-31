@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ProductList from "./components/Product/ProductList";
-import ProductView from "./components/Product/ProductView";
-import Register from "./components/User/Register";
-import Login from "./components/User/Login";
+import ProductList from "./components/product/ProductList";
+import ProductView from "./components/product/ProductView";
+import Register from "./components/user/Register";
+import Login from "./components/user/Login";
 import Home from "./components/Home";
 import ABar from "./components/ABar";
 import { connect } from "react-redux";
@@ -16,14 +16,14 @@ import Footer from "./components/footer";
 import { UIProvider } from "./components/context/ui";
 
 const App = (current) => {
-  // window.onbeforeunload = (event) => {
-  //   const e = event || window.event;
-  //   e.preventDefault();
-  //   if (e) {
-  //     e.returnValue = "";
-  //   }
-  //   return "";
-  // };
+  window.onbeforeunload = (event) => {
+    const e = event || window.event;
+    e.preventDefault();
+    if (e) {
+      e.returnValue = "";
+    }
+    return "";
+  };
 
   return (
     <Router>

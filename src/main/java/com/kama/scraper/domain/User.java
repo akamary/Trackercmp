@@ -147,14 +147,21 @@ public class User {
         this.fullname = fullname;
     }
     public Product getProdDetails(Product product){
+        boolean inCart = false;
         for(Product p:myProducts){
             if(p.getId()==product.getId()){
+                inCart = true;
                 p.setId(product.getId());
+                p.setName(product.getName());
+                p.setPrice(product.getPrice());
                 p.setP_qty(product.getP_qty());
+                p.setImage(product.getImage());
                 return p;
             }
         }
-        myProducts.add(product);
+        if(inCart==false) {
+            myProducts.add(product);
+        }
         return product;
     }
 }

@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
-import { Link } from "react-router-dom";
-import { connect, useSelector, useDispatch } from "react-redux";
-import { adjustQty, removeFromCart } from "./../../services/index";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { connect } from "react-redux";
+
+import CartItem from "./cartItem/CartItem";
 
 const Cart = ({ cart }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
-  const [input, setInput] = useState(0);
-  const dispatch = useDispatch();
-
-  const onChangeHandler = (e) => {
-    setInput(parseInt(e.target.value));
-    dispatch(adjustQty(e.target.id, parseInt(e.target.value)));
-  };
-
   let cartItems = cart;
+
   useEffect(() => {
     let items = 0;
     let price = 0;
@@ -60,53 +50,17 @@ const Cart = ({ cart }) => {
     }
     setTotalPrice(parseFloat(price));
     setTotalItems(items);
-  }, [cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
+  }, [cartItems, cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
 
   return (
     <div className={styles.cart}>
       <div className={styles.cart__items}>
-        {cart.map((itemData) => {
+        {cartItems.map((itemData) => {
           return (
             itemData.cart
               ? (cartItems = itemData.cart.data)
               : (cartItems = itemData),
-            cartItems.map((gg) => {
-              return (
-                <div className={styles.cartItem}>
-                  <img
-                    className={styles.cartItem__image}
-                    src={gg.image}
-                    alt={gg.name}
-                  />
-                  <div className={styles.cartItem__details}>
-                    <p className={styles.details__title}>{gg.name}</p>
-                    <p className={styles.details__price}> {gg.price}</p>
-                  </div>
-                  <div className={styles.cartItem__actions}>
-                    <div className={styles.cartItem__qty}>
-                      <label htmlFor="p_qty">Qty</label>
-                      <input
-                        min="1"
-                        type="number"
-                        id="p_qty"
-                        name="p_qty"
-                        value={input === 0 ? gg.p_qty : input}
-                        onChange={onChangeHandler}
-                      />
-                    </div>
-                    <Tooltip title="Delete">
-                      <IconButton aria-label="delete">
-                        <DeleteIcon
-                          fontSize="medium"
-                          onClick={() => dispatch(removeFromCart(gg.id))}
-                          className={styles.actions__deleteItemBtn}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  </div>
-                </div>
-              );
-            })
+            cartItems.map((gg) => <CartItem item={gg} key={gg.id} />)
           );
         })}
       </div>
@@ -129,12 +83,5 @@ const mapStateToProps = (state) => {
     cart: state.product.cart,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adjustQty: (id, value) => dispatch(adjustQty(id, value)),
-    removeFromCart: (id) => dispatch(removeFromCart(id)),
-  };
-};
-//export default Cart;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);

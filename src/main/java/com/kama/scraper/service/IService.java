@@ -24,5 +24,5 @@ public interface IService<T>{
 
     Set<T> getProducts(Long userId);
 
-    Product updateProductQty( Product product, Long userId);
+    Product updateProductQty( Long userId,Product product);
 }

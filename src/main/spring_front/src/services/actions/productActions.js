@@ -28,6 +28,7 @@ export const saveProduct = (product) => {
         data.price = pricee;
         console.log({ pricee });
         dispatch(productSuccess(data));
+        dispatch(getAllProduct(userId));
       })
       .catch((error) => {
         dispatch(productFailure(error));
@@ -44,34 +45,41 @@ export const removeFromCart = (productId) => {
         id: productId,
       },
     });
+    const userId = localStorage.getItem("id");
     await axios
       .delete(
         "http://localhost:8080/rest/products/" + productId + "/users/" + userId
       )
       .then((response) => response.data)
-      .then((data) => {})
+      .then((data) => {
+        dispatch(getAllProduct(userId));
+      })
       .catch((error) => {});
   };
 };
 
-export const adjustQty = (productId, value) => {
+export const adjustQty = (item, value) => {
   return async (dispatch) => {
     dispatch({
       type: PT.ADJUST_QTY,
       payload: {
-        id: productId,
-        qty: value,
+        id: item.id,
+        p_qty: value,
       },
     });
     const userId = localStorage.getItem("id");
     await axios
-      .put(
-        "http://localhost:8080/rest/products/user/" + userId,
-        productId,
-        value
-      )
+      .put("http://localhost:8080/rest/products/user/" + userId, {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        p_qty: value,
+        image: item.image,
+      })
       .then((response) => response.data)
-      .then((data) => {})
+      .then((data) => {
+        dispatch(getAllProduct(userId));
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -113,19 +121,10 @@ export const cartFailure = (response) => {
     type: PT.GET_CART_FAILURE,
   };
 };
-export const updateProduct = (product) => {
-  return (dispatch) => {
-    dispatch({
-      type: PT.UPDATE_PRODUCT_REQUEST,
-    });
-    axios
-      .put("http://localhost:8080/rest/products", product)
-      .then((response) => {
-        dispatch(productSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(productFailure(error));
-      });
+export const updateProductSuccess = (data) => {
+  return {
+    type: PT.UPDATE_PRODUCT_REQUEST,
+    payload: data,
   };
 };
 

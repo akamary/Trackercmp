@@ -68,7 +68,7 @@ public class UserServiceImpl implements IService<User> {
     }
 
     @Override
-    public Product updateProductQty(Product product, Long userId) {
+    public Product updateProductQty(Long userId,Product product) {
         return null;
     }
 

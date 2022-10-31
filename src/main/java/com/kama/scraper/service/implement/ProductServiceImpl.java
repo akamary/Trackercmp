@@ -89,7 +89,7 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     }
 
     @Override
-    public Product updateProductQty(Product product, Long userId) {
+    public Product updateProductQty(Long userId,Product product) {
         User user = userRepository.findById(userId).get();
         Product newProd = user.getProdDetails(product);
          return productRepository.save(newProd);

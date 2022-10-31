@@ -11,7 +11,7 @@ import {
   styled,
   Drawer,
 } from "@mui/material";
-import "./User/backscreens.css";
+import "./user/backscreens.css";
 import { useState, useEffect } from "react";
 import * as React from "react";
 import { connect } from "react-redux";
@@ -35,12 +35,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useUIContext } from "./../components/context/ui";
 import CloseIcon from "@mui/icons-material/Close";
 import { lighten } from "polished";
+//import authToken from "../utils/authToken";
 
 const MiddleDivider = styled((props) => (
   <Divider variant="middle" {...props} />
 ))``;
 
 const ABar = ({ cart }) => {
+  // if (localStorage.jwtToken) {
+  //   authToken(localStorage.jwtToken);
+  // }
   const theme = useTheme();
   const [cartCount, setCartCount] = useState(0);
   const auth = useSelector((state) => state.auth);
@@ -48,8 +52,7 @@ const ABar = ({ cart }) => {
   const dispatch = useDispatch();
   const { drawerOpen, setDrawerOpen } = useUIContext();
   const cartItems = cart;
-  // const userId = localStorage.getItem("id");
-  // dispatch(getAllProduct(userId));
+
   useEffect(() => {
     let count = 0;
     let countInCart = 0;
@@ -68,10 +71,7 @@ const ABar = ({ cart }) => {
             setCartCount(parseInt(count));
           }
         } else {
-          console.log(cartItem);
-
           count += parseInt(cartItem.qty);
-
           setCartCount(parseInt(count));
         }
       });
