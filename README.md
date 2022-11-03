@@ -1,15 +1,60 @@
 # Stock Tracker Compare 
 ## Live Demo
 ---need upload all screens
-### SignIn
+## SignIn
+`Method POST-> http://localhost:8080/rest/user/authenticate`
+```
+ROLE-USER: 
+email: test@user.com
+password: 123456
+
+ROLE-ADMIN:
+email: test@admin.com
+password: 123456
+``` 
+
 * #### back
-`http://localhost:8080/rest/user/authenticate`  
+
+```
+ADMIN Role- SignIn 
+test@admin.com
+123456
+``` 
+
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBackAdmin.png">
+
+
+```
+USER Role- SignIn
+test@user.com
+123456
+``` 
 
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBack.png">
 
 * #### front  
 
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/SignIn.gif">
+
+
+## SignUp
+
+* #### back
+
+`Method: POST-> http://localhost:8080/rest/user/register`
+
+```
+    username: avivkamary
+    email:kamaryaviv@gmail.com
+    fullname:Aviv Kamary
+    password:123456
+```
+
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
+
+* #### front
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/SignUp.gif">
+
 
 ## Description
 The goal of this project is to implement an application for tracking Products by implementing a backend app using Spring Boot in addition to a frontend app usgin Reactjs.
