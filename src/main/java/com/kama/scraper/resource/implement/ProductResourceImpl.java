@@ -74,8 +74,8 @@ public class ProductResourceImpl implements Resource<Product> {
     }
 
     @Override
-    public ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId){
-        return new ResponseEntity<>(productService.save(productId, userId),HttpStatus.OK);
+    public ResponseEntity<Product> productsToUser(@PathVariable Long userId, @PathVariable Long productId){
+        return new ResponseEntity<>(productService.save(userId, productId),HttpStatus.OK);
     }
 
     @Override
@@ -83,8 +83,8 @@ public class ProductResourceImpl implements Resource<Product> {
         return new ResponseEntity<Set<Product>>(productService.getProducts(userId),HttpStatus.OK);
     }
 
-@Override
+    @Override
     public Product updateProductQty(Long userId,Product product){
-    return productService.updateProductQty(userId, product);
+        return productService.updateProductQty(userId, product);
     }
 }

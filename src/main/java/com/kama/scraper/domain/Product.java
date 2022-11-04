@@ -145,5 +145,3 @@ public class Product {
         this.user.addToMyProduct(product);
     }
 }
-
-

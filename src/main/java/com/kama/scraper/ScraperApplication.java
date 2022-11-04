@@ -105,7 +105,7 @@ public class ScraperApplication implements CommandLineRunner {
 					product.setName(toSend);
 					product.setPrice(priceSend);
 					product.setImage(imgSend);
-					product.setP_qty(0L);
+					//product.setP_qty(0L);
 					productList.add(product);
 					productService.saveOrUpdate(product);
 				}

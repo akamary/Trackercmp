@@ -31,13 +31,13 @@ public interface Resource<T> {
     ResponseEntity<String> deleteById(@PathVariable Long id);
 
 
-    @DeleteMapping("/{productId}/users/{userId}")
-     ResponseEntity<String> deleteFromUser(@PathVariable Long productId, @PathVariable Long userId);
-    @PostMapping("/{productId}/users/{userId}")
-     ResponseEntity<Product> productsToUser(@PathVariable Long productId, @PathVariable Long userId);
+    @DeleteMapping("/user/{userId}/{productId}")
+    ResponseEntity<String> deleteFromUser(@PathVariable Long userId, @PathVariable Long productId);
+    @PostMapping("/user/{userId}/{productId}")
+    ResponseEntity<Product> productsToUser(@PathVariable Long userId, @PathVariable Long productId);
 
     @GetMapping("/user/{userId}")
-     ResponseEntity<Set<Product>> getProducts(@PathVariable Long userId);
+    ResponseEntity<Set<Product>> getProducts(@PathVariable Long userId);
     @PutMapping(path = "/user/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     Product updateProductQty(@PathVariable Long userId,@RequestBody Product product) ;
 }

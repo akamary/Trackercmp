@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -79,7 +77,7 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         User user = userRepository.findById(userId).get();
         product.setP_qty(0L);
         product.deleteFromUser(user,product);
-         productRepository.delete(product);
+        productRepository.delete(product);
         return "deleted";
     }
 
@@ -92,7 +90,7 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     public Product updateProductQty(Long userId,Product product) {
         User user = userRepository.findById(userId).get();
         Product newProd = user.getProdDetails(product);
-         return productRepository.save(newProd);
+        return productRepository.save(newProd);
 
         //Product p = user.getProdDetails(product,qty);
         //productRepository.save(product);
@@ -103,5 +101,47 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     public void save(Product product) {
         productRepository.save(product);
     }
+
+
+//        public List<Product> listProducts() {
+//            List<Product> products = productRepository.findAll();
+//            List<Product> productDtos = new ArrayList<>();
+//            for(Product product : products) {
+//                Product productDto = product;
+//                productDtos.add(productDto);
+//            }
+//            return productDtos;
+//        }
+
+//        public static Product getDtoFromProduct(Product product) {
+//            Product productDto = new Product(product);
+//            return productDto;
+//        }
+
+//        public static Product getProductFromDto(Product productDto, Category category) {
+//            Product product = new Product(productDto, category);
+//            return product;
+//        }
+
+        public void addProduct(Product productDto) {
+            Product product = productDto;
+            productRepository.save(product);
+        }
+
+//        public void updateProduct(Long productId, ProductDto productDto, Category category) {
+//            Product product = getProductFromDto(productDto, category);
+//            product.setId(productID);
+//            productRepository.save(product);
+//        }
+//
+//
+//        public Product getProductById(Integer productId) throws ProductNotExistException {
+//            Optional<Product> optionalProduct = productRepository.findById(productId);
+//            if (!optionalProduct.isPresent())
+//                throw new ProductNotExistException("Product id is invalid " + productId);
+//            return optionalProduct.get();
+//        }
+
+
 
 }
