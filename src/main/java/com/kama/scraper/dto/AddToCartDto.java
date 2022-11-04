@@ -6,6 +6,7 @@ public class AddToCartDto {
     private Long id;
     private Long userId;
     private Long productId;
+
     private Long quantity;
 
     public AddToCartDto() {
@@ -23,6 +24,12 @@ public class AddToCartDto {
         this.setProductId(cart.getProductId());
         this.setUserId(cart.getUserId());
         this.setQuantity(cart.getQuantity());
+    }
+
+    public AddToCartDto(Long userId, Long productId, Long quantity) {
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
     }
 
     @Override

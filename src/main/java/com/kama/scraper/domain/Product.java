@@ -1,10 +1,6 @@
 package com.kama.scraper.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "t_product")
@@ -36,24 +32,11 @@ public class Product {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.p_qty = p_qty;
     }
 
-    public Product(String name, String price, Long p_qty) {
-        this.name = name;
-        this.price = price;
-        this.p_qty = p_qty;
-    }
 
-    public Long getP_qty() {
-        return p_qty;
-    }
 
-    public void setP_qty(Long p_qty) {
-        this.p_qty = p_qty;
-    }
 
-    private Long p_qty;
 
     public Product(String name, String price, String image) {
         this.name = name;

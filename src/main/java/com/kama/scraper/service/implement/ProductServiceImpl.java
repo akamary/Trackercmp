@@ -54,8 +54,8 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
     public Product save(Long productId, Long userId){
         Product product = productRepository.findById(productId).get();
         User user = userRepository.findById(userId).get();
-        Long qty = product.getP_qty();
-        product.setP_qty(qty+1L);
+//        Long qty = product.getP_qty();
+//        product.setP_qty(qty+1L);
         product.saveToUser(user,product);
         return productRepository.save(product);
     }
@@ -75,7 +75,6 @@ public class ProductServiceImpl implements IService<Product>, IPageService<Produ
         JSONObject jsonObject = new JSONObject();
         Product product = productRepository.findById(productId).get();
         User user = userRepository.findById(userId).get();
-        product.setP_qty(0L);
         product.deleteFromUser(user,product);
         productRepository.delete(product);
         return "deleted";

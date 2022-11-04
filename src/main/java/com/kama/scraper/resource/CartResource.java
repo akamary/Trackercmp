@@ -12,6 +12,7 @@ import com.kama.scraper.service.CartService;
 import com.kama.scraper.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +63,21 @@ public class CartResource {
         User user = userRepository.findById(userId).get();
         CartDto cartDto = cartService.listCartItems(user);
         return new ResponseEntity<CartDto>(cartDto,HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/user/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cart> updateCartItem(@PathVariable Long userId, @RequestBody AddToCartDto cartDto){
+        User user = userRepository.findById(userId).get();
+        Product product = productRepository.findById(cartDto.getProductId()).get();
+        //.updateCartItem(cartDto, user,product);
+        return new ResponseEntity<>(cartService.updateCartItem(cartDto, user,product), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{userId}/{productId}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable Long userId,@PathVariable Long productId) {
+        User user = userRepository.findById(userId).get();
+        //int userId = authenticationService.getUser(token).getId();
+        cartService.deleteCartItem(productId, userId,user);
+        return new ResponseEntity<>( "Item has been removed", HttpStatus.OK);
     }
 }

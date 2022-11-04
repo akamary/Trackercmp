@@ -62,20 +62,35 @@ public class CartService {
 
 
 
-//    public void updateCartItem(AddToCartDto cartDto, Long userId, Product product) {
-//        Cart cart = getAddToCartFromDto(cartDto, userId);
-//        cart.setQuantity(cartDto.getQuantity());
-//        cart.setUserId(userId);
-//        cart.setId(cartDto.getId());
-//        cart.setProductId(product.getId());
-//        cartRepository.save(cart);
-//    }
+    public Cart updateCartItem(AddToCartDto cartDto, User user, Product product) {
+        Cart cart = new Cart();
+       List<Cart> cartList = cartRepository.findAllByUser(user);
+       for(Cart c : cartList){
+           if(c.getProduct().getId().equals(cartDto.getProductId())){
+               c.setQuantity(cartDto.getQuantity());
+               c.setProduct(product);
+               c.setUser(user);
 
-    public String deleteCartItem(Long id, Long userId) {
-        if (!cartRepository.existsById(id))
-            return "error";
-        cartRepository.deleteById(id);
-        return "ok";
+               return cartRepository.save(c);
+           }
+       }
+        cart.setUser(user);
+       cart.setProduct(product);
+        cart.setQuantity(cartDto.getQuantity());
+        return cartRepository.save(cart);
+    }
+
+    public String deleteCartItem(Long productId, Long userId,User user) {
+        List<Cart> cartList = cartRepository.findAllByUser(user);
+        for(Cart c : cartList){
+            if(c.getProduct().getId().equals(productId)){
+                cartRepository.deleteById(c.getId());
+                return "ok";
+            }
+        }
+
+        return "error";
+
     }
 
 

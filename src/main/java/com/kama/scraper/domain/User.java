@@ -126,11 +126,7 @@ public class User {
     }
 
     public Long getQty() {
-        Long total=0L;
-        for(Product p:myProducts){
-            total+=p.getP_qty();
-        }
-        qty=total;
+
         return qty;
     }
 
@@ -154,7 +150,7 @@ public class User {
                 p.setId(product.getId());
                 p.setName(product.getName());
                 p.setPrice(product.getPrice());
-                p.setP_qty(product.getP_qty());
+                //p.setP_qty(product.getP_qty());
                 p.setImage(product.getImage());
                 return p;
             }
