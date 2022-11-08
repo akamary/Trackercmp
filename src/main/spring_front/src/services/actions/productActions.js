@@ -13,21 +13,24 @@ export const saveProduct = (product) => {
         name: product.name,
         price: product.price,
         image: product.image,
+        quantity: product.quantity,
       },
     });
     const userId = localStorage.getItem("id");
     await axios
       .post(
-        "http://localhost:8080/rest/products/" + product.id + "/users/" + userId
+        "http://localhost:8080/rest/user/cart/" + userId + "/" + product.id,
+        {
+          userId: userId,
+          productId: product.id,
+          quantity: product.quantity,
+        }
       )
 
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-        const pricee = data.price.substring(4);
-        data.price = pricee;
-        console.log({ pricee });
         dispatch(productSuccess(data));
+
         dispatch(getAllProduct(userId));
       })
       .catch((error) => {
@@ -48,7 +51,7 @@ export const removeFromCart = (productId) => {
     const userId = localStorage.getItem("id");
     await axios
       .delete(
-        "http://localhost:8080/rest/products/" + productId + "/users/" + userId
+        "http://localhost:8080/rest/user/cart/" + userId + "/" + productId
       )
       .then((response) => response.data)
       .then((data) => {
@@ -63,21 +66,22 @@ export const adjustQty = (item, value) => {
     dispatch({
       type: PT.ADJUST_QTY,
       payload: {
-        id: item.id,
-        p_qty: value,
+        id: item.product.id,
+        quantity: value,
       },
     });
     const userId = localStorage.getItem("id");
     await axios
-      .put("http://localhost:8080/rest/products/user/" + userId, {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        p_qty: value,
-        image: item.image,
+      .put("http://localhost:8080/rest/user/cart/" + userId, {
+        userId: userId,
+        productId: item.product.id,
+        //price: item.price,
+        quantity: value,
+        //image: item.image,
       })
       .then((response) => response.data)
       .then((data) => {
+        dispatch(updateProductSuccess(data));
         dispatch(getAllProduct(userId));
       })
       .catch((error) => {
@@ -99,7 +103,7 @@ export const getAllProduct = (userId) => {
       type: PT.GET_CART_REQUEST,
     });
     await axios
-      .get("http://localhost:8080/rest/products/user/" + userId)
+      .get("http://localhost:8080/rest/user/cart/" + userId)
       .then((response) => response.data)
       .then((data) => {
         dispatch(cartSuccess({ data }));
@@ -125,22 +129,6 @@ export const updateProductSuccess = (data) => {
   return {
     type: PT.UPDATE_PRODUCT_REQUEST,
     payload: data,
-  };
-};
-
-export const deleteProduct = (productId) => {
-  return (dispatch) => {
-    dispatch({
-      type: PT.DELETE_PRODUCT_REQUEST,
-    });
-    axios
-      .delete("http://localhost:8080/rest/products/" + productId)
-      .then((response) => {
-        dispatch(productSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(productFailure(error));
-      });
   };
 };
 

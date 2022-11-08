@@ -9,10 +9,38 @@ public class AddToCartDto {
 
     private Long quantity;
 
-    public AddToCartDto() {
+    public AddToCartDto(Long userId, Long productId, Long quantity, String username) {
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.username = username;
+    }
+
+    public AddToCartDto(Long userId, Long productId) {
+        this.userId = userId;
+        this.productId = productId;
     }
 
     public AddToCartDto(Long id, Long userId, Long productId, Long quantity) {
+        this.id = id;
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
+    public AddToCartDto() {
+    }
+
+    public AddToCartDto(Long id, Long userId, Long productId, Long quantity, String username) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;
@@ -34,12 +62,13 @@ public class AddToCartDto {
 
     @Override
     public String toString() {
-        return "CartDto{" +
+        return "AddToCartDto{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", productId=" + productId +
                 ", quantity=" + quantity +
-                ",";
+                ", username='" + username + '\'' +
+                '}';
     }
 
     public Long getId() {

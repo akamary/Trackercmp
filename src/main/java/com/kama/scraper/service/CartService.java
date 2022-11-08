@@ -1,6 +1,5 @@
 package com.kama.scraper.service;
 
-import com.kama.scraper.CartCost;
 import com.kama.scraper.domain.Cart;
 import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
@@ -9,8 +8,6 @@ import com.kama.scraper.dto.CartDto;
 import com.kama.scraper.dto.CartItemDto;
 import com.kama.scraper.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

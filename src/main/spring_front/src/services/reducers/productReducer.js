@@ -3,7 +3,7 @@ import * as PT from "../types/productTypes";
 const initialState = {
   products: [],
   currentItem: null,
-  cart: [],
+  cart: "",
   error: "",
 };
 
@@ -13,19 +13,31 @@ const productReducer = (state = initialState, action) => {
       // get the items data from the products array
       const prod = action.payload;
       // checking if the item is in the user's cart
-      const inCart = state.cart.find((item) =>
-        item.id === action.payload.id ? true : false
-      );
+      let inCart = false;
+      let cartItem = state.cart;
+
+      cartItem.forEach((itemm) => {
+        const cartNew = itemm.cart.data.cartItems;
+        inCart = cartNew.find((item) =>
+          item.product.id === action.payload.id ? true : false
+        );
+      });
 
       return {
         ...state,
         cart: inCart
-          ? state.cart.map((item) =>
-              item.id === action.payload.id
-                ? { ...item, qty: item.qty + 1 }
-                : item
+          ? state.cart.map(
+              (item) => (
+                console.log("in 1"),
+                (cartItem = item.cart.data.cartItems),
+                cartItem.map((itemm) =>
+                  (console.log("in 1"), itemm.product.id === action.payload.id)
+                    ? { ...itemm, quantity: itemm.quantity + 1 }
+                    : itemm
+                )
+              )
             )
-          : [...state.cart, { ...prod, qty: 1 }],
+          : [...state.cart, { ...prod, quantity: 1 }],
       };
 
     case PT.ADJUST_QTY:
@@ -33,7 +45,7 @@ const productReducer = (state = initialState, action) => {
         ...state,
         cart: state.cart.map((item) =>
           item.id === action.payload.id
-            ? { ...item, qty: +parseInt(action.payload.qty) }
+            ? { ...item, quantity: +parseInt(action.payload.quantity) }
             : item
         ),
       };

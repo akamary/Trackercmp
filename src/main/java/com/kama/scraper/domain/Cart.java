@@ -5,7 +5,6 @@ package com.kama.scraper.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name="cart")

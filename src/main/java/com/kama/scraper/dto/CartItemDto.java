@@ -18,15 +18,6 @@ public class CartItemDto {
         this.setProduct(cart.getProduct());
     }
 
-    @Override
-    public String toString() {
-        return "CartDto{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", productName=" + product.getName() +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }
@@ -49,5 +40,12 @@ public class CartItemDto {
     public void setProduct(Product product) {
         this.product = product;
     }
-
+    @Override
+    public String toString() {
+        return "CartDto{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", productName=" + product.getName() +
+                '}';
+    }
 }

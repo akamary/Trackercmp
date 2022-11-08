@@ -7,60 +7,50 @@ import CartItem from "./cartItem/CartItem";
 const Cart = ({ cart }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
-  let cartItems = cart;
-
+  let calcPrice = 0;
+  console.log(calcPrice);
   useEffect(() => {
-    let items = 0;
-    let price = 0;
-    let onlyNumbers = 0;
+    let total = 0;
+    calcPrice = 0;
     if (cart) {
+      calcPrice = parseFloat(cart.totalCost);
+      console.log(calcPrice);
       cart.forEach((cartItem) => {
         if (cartItem.cart) {
-          const inDB = cartItem.cart.data;
+          calcPrice = parseFloat(cartItem.cart.data.totalCost);
+          console.log(calcPrice);
+          const inDB = cartItem.cart.data.cartItems;
           if (inDB) {
-            inDB.map(
-              (item) => (
-                (onlyNumbers = item.price.replace(
-                  /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
-                  "$1"
-                )),
-                (items += parseFloat(item.p_qty)),
-                (price += parseFloat(item.p_qty) * parseFloat(onlyNumbers))
-              )
-            );
+            calcPrice = parseFloat(cartItem.cart.data.totalCost);
+            console.log(calcPrice);
+            inDB.map((item) => (total += parseInt(item.quantity)));
           } else {
+            calcPrice = parseFloat(cartItem.cart.data.totalCost);
+            console.log(calcPrice);
             cartItem.forEach((product) => {
-              onlyNumbers = product.price.replace(
-                /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
-                "$1"
-              );
-              items += parseFloat(product.qty);
-              price += parseFloat(product.qty) * parseFloat(onlyNumbers);
+              total += parseInt(product.qty);
             });
           }
         } else {
-          onlyNumbers = cartItem.price.replace(
-            /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
-            "$1"
-          );
-          items += parseFloat(cartItem.qty);
-          price += parseFloat(cartItem.qty) * parseFloat(onlyNumbers);
+          calcPrice = parseFloat(cart.totalCost);
+          console.log(calcPrice);
+          total += parseInt(cartItem.quantity);
         }
       });
     }
-    setTotalPrice(parseFloat(price));
-    setTotalItems(items);
-  }, [cartItems, cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
+    setTotalPrice(parseFloat(calcPrice));
+    setTotalItems(total);
+  }, [cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
 
   return (
     <div className={styles.cart}>
       <div className={styles.cart__items}>
-        {cartItems.map((itemData) => {
+        {cart.map((itemData) => {
           return (
             itemData.cart
-              ? (cartItems = itemData.cart.data)
-              : (cartItems = itemData),
-            cartItems.map((gg) => <CartItem item={gg} key={gg.id} />)
+              ? (cart = itemData.cart.data.cartItems)
+              : (cart = itemData),
+            cart.map((gg) => <CartItem item={gg} key={gg.product.id} />)
           );
         })}
       </div>
@@ -68,7 +58,7 @@ const Cart = ({ cart }) => {
         <h4 className={styles.summary__title}>Cart Summary</h4>
         <div className={styles.summary__price}>
           <span>TOTAL: ({totalItems} items)</span>
-          <span> {parseFloat(totalPrice.toFixed(2))} ILS</span>
+          <span> {parseFloat(totalPrice.toFixed(2))} </span>
         </div>
         <button className={styles.summary__checkoutBtn}>
           Proceed To Checkout

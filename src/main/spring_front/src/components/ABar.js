@@ -51,34 +51,24 @@ const ABar = ({ cart }) => {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useDispatch();
   const { drawerOpen, setDrawerOpen } = useUIContext();
-  const cartItems = cart;
+  const cartItemss = cart;
 
   useEffect(() => {
-    let count = 0;
     let countInCart = 0;
-    if (cartItems) {
-      cartItems.forEach((cartItem) => {
+    if (cart) {
+      cart.forEach((cartItem) => {
         if (cartItem.cart) {
-          const inDB = cartItem.cart.data;
+          const inDB = cartItem.cart.data.cartItems;
           if (inDB) {
-            inDB.map((item) => (countInCart += parseInt(item.p_qty)));
+            inDB.map((item) => (countInCart += parseInt(item.quantity)));
             setCartCount(parseInt(countInCart));
-            count = parseInt(countInCart);
-          } else {
-            cartItem.forEach((product) => {
-              count += parseInt(product.qty);
-            });
-            setCartCount(parseInt(count));
           }
-        } else {
-          count += parseInt(cartItem.qty);
-          setCartCount(parseInt(count));
         }
       });
     } else {
       setCartCount(0);
     }
-  }, [cart, cartCount, cartItems]);
+  }, [cart, cartCount]);
 
   const logout = () => {
     dispatch(logoutUser());
@@ -172,7 +162,7 @@ const ABar = ({ cart }) => {
       </Link>
       <Divider orientation="vertical" flexItem />
 
-      <Link to="/cart">
+      <Link to={"cart"}>
         <Tooltip title="Cart">
           <ListItemButton
             sx={{

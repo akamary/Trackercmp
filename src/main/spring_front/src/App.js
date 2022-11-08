@@ -43,7 +43,6 @@ const App = (current) => {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/list" element={<ProductList />} />
-                <Route path="/list/product/:id" element={<ProductView />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route

@@ -32,7 +32,7 @@ export const logoutUser = () => {
     dispatch(logoutRequest());
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("id");
-    dispatch(success({ username: "", isLoggedIn: false, cart: "" }));
+    dispatch(success({ username: "", isLoggedIn: false }));
   };
 };
 

@@ -112,13 +112,11 @@ class ProductList extends Component {
 
   handleView = (product) => {
     this.props.loadCurrentItem(product);
-    //this.setState(this.initialState);
   };
 
   submitProduct = (product) => {
     this.props.saveProduct(product);
     const userId = localStorage.getItem("id");
-    this.props.getAllProduct(userId);
   };
 
   changePage = (event) => {
@@ -391,19 +389,19 @@ class ProductList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    productObject: state.product,
-    products: state.product.products,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     productObject: state.product,
+//     products: state.product.products,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveProduct: (productId) => dispatch(saveProduct(productId)),
+    saveProduct: (product) => dispatch(saveProduct(product)),
     loadCurrentItem: (product) => dispatch(loadCurrentItem(product)),
     getAllProduct: (userId) => dispatch(getAllProduct(userId)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(null, mapDispatchToProps)(ProductList);

@@ -1,6 +1,7 @@
 package com.kama.scraper.config;
 
 import com.kama.scraper.domain.Role;
+import com.kama.scraper.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,12 +31,11 @@ public class JwtTokenProvider implements Serializable {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    private long validityInMilliseconds = 50 * 60 * 60; // 2 minute
+    private long validityInMilliseconds = 3600000L; // 1h
 
-    public String createToken(String username, Role role) {
+    public String createToken( String username, Role role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", role);
-
         Date now = new Date();
         return Jwts.builder().setClaims(claims).setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + validityInMilliseconds))
