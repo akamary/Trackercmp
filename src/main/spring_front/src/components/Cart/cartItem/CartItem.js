@@ -1,27 +1,15 @@
+//import "./CartIt.css";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import styles from "./CartItem.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { connect, useDispatch } from "react-redux";
-import {
-  adjustQty,
-  removeFromCart,
-  getAllProduct,
-} from "./../../../services/index";
-import { memo } from "react";
 
-const CartItem = ({ cart, item, adjustQty, removeFromCart }) => {
-  const [input, setInput] = useState(item.quantity);
-  const dispatch = useDispatch();
-  const onChangeHandler = (e) => {
-    setInput(e.target.value);
-    dispatch(adjustQty(item, e.target.value));
-  };
-
+const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
   return (
     <div>
-      {
+      {item ? (
         <div className={styles.cartItem}>
           <img
             className={styles.cartItem__image}
@@ -40,36 +28,26 @@ const CartItem = ({ cart, item, adjustQty, removeFromCart }) => {
                 type="number"
                 id="quantity"
                 name="quantity"
-                value={input}
-                onChange={onChangeHandler}
+                value={item.quantity}
+                onChange={(e) => qtyChangeHandler(item, e.target.value)}
               />
             </div>
             <Tooltip title="Delete">
               <IconButton aria-label="delete">
                 <DeleteIcon
                   fontSize="medium"
-                  onClick={() => dispatch(removeFromCart(item.product.id))}
+                  onClick={() => removeFromCartHandler(item.product.id)}
                   className={styles.actions__deleteItemBtn}
                 />
               </IconButton>
             </Tooltip>
           </div>
         </div>
-      }
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    cart: state.product.cart,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adjustQty: (item, value) => dispatch(adjustQty(item, value)),
-    removeFromCart: (id) => dispatch(removeFromCart(id)),
-    getAllProduct: (userId) => dispatch(getAllProduct(userId)),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
+export default CartItem;

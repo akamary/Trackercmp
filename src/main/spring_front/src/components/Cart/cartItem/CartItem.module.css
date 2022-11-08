@@ -1,16 +1,27 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+/* @font-face {
+  font-family: Montserrat;
+  src: url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);
+} */
+body {
+  font-family: "Montserrat";
+  color: black;
+  font-weight: bold;
+}
 .cartItem {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Montserrat";
   color: black;
   font-weight: bold;
   margin-bottom: 1rem;
   display: flex;
+  gap: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 1px;
   position: relative;
   height: 100px;
   width: 500px;
-  align-items: flex-start;
+  align-items: center;
   float: right;
   object-position: initial;
 }
@@ -28,23 +39,27 @@
   justify-content: space-between;
   color: var(--secondary-color);
   width: 50%;
+  text-align: center;
 }
 
 .details__title {
-  font-family: "Source Sans Pro", sans-serif;
   color: black;
   font-size: 0.9rem;
-  font-weight: bold;
 }
 
 .details__desc {
   font-size: 0.8rem;
+  bottom: 10px;
 }
 
 .details__price {
   font-size: 0.8rem;
   color: ffff;
   font-weight: bold;
+
+  position: absolute;
+  bottom: 0;
+  text-align: center;
 }
 
 .cartItem__actions {
@@ -61,6 +76,7 @@
   display: flex;
   align-items: center;
   right: 0;
+  font-size: 0.8rem;
 }
 
 .cartItem__qty input {
@@ -119,19 +135,20 @@
   .cartItem__actions {
     max-width: 200px;
     flex-direction: column;
-    position: absolute;
-    object-fit: contain;
+    position: sticky;
+    justify-content: space-between;
+    align-self: center;
+    object-fit: inherit;
     align-items: flex-end;
     right: 0;
     height: 50%;
   }
   .cartItem__select,
   .cartItem__deleteBtn {
-    padding: 5px 5px;
+    padding: 10px 10px;
   }
 
   .cartitem__price {
-    font-family: "Source Sans Pro", sans-serif;
     color: black;
     font-weight: bold;
     font-size: 0.2rem;
@@ -147,15 +164,16 @@
   }
   .cartItem__qty {
     display: flex;
-    font-size: 0.8rem;
-    align-items: center;
+    font-size: 0.65rem;
     right: 0;
+    font-weight: bold;
+    float: right;
   }
 
   .cartItem__qty input {
     padding: 10px;
     margin-left: 0rem;
-    width: 50px;
+    width: 45px;
     border-radius: 30px;
     border: 100px solid var(--primary-color);
     outline: none;
@@ -163,19 +181,20 @@
   }
 
   .actions__deleteItemBtn {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 20px;
     border: 1px solid var(--secondary-color);
     border-radius: 50%;
     cursor: pointer;
+    align-items: center;
     transition: all ease-in-out 0.7s;
     outline: none;
   }
 
   .details__title {
     font-size: 0.6rem;
-    font-family: "Source Sans Pro", sans-serif;
     color: black;
     font-weight: bold;
+    position: relative;
   }
 }

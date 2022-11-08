@@ -25,6 +25,10 @@ const Product = ({ name }) => {
         sx={{
           height: "100%",
           width: "100%",
+          [theme.breakpoints.up("md")]: {
+            flexDirection: "column",
+            alignItems: "center",
+          },
         }}
       >
         {name === "TV" && (

@@ -1,70 +1,108 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./Cart.module.css";
-import { connect } from "react-redux";
-
+import { connect, useDispatch } from "react-redux";
+import { adjustQty, removeFromCart } from "./../../services/index";
 import CartItem from "./cartItem/CartItem";
 
+const EnumType = {
+  REGEX: /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
+};
+
 const Cart = ({ cart }) => {
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
-  let calcPrice = 0;
-  console.log(calcPrice);
-  useEffect(() => {
-    let total = 0;
-    calcPrice = 0;
+  const dispatch = useDispatch();
+  const { cartItems } = cart;
+  console.log(cartItems);
+
+  useEffect(() => {}, []);
+  const qtyChangeHandler = (item, quantity) => {
+    dispatch(adjustQty(item, quantity));
+  };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
+  const getCartCount = () => {
+    return cart.reduce((quantity, item) => Number(item.quantity) + quantity, 0);
+  };
+
+  const getCartSubTotal = () => {
+    // return cart
+    //   .reduce((price, item) => price + item.product.price * item.quantity, 0)
+    //   .toFixed(2);
+    const total = getCartCount();
+    console.log(total);
     if (cart) {
-      calcPrice = parseFloat(cart.totalCost);
-      console.log(calcPrice);
+      let onlyNumbers = 0;
+      let price = 0;
+
       cart.forEach((cartItem) => {
-        if (cartItem.cart) {
-          calcPrice = parseFloat(cartItem.cart.data.totalCost);
-          console.log(calcPrice);
-          const inDB = cartItem.cart.data.cartItems;
+        if (cartItem.product.price) {
+          onlyNumbers = cartItem.product.price.replace(EnumType.REGEX, "$1");
+          price += parseFloat(cartItem.quantity) * parseFloat(onlyNumbers);
+        } else if (cartItem.cart) {
+          const inDB = cartItem.cart.data;
+
           if (inDB) {
-            calcPrice = parseFloat(cartItem.cart.data.totalCost);
-            console.log(calcPrice);
-            inDB.map((item) => (total += parseInt(item.quantity)));
+            inDB.map(
+              (item) => (
+                (onlyNumbers = cartItem.product.price.replace(
+                  EnumType.REGEX,
+                  "$1"
+                )),
+                (price += parseFloat(item.quantity) * parseFloat(onlyNumbers))
+              )
+            );
           } else {
-            calcPrice = parseFloat(cartItem.cart.data.totalCost);
-            console.log(calcPrice);
             cartItem.forEach((product) => {
-              total += parseInt(product.qty);
+              onlyNumbers = cartItem.product.price.replace(
+                EnumType.REGEX,
+                "$1"
+              );
+              price += parseFloat(product.quantity) * parseFloat(onlyNumbers);
             });
           }
-        } else {
-          calcPrice = parseFloat(cart.totalCost);
-          console.log(calcPrice);
-          total += parseInt(cartItem.quantity);
+          //items += parseFloat(cartItem.quantity);
+          price += parseFloat(cartItem.quantity) * parseFloat(onlyNumbers);
         }
       });
+      return price;
     }
-    setTotalPrice(parseFloat(calcPrice));
-    setTotalItems(total);
-  }, [cart, totalItems, setTotalItems, totalPrice, setTotalPrice]);
+  };
 
   return (
-    <div className={styles.cart}>
-      <div className={styles.cart__items}>
-        {cart.map((itemData) => {
-          return (
-            itemData.cart
-              ? (cart = itemData.cart.data.cartItems)
-              : (cart = itemData),
-            cart.map((gg) => <CartItem item={gg} key={gg.product.id} />)
-          );
-        })}
-      </div>
-      <div className={styles.cart__summary}>
-        <h4 className={styles.summary__title}>Cart Summary</h4>
-        <div className={styles.summary__price}>
-          <span>TOTAL: ({totalItems} items)</span>
-          <span> {parseFloat(totalPrice.toFixed(2))} </span>
+    <>
+      <div className={styles.cart}>
+        <div className={styles.cart__items}>
+          <h2>Cart</h2>
+
+          {cart.map(
+            (item) => (
+              item.cart ? (cart = item.cart.data.cartItems) : (cart = item),
+              cart.map((gg) => (
+                <CartItem
+                  key={gg.product.id}
+                  item={gg}
+                  qtyChangeHandler={qtyChangeHandler}
+                  removeFromCartHandler={removeFromCartHandler}
+                />
+              ))
+            )
+          )}
         </div>
-        <button className={styles.summary__checkoutBtn}>
-          Proceed To Checkout
-        </button>
+
+        <div className={styles.cart__summary}>
+          <h4 className={styles.summary__title}>Cart Summary</h4>
+          <div className={styles.summary__price}>
+            <span>Total items in cart: ({getCartCount()})</span>
+            <span> {getCartSubTotal()} ILS</span>
+          </div>
+          <button className={styles.summary__checkoutBtn}>
+            Proceed To Checkout
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -73,5 +111,11 @@ const mapStateToProps = (state) => {
     cart: state.product.cart,
   };
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    adjustQty: (item, value) => dispatch(adjustQty(item, value)),
+    removeFromCart: (id) => dispatch(removeFromCart(id)),
+  };
+};
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
