@@ -15,7 +15,10 @@ export default function Banner() {
 
   return (
     <BannerContainer>
-      <BannerImage src="https://glimageurl.golocall.com/golocal-post/image/521862_samsungservicecenter1504241092.jpeg" />
+      <BannerImage
+        src="https://www.kindpng.com/picc/m/140-1404282_used-computers-2-compressor-materiel-informatique-hd-png.png"
+        alt=""
+      />
       <BannerContent>
         <Typography variant="h6">Huge Collection</Typography>
         <BannerTitle variant="h2">New Products</BannerTitle>

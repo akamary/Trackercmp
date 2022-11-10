@@ -42,6 +42,7 @@ export const BannerImage = styled("img")(({ src, theme }) => ({
   height: "500px",
   [theme.breakpoints.down("md")]: {
     width: "350px",
+    height: "300px",
   },
   [theme.breakpoints.down("sm")]: {
     width: "320px",
@@ -78,16 +79,22 @@ export const BannerShopButton = styled(Button, {
   // We are specifying here how the styleOverrides are being applied based on props
   overridesResolver: (props, styles) => [
     styles.root,
-    props.color === "primary" && styles.primary,
-    props.color === "secondary" && styles.primary,
+    props.color === "primary" && Colors.primary,
+    props.color === "secondary" && Colors.primary,
   ],
 })(({ theme }) => ({
   padding: "20px 0px",
-  color: Colors.white,
+  //color: Colors.white,
   fontWeight: "bold",
   fontSize: "16px",
   width: "100%",
-  backgroundColor: Colors.primary,
+  //backgroundColor: Colors.primary,
+  background: "linear-gradient(45deg, #30cfd0 0%, #330867 100%)",
+  [theme.breakpoints.down("md")]: {
+    padding: "10px 0px",
+    fontSize: "14px",
+    
+  },
   [theme.breakpoints.down("sm")]: {
     padding: "10px 0px",
     fontSize: "14px",

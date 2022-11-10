@@ -10,6 +10,7 @@ import {
   Divider,
   styled,
   Drawer,
+  
 } from "@mui/material";
 import "./user/backscreens.css";
 import { useState, useEffect } from "react";
@@ -29,6 +30,7 @@ import {
   MyList,
   ActionIconsContainerDesktop,
   DrawerCloseButton,
+  ActionIconsContainerMobile,
 } from "./../styles/appbar";
 import { Colors } from "./../styles/theme";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -209,7 +211,7 @@ const ABar = ({ cart }) => {
           <CloseIcon
             sx={{
               fontSize: "2.5rem",
-              color: lighten(0.09, Colors.secondary),
+              color: lighten(0.09, Colors.white),
             }}
           />
         </DrawerCloseButton>
@@ -219,7 +221,7 @@ const ABar = ({ cart }) => {
           <Link to="/login">
             <Tooltip title="Login">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <LoginRoundedIcon />
                 </ListItemIcon>
               </ListItemButton>
@@ -230,7 +232,7 @@ const ABar = ({ cart }) => {
           <Link to={"register"}>
             <Tooltip title="Register">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <PersonAddTwoToneIcon />
                 </ListItemIcon>
               </ListItemButton>
@@ -249,17 +251,17 @@ const ABar = ({ cart }) => {
           <CloseIcon
             sx={{
               fontSize: "2.5rem",
-              color: lighten(0.09, Colors.secondary),
+              color: lighten(0.09, Colors.white),
             }}
           />
         </DrawerCloseButton>
       )}
-      <Drawer open={drawerOpen}>
+      <Drawer open={drawerOpen} >
         <List>
           <Link to={"home"}>
             <Tooltip title="Home">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <HomeIcon />
                 </ListItemIcon>
               </ListItemButton>
@@ -270,7 +272,7 @@ const ABar = ({ cart }) => {
           <Link to={"list"}>
             <Tooltip title="Products">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <FormatListBulletedIcon />
                 </ListItemIcon>
               </ListItemButton>
@@ -281,7 +283,7 @@ const ABar = ({ cart }) => {
           <Link to={"cart"}>
             <Tooltip title="Cart">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <AddShoppingCartIcon />
                   {cartCount}
                 </ListItemIcon>
@@ -293,7 +295,7 @@ const ABar = ({ cart }) => {
           <Link to={"login"} onClick={logout}>
             <Tooltip title="Logout">
               <ListItemButton>
-                <ListItemIcon sx={{ color: Colors.secondary }}>
+                <ListItemIcon sx={{ color: Colors.white }}>
                   <LogoutOutlinedIcon />
                 </ListItemIcon>
               </ListItemButton>
@@ -308,48 +310,27 @@ const ABar = ({ cart }) => {
     <>
       {matches ? (
         <AppbarContainer>
-          <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
-          <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
-          {auth.username.isLoggedIn ? userLinksMobile : guestLinksMobile}
-          <IconButton onClick={() => setDrawerOpen(true)}>
-            <MenuIcon />
-          </IconButton>
+          
+            <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
+            <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
+            {auth.username.isLoggedIn ? userLinksMobile : guestLinksMobile}
+            <IconButton onClick={() => setDrawerOpen(true)}>
+              <MenuIcon />
+            </IconButton>
+         
         </AppbarContainer>
       ) : (
         <AppbarContainer>
           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
           <ActionIconsContainerDesktop>
             <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
-             {auth.username.isLoggedIn ? userLinks : guestLinks}
+            {auth.username.isLoggedIn ? userLinks : guestLinks}
           </ActionIconsContainerDesktop>
         </AppbarContainer>
       )}
     </>
   );
 };
-//   return (
-//     <>
-//       {matches ? (
-//         <AppbarContainer>
-//           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
-//           <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
-//           {auth.username.isLoggedIn ? userLinksMobile : guestLinksMobile}
-//           <IconButton onClick={() => setDrawerOpen(true)}>
-//             <MenuIcon />
-//           </IconButton>
-//         </AppbarContainer>
-//       ) : (
-//         <AppbarContainer>
-//           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
-//           <ActionIconsContainerDesktop>
-//             <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
-//             {auth.username.isLoggedIn ? userLinks : guestLinks}
-//           </ActionIconsContainerDesktop>
-//         </AppbarContainer>
-//       )}
-//     </>
-//   );
-// };
 
 const mapStateToProps = (state) => {
   return {

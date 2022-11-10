@@ -18,7 +18,8 @@ export const AppbarHeader = styled(Typography)(() => ({
   fontSize: "2em",
   fontFamily: '"Aclonica", "sans-serif"',
 
-  background: "-webkit-linear-gradient(45deg, #09587a 80%, #191654 10%)",
+  background:
+    "-webkit-linear-gradient(45deg, #30cfd0 0%, #330867 100%)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   "&:hover": {
@@ -28,7 +29,7 @@ export const AppbarHeader = styled(Typography)(() => ({
 
 export const ActionIconsContainerMobile = styled(Box)(() => ({
   display: "flex",
-  background: Colors.shaft,
+  background: Colors.primary,
   position: "fixed",
   bottom: 0,
   left: 0,

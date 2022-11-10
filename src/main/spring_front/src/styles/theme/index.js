@@ -3,8 +3,8 @@ import { darken, lighten } from "polished";
 export const DrawerWidth = 250;
 
 export const Colors = {
-  primary: "#09587a",
-  secondary: "#191654",
+  primary: "#242c71",
+  secondary: "#30cfd0",
   success: "#4CAF50",
   info: "#00a2ff",
   danger: "#FF5722",
@@ -83,7 +83,7 @@ const theme = createTheme({
           },
         },
         secondary: {
-          background: "linear-gradient(#09587a,#191654)",
+          background: "linear-gradient(#30cfd0,#330867)",
           "&:hover": {
             background: lighten(0.5, Colors.primary),
           },

@@ -28,8 +28,9 @@ export const ProductImage = styled("img")(({ src, theme }) => ({
 }));
 
 export const ProductActionButton = styled(IconButton)(() => ({
-  background: Colors.white,
+  //background: Colors.secondary,
   margin: 4,
+  backgroundColor: "linear-gradient(to right, #314755 0%, #26a0da  51%, #314755  100%)",
 }));
 
 export const ProductFavButton = styled(ProductActionButton)(
