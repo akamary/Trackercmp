@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "./LoginScreen.css";
-import "./background.css";
 import { authenticateUser } from "../../services/index";
 import { Link } from "react-router-dom";
 import { Typography, Button } from "@mui/material";
@@ -43,7 +42,7 @@ const Login = (props) => {
       });
   };
   const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(Colors.primary[500]),
+    color: theme.palette.getContrastText(Colors.white),
     backgroundColor: Colors.primary[500],
     "&:hover": {
       backgroundColor: Colors.primary[700],
@@ -77,7 +76,12 @@ const Login = (props) => {
           <Button
             type="submit"
             variant="outlined"
-            style={{ borderRadius: 50, fontSize: "12px" }}
+            style={{
+              borderRadius: 50,
+              fontSize: "12px",
+              height: "30px",
+              padding: 12,
+            }}
           >
             Sign in
           </Button>

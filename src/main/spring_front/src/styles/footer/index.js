@@ -9,10 +9,12 @@ export const FooterTitle = styled(Typography)(() => ({
 
 export const SubscribeTf = styled(TextField)(() => ({
   ".MuiInputLabel-root": {
-    color: Colors.secondary,
+    backgroundColor: "linear-gradient(#09587a,#191654)",
   },
 
   ".MuiInput-root::before": {
-    borderBottom: `1px solid ${Colors.secondary}`,
+    borderBottom: "1px solid transperent",
+     borderColor: "#09587a",
+    
   },
 }));

@@ -11,7 +11,7 @@ export const CategoriesContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   padding: "20px 0px 20px 0px",
   overflow: "hidden",
-  background: Colors.secondary,
+  background: "linear-gradient(#09587a,#191654)",
 }));
 
 export const MessageText = styled(Typography)(({ theme }) => ({

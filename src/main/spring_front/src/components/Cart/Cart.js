@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallBack } from "react";
 import styles from "./Cart.module.css";
 import { connect, useDispatch } from "react-redux";
 import { adjustQty, removeFromCart } from "./../../services/index";
 import CartItem from "./cartItem/CartItem";
+
 
 const EnumType = {
   REGEX: /^(-)|[.,](?=[^.,]*[.,](?!$))|[,.]+$|[^0-9.,]+/g,
@@ -29,7 +30,7 @@ const Cart = ({ cart }) => {
   const getCartSubTotal = () => {
     // return cart
     //   .reduce((price, item) => price + item.product.price * item.quantity, 0)
-    //   .toFixed(2);
+    //
     const total = getCartCount();
     console.log(total);
     if (cart) {
@@ -69,42 +70,82 @@ const Cart = ({ cart }) => {
       return price;
     }
   };
-
   return (
-    <>
+    <div>
       <div className={styles.cart}>
-        <div className={styles.cart__items}>
-          <h2>Cart</h2>
+        
+          <div className={styles.cart__items}>
+            <h2>Cart</h2>
 
-          {cart.map(
-            (item) => (
-              item.cart ? (cart = item.cart.data.cartItems) : (cart = item),
-              cart.map((gg) => (
-                <CartItem
-                  key={gg.product.id}
-                  item={gg}
-                  qtyChangeHandler={qtyChangeHandler}
-                  removeFromCartHandler={removeFromCartHandler}
-                />
-              ))
-            )
-          )}
-        </div>
+            {cart.map(
+              (item) => (
+                item.cart ? (cart = item.cart.data.cartItems) : (cart = item),
+                cart.map((gg) => (
+                  <CartItem
+                    key={gg.product.id}
+                    item={gg}
+                    qtyChangeHandler={qtyChangeHandler}
+                    removeFromCartHandler={removeFromCartHandler}
+                  />
+                ))
+              )
+            )}
+          </div>
+        
 
-        <div className={styles.cart__summary}>
+        <div className={styles.container} id={styles.cart__sumary}>
           <h4 className={styles.summary__title}>Cart Summary</h4>
           <div className={styles.summary__price}>
             <span>Total items in cart: ({getCartCount()})</span>
-            <span> {getCartSubTotal()} ILS</span>
+            <span> {getCartSubTotal().toFixed(2)} ILS</span>
           </div>
+          
           <button className={styles.summary__checkoutBtn}>
             Proceed To Checkout
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+//   return (
+//     <div>
+//       <div className={styles.cart}>
+//         <div className={styles.container}>
+//           <div className={styles.cart__items}>
+//             <h2>Cart</h2>
+
+//             {cart.map(
+//               (item) => (
+//                 item.cart ? (cart = item.cart.data.cartItems) : (cart = item),
+//                 cart.map((gg) => (
+//                   <CartItem
+//                     key={gg.product.id}
+//                     item={gg}
+//                     qtyChangeHandler={qtyChangeHandler}
+//                     removeFromCartHandler={removeFromCartHandler}
+//                   />
+//                 ))
+//               )
+//             )}
+//           </div>
+//         </div>
+
+//         <div className={styles.container} id={styles.cart__sumary}>
+//           <h4 className={styles.summary__title}>Cart Summary</h4>
+//           <div className={styles.summary__price}>
+//             <span>Total items in cart: ({getCartCount()})</span>
+//             <span> {getCartSubTotal().toFixed(2)} ILS</span>
+//           </div>
+//           .
+//           <button className={styles.summary__checkoutBtn}>
+//             Proceed To Checkout
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 const mapStateToProps = (state) => {
   return {

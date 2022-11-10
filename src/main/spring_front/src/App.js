@@ -16,14 +16,14 @@ import Footer from "./components/footer";
 import { UIProvider } from "./components/context/ui";
 
 const App = (current) => {
-  window.onbeforeunload = (event) => {
-    const e = event || window.event;
-    e.preventDefault();
-    if (e) {
-      e.returnValue = "";
-    }
-    return "";
-  };
+//   window.onbeforeunload = (event) => {
+//     const e = event || window.event;
+//     e.preventDefault();
+//     if (e) {
+//       e.returnValue = "";
+//     }
+//     return "";
+//   };
 
   return (
     <Router>
@@ -42,7 +42,8 @@ const App = (current) => {
                 <Route path="/" element={<Login />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/list" element={<ProductList />} />
+                <Route path="/list" element={<ProductList />}/>
+                <Route path="/list/product/:id" element={<ProductView />}/>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route

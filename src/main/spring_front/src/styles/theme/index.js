@@ -4,7 +4,7 @@ export const DrawerWidth = 250;
 
 export const Colors = {
   primary: "#09587a",
-  secondary: "#80bed9",
+  secondary: "#191654",
   success: "#4CAF50",
   info: "#00a2ff",
   danger: "#FF5722",
@@ -79,13 +79,13 @@ const theme = createTheme({
         primary: {
           background: Colors.primary,
           "&:hover": {
-            background: lighten(0.05, Colors.primary),
+            background: lighten(0.5, Colors.primary),
           },
         },
         secondary: {
-          background: `${Colors.secondary}`,
+          background: "linear-gradient(#09587a,#191654)",
           "&:hover": {
-            background: lighten(0.05, Colors.primary),
+            background: lighten(0.5, Colors.primary),
           },
         },
       },

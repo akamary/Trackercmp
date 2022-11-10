@@ -21,8 +21,9 @@ export const ProductImage = styled("img")(({ src, theme }) => ({
   background: Colors.light_gray,
   padding: "20px",
   [theme.breakpoints.down("md")]: {
-    width: "80%",
-    padding: "16px",
+    width: "120px",
+    height: "100px",
+    padding: "10px",
   },
 }));
 
@@ -50,7 +51,7 @@ export const ProductAddToCart = styled(Button, {
   [theme.breakpoints.up("md")]: {
     position: "absolute",
     bottom: "2%",
-    width: "300px",
+    width: "200px",
     padding: "10px 5px",
     animation:
       show &&
@@ -61,7 +62,7 @@ export const ProductAddToCart = styled(Button, {
 }));
 
 export const ProductMetaWrapper = styled(Box)(({ theme }) => ({
-  padding: 1,
+  padding: 0.2,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -71,6 +72,7 @@ export const ProductActionsWrapper = styled(Box)(({ show, theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: show ? "visible" : "none",
     position: "absolute",
+
     right: 0,
     top: "20%",
     animation:

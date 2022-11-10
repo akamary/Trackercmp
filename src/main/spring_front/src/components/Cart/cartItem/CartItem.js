@@ -1,6 +1,4 @@
-//import "./CartIt.css";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CartItem.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -8,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
   return (
-    <div>
+    <>
       {item ? (
         <div className={styles.cartItem}>
           <img
@@ -33,10 +31,12 @@ const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
               />
             </div>
             <Tooltip title="Delete">
-              <IconButton aria-label="delete">
+              <IconButton
+                aria-label="delete"
+                onClick={() => removeFromCartHandler(item.product.id)}
+              >
                 <DeleteIcon
                   fontSize="medium"
-                  onClick={() => removeFromCartHandler(item.product.id)}
                   className={styles.actions__deleteItemBtn}
                 />
               </IconButton>
@@ -46,7 +46,7 @@ const CartItem = ({ item, qtyChangeHandler, removeFromCartHandler }) => {
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 };
 

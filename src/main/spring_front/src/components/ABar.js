@@ -35,16 +35,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useUIContext } from "./../components/context/ui";
 import CloseIcon from "@mui/icons-material/Close";
 import { lighten } from "polished";
-//import authToken from "../utils/authToken";
 
 const MiddleDivider = styled((props) => (
   <Divider variant="middle" {...props} />
 ))``;
 
 const ABar = ({ cart }) => {
-  // if (localStorage.jwtToken) {
-  //   authToken(localStorage.jwtToken);
-  // }
   const theme = useTheme();
   const [cartCount, setCartCount] = useState(0);
   const auth = useSelector((state) => state.auth);
@@ -287,6 +283,7 @@ const ABar = ({ cart }) => {
               <ListItemButton>
                 <ListItemIcon sx={{ color: Colors.secondary }}>
                   <AddShoppingCartIcon />
+                  {cartCount}
                 </ListItemIcon>
               </ListItemButton>
             </Tooltip>
@@ -323,13 +320,36 @@ const ABar = ({ cart }) => {
           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
           <ActionIconsContainerDesktop>
             <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
-            {auth.username.isLoggedIn ? userLinks : guestLinks}
+             {auth.username.isLoggedIn ? userLinks : guestLinks}
           </ActionIconsContainerDesktop>
         </AppbarContainer>
       )}
     </>
   );
 };
+//   return (
+//     <>
+//       {matches ? (
+//         <AppbarContainer>
+//           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
+//           <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
+//           {auth.username.isLoggedIn ? userLinksMobile : guestLinksMobile}
+//           <IconButton onClick={() => setDrawerOpen(true)}>
+//             <MenuIcon />
+//           </IconButton>
+//         </AppbarContainer>
+//       ) : (
+//         <AppbarContainer>
+//           <AppbarHeader variant="h4">Products Track and Compare</AppbarHeader>
+//           <ActionIconsContainerDesktop>
+//             <Link to={auth.username.isLoggedIn ? "home" : ""}></Link>
+//             {auth.username.isLoggedIn ? userLinks : guestLinks}
+//           </ActionIconsContainerDesktop>
+//         </AppbarContainer>
+//       )}
+//     </>
+//   );
+// };
 
 const mapStateToProps = (state) => {
   return {

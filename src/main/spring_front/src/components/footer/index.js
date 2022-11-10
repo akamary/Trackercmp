@@ -122,13 +122,13 @@ export default function Footer() {
           <FooterTitle variant="body1">newsletter</FooterTitle>
           <Stack>
             <SubscribeTf
-              color="primary"
+              color="secondary"
               label="Email address"
               variant="standard"
             />
             <Button
-              startIcon={<SendIcon sx={{ color: Colors.white }} />}
-              sx={{ mt: 4, mb: 4 }}
+              startIcon={<SendIcon sx={{ color: Colors.white,  }} />}
+              sx={{ mt: 4, mb: 4, background: "linear-gradient(#09587a,#191654)" }}
               variant="contained"
             >
               Subscribe

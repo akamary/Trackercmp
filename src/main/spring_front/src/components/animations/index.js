@@ -10,11 +10,6 @@ const flipHorizontalBottom = keyframes`
   }
 `;
 
-/**
- * ----------------------------------------
- * animation text-pop-up-top
- * ----------------------------------------
- */
 export const textPopUpTop = keyframes` 
   0% {
     -webkit-transform: translateY(0);
@@ -30,16 +25,9 @@ export const textPopUpTop = keyframes`
             transform-origin: 50% 50%;
     text-shadow: 0 1px 0 #000, 0 2px 0 #000, 0 3px 0 #000, 0 4px 0 #000, 
     0 5px 0 #000, 0 6px 0 #000, 0 7px 0 #000, 0 8px 0 #000, 0 9px 0 #000;
-    /* text-shadow: 0 1px 0 #000, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 
-    0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc; */
   }
 `;
 
-/**
-
- * animation slide-in-bottom
-
- */
 export const slideInBottom = keyframes`
   0% {
     -webkit-transform: translateY(50px);
@@ -53,11 +41,6 @@ export const slideInBottom = keyframes`
   }
 `;
 
-/**
-
-  animation slide-in-right
-
- */
 export const slideInRight = keyframes`
   0% {
     -webkit-transform: translateX(50px);

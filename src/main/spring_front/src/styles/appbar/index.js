@@ -17,7 +17,10 @@ export const AppbarHeader = styled(Typography)(() => ({
   flexGrow: 1,
   fontSize: "2em",
   fontFamily: '"Aclonica", "sans-serif"',
-  color: Colors.primary,
+
+  background: "-webkit-linear-gradient(45deg, #09587a 80%, #191654 10%)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
   "&:hover": {
     animation: ``,
   },

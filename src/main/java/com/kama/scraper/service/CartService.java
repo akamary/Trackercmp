@@ -35,7 +35,7 @@ public class CartService {
 
 
     public CartDto listCartItems(User user) {
-        List<Cart> cartList = cartRepository.findAllByUser(user);
+        List<Cart> cartList = cartRepository.findAllByUserOrderByProduct(user);
         List<CartItemDto> cartItems = new ArrayList<>();
         for (Cart cart:cartList){
             CartItemDto cartItemDto = getDtoFromCart(cart);

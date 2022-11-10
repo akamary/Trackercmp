@@ -15,11 +15,20 @@ const Product = ({ name }) => {
     <Grid
       item
       container
-      xs={2}
-      sm={4}
-      md={4}
+      xs={3}
+      sm={6}
+      md={12}
       flexDirection={"column"}
       alignItems="center"
+      sx={{
+        [theme.breakpoints.up("md")]: {
+          maxWidth: "250px",
+        },
+        [theme.breakpoints.down("md")]: {
+          flexDirection: "row",
+          alignItems: "center",
+        },
+      }}
     >
       <Productc
         sx={{
@@ -38,14 +47,36 @@ const Product = ({ name }) => {
           <ProductImage src="https://www.apple.com/newsroom/images/product/iphone/geo/apple_iphone-12_new-design_geo_10132020.jpg.og.jpg?202208190304" />
         )}
         <ProductMetaWrapper>
-          <Typography variant="h6" lineHeight={3}>
+          <Typography
+            variant="h6"
+            lineHeight={1.2}
+            align="center"
+            sx={{
+              [theme.breakpoints.down("md")]: {
+                fontSize: "11px",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "2px",
+              },
+            }}
+          >
             Show me {name} Stock!
           </Typography>
         </ProductMetaWrapper>
 
-        <Button color="secondary" variant="contained">
+        <Button color="primary" variant="contained" >
           <Link style={{ textDecoration: "none" }} to={`/list`}>
-            <Typography color={"white"}>View</Typography>
+            <Typography
+              color={"white"}
+              sx={{
+                
+                [theme.breakpoints.down("md")]: {
+                  fontSize: "11px",
+                },
+              }}
+            >
+              View
+            </Typography>
           </Link>
         </Button>
       </Productc>
