@@ -25,21 +25,23 @@ import {
   saveProduct,
   getAllProduct,
 } from "./../../services/index";
+import { Colors } from "./../../styles/theme/index.js";
 
 const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(blue[200]),
-  backgroundColor: blue[200],
+  color: theme.palette.getContrastText(Colors.white),
+  background: Colors.primary,
   class: "btn btn-primary btn-lg",
   borderRadius: 20,
 
   "&:hover": {
-    backgroundColor: blueGrey[700],
+    background: Colors.secondary,
   },
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    background: "linear-gradient(#09587a,#191654)",
+    height: "60px",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -315,7 +317,7 @@ class ProductList extends Component {
                           <IconButton>
                             <AddShoppingCartOutlinedIcon
                               fontSize="small"
-                              color="primary"
+                              color="#ffffff"
                             />
                           </IconButton>
                         </ColorButton>
