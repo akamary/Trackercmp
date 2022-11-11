@@ -100,12 +100,10 @@ public class ScraperApplication implements CommandLineRunner {
 					String priceSend = p.text();
 					System.out.println(p.text());
 
-					// creating a new item every iteration and saving
 					Product product = new Product();
 					product.setName(toSend);
 					product.setPrice(priceSend);
 					product.setImage(imgSend);
-					//product.setP_qty(0L);
 					productList.add(product);
 					productService.saveOrUpdate(product);
 				}

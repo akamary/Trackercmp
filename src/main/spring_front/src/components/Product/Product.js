@@ -64,14 +64,18 @@ const Product = ({ name }) => {
           </Typography>
         </ProductMetaWrapper>
 
-        <Button color="primary" variant="contained" >
+        <Button
+          variant="contained"
+          sx={{
+            background: "linear-gradient(45deg, #330867 40% ,#30cfd0 100%)",
+          }}
+        >
           <Link style={{ textDecoration: "none" }} to={`/list`}>
             <Typography
               color={"white"}
               sx={{
-                
                 [theme.breakpoints.down("md")]: {
-                  fontSize: "11px",
+                  fontSize: "10px",
                 },
               }}
             >

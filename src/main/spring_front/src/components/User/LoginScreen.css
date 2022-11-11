@@ -39,7 +39,7 @@ body :-ms-input-placeholder {
 
 #wrapper {
   background: #50a3a2;
-  background: linear-gradient(to bottom, #89bcf3 0%, #0a3e75 100%);
+  background: linear-gradient(to bottom, #242c71 30%, #30cfd0 100%);
   position: relative;
   left: 0;
   width: 100%;
@@ -64,11 +64,13 @@ body :-ms-input-placeholder {
 }
 .container h1 {
   font-size: 40px;
+  color: white;
   transition-duration: 1s;
   transition-timing-function: ease-in;
   font-weight: 300;
 }
 .login-screen__subtext {
+  color: white;
   font-size: 0.9rem;
   display: block;
   margin: 0.5rem 0;

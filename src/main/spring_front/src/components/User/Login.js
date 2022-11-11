@@ -89,7 +89,7 @@ const Login = (props) => {
           <span className="login-screen__subtext">
             Don't have an account?{" "}
             <Link
-              style={{ textDecoration: "none", color: Colors.white }}
+              style={{ textDecoration: "none", color: Colors.secondary }}
               to="/register"
             >
               Sign up

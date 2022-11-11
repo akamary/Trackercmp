@@ -28,11 +28,12 @@ import {
 import { Colors } from "./../../styles/theme/index.js";
 
 const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(Colors.white),
-  background: Colors.primary,
+  color: "white",
+  //background: Colors.primary,
   class: "btn btn-primary btn-lg",
   borderRadius: 20,
-
+  backgroundColor: "#242c71",
+  background: "linear-gradient(45deg, #30cfd0 30%, #330867 90%)",
   "&:hover": {
     background: Colors.secondary,
   },
@@ -40,8 +41,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    background: "linear-gradient(#09587a,#191654)",
-    height: "60px",
+    background: "linear-gradient(#30cfd0,#330867)",
+    height: "20px",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -314,11 +315,8 @@ class ProductList extends Component {
                             this.submitProduct(product);
                           }}
                         >
-                          <IconButton>
-                            <AddShoppingCartOutlinedIcon
-                              fontSize="small"
-                              color="#ffffff"
-                            />
+                          <IconButton >
+                            <AddShoppingCartOutlinedIcon fontSize="small" />
                           </IconButton>
                         </ColorButton>
                       </StyledTableCell>
