@@ -1,64 +1,16 @@
-# Stock Tracker Compare 
-## Live Demo
----need upload all screens
-## SignIn
-`Method POST-> http://localhost:8080/rest/user/authenticate`
-```
-ROLE-USER: 
-email: test@user.com
-password: 123456
-
-ROLE-ADMIN:
-email: test@admin.com
-password: 123456
-``` 
-
-* #### back
-
-```
-ADMIN Role- SignIn 
-test@admin.com
-123456
-``` 
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBackAdmin.png">
-
-
-```
-USER Role- SignIn
-test@user.com
-123456
-``` 
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBack.png">
-
-* #### front  
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/SignIn.gif">
-
-
-## SignUp
-
-* #### back
-
-`Method: POST-> http://localhost:8080/rest/user/register`
-
-```
-    username: avivkamary
-    email:kamaryaviv@gmail.com
-    fullname:Aviv Kamary
-    password:123456
-```
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
-
-* #### front
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/SignUp.gif">
-
+<center><h1> Products Stock Tracker Compare </h1></center>
 
 ## Description
-The goal of this project is to implement an application for tracking Products by implementing a backend app using Spring Boot in addition to a frontend app usgin Reactjs.
+The goal of this project is to implement an Restfull API application for <br>tracking and fetching products by implementing a backend app using Spring Boot in addition to a <br>frontend app using Reactjs and other technologies.
 Authentication and Authorization for securing both apps.
+
+<p align="center"> --- Currently working on this repo   --- </p>  
+<p align="center"><img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/halfDemo.gif">
+
+
+## 
+
+
 
 ## Technologies used
 >backend
@@ -78,6 +30,65 @@ Authentication and Authorization for securing both apps.
 * MaterialUI
 * Bootstrap
 * Axios
+
+## 
+
+### Sign-In
+`Method POST-> http://localhost:8080/rest/user/authenticate`
+
+USER - Role
+```
+email: test@user.com
+password: 123456
+```
+
+ <br>      
+ 
+ ADMIN - Role:
+```                
+email: test@admin.com
+password: 123456
+``` 
+
+### backend
+ADMIN Role - SignIn 
+```
+test@admin.com
+123456
+``` 
+
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBackAdmin.png">
+
+
+```
+USER Role- SignIn
+test@user.com
+123456
+``` 
+
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBack.png">
+
+
+
+
+## SignUp
+
+* #### back
+
+`Method: POST-> http://localhost:8080/rest/user/register`
+
+```
+    username: ""
+    email: ""
+    fullname: ""
+    password: ""
+```
+
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
+
+
+
+
 
 ## Configuration of Spring JPA, Datasource, JWT secret, etc.
  #### Add this file to the following path and name it as `application.properties`: 
