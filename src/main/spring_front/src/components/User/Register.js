@@ -91,11 +91,11 @@ const Register = (props) => {
           <input
             required
             autoComplete="off"
-            type="username"
-            name="username"
-            value={user.username}
+            type="password"
+            name="password"
+            value={user.password}
             onChange={userChange}
-            placeholder="Enter username"
+            placeholder="Enter password"
           />
           <Button
             type="submit"
