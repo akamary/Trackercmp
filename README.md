@@ -10,7 +10,19 @@ Spring Data JPA Pagination.
 
 
 ## 
-
+| Action | HTTP method | backURI | Token Required?|
+| --- | :---: | --- | :---: |
+| [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate | No |
+| Sign-Up | POST | /8080/rest/register | No |
+| Get user's Cart by given id={userId} | GET | /8080/rest/user/cart/{userId} | Yes |
+| Add product {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| Update product's quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
+| Delete {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| Find all Products | GET | /8080/rest/products/all | Yes |
+| Find Product by id | GET | /8080/rest/products/{id} | Yes |
+| Get all Products in pageNumber=? sort by "price" in "asc" dir | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
+| Get all Products in pageNumber=? sort by "price" in "desc" dir | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} | Yes |
+| Get all products by given text={searchText} | GET | /8080/rest/products/search/{searchText} | Yes |
 
 
 ## Technologies used
@@ -34,7 +46,7 @@ Spring Data JPA Pagination.
 
 ## 
 
-### Sign-In
+# Sign-In
 `Method POST-> http://localhost:8080/rest/user/authenticate`
 
 USER - Role
@@ -72,7 +84,7 @@ test@user.com
 
 
 
-## SignUp
+# Sign-Up
 
 * #### back
 
