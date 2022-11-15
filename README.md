@@ -13,16 +13,16 @@ Spring Data JPA Pagination.
 | Action | HTTP method | backURI | Token Required?|
 | --- | :---: | --- | :---: |
 | [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate | No |
-| Sign-Up | POST | /8080/rest/register | No |
+| [Sign-Up](#sign-up) | POST | /8080/rest/register | No |
 | Get user's Cart by given id={userId} | GET | /8080/rest/user/cart/{userId} | Yes |
 | Add product {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
 | Update product's quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
 | Delete {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
 | Find all Products | GET | /8080/rest/products/all | Yes |
 | Find Product by id | GET | /8080/rest/products/{id} | Yes |
-| Get all Products in pageNumber=? sort by "price" in "asc" dir | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
-| Get all Products in pageNumber=? sort by "price" in "desc" dir | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} | Yes |
-| Get all products by given text={searchText} | GET | /8080/rest/products/search/{searchText} | Yes |
+| [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
+| [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} | Yes |
+| [Get all products by given text={searchText}](#search-by-given-text) | GET | /8080/rest/products/search/{searchText} | Yes |
 
 
 ## Technologies used
@@ -104,7 +104,7 @@ test@user.com
 
 After a successful login the user can scan the list, search for specific product (by given text) in the products list and add them to cart (only with the user's Token).<br>
 #### back  
-# Get All Products ASC in Page 0-<br>
+# Get All Products ASC in Page 0<br>
 ```
 Method: GET->http://localhost:8080/rest/products?pageNumber=0&pageSize=5&sortBy=price&sortDir=asc
 Get all products in the given page number, in this example:
@@ -113,7 +113,7 @@ page=0, products per page=5, sort by=price, direction=ascending
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/paging.png">  
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/paging1.png">  
 
-# Get All Products DESC in Page 4-<br>
+# Get All Products DESC in Page 4<br>
 ```
 Method: GET->http://localhost:8080/rest/products?pageNumber=4&pageSize=5&sortBy=price&sortDir=desc
 Get all products in the given page number, in this example:
@@ -121,7 +121,7 @@ page=4, products per page=5, sort by=price, direction=descending
 ```  
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/pagingDesc.png"> 
 
-# Search by given text-<br>
+# Search by given text<br>
 ```
 Method: GET-> http://localhost:8080/rest/products/search/{searchText}
 searchText="samsung"-> http://localhost:8080/rest/products/search/samsung
