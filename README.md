@@ -5,7 +5,7 @@ The goal of this project is to implement an Restfull API application for <br>tra
 Authentication and Authorization for securing both apps.
 Spring Data JPA Pagination.
 
-<p align="center"> --- Currently working on this repo   --- </p>  
+<p align="center"> --- Currently working here   --- </p>  
 <p align="center"><img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/halfDemo.gif">
 
 
@@ -20,8 +20,8 @@ Spring Data JPA Pagination.
 | [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
 | [Update Product](#update-product) quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
 | [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
-| Find all Products | GET | /8080/rest/products/all | Yes |
-| Find Product by id | GET | /8080/rest/products/{id} | Yes |
+| [Find all Products](#find-all) | GET | /8080/rest/products/all | Yes |
+| [Find Product](#find-specific-product) by id | GET | /8080/rest/products/{id} | Yes |
 | [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
 | [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} | Yes |
 | [Get all products by given text={searchText}](#search-by-given-text) | GET | /8080/rest/products/search/{searchText} | Yes |
@@ -130,6 +130,17 @@ Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 
 
 #### back  
+## Find All
+```
+Method: GET->http://localhost:8080/rest/products/all
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/allProducts.png">
+## Find specific Product
+```
+Method: GET->http://localhost:8080/rest/products/{productId}
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/productById.png">
+
 ## Get All Products ASC in Page 0<br>
 ```
 Method: GET->http://localhost:8080/rest/products?pageNumber=0&pageSize=5&sortBy=price&sortDir=asc
