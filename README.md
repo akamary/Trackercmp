@@ -16,10 +16,10 @@ Spring Data JPA Pagination.
 | --- | :---: | --- | :---: |
 | [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate | No |
 | [Sign-Up](#sign-up) | POST | /8080/rest/register | No |
-| Get {userId} Cart | GET | /8080/rest/user/cart/{userId} | Yes |
-| Add to Cart product {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
-| Update product quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
-| Delete product {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| [Get Cart](#get-userid-cart) {userId} | GET | /8080/rest/user/cart/{userId} | Yes |
+| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| [Update Product](#update-product) quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
+| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
 | Find all Products | GET | /8080/rest/products/all | Yes |
 | Find Product by id | GET | /8080/rest/products/{id} | Yes |
 | [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
