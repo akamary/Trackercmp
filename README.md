@@ -16,10 +16,10 @@ Spring Data JPA Pagination.
 | --- | :---: | --- | :---: |
 | [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate | No |
 | [Sign-Up](#sign-up) | POST | /8080/rest/register | No |
-| Get user's Cart by given id={userId} | GET | /8080/rest/user/cart/{userId} | Yes |
-| Add product {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
-| Update product's quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
-| Delete {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| Get {userId} Cart | GET | /8080/rest/user/cart/{userId} | Yes |
+| Add to Cart product {productId} to Cart of {userId} | POST | 8080/rest/user/cart/{userId}/{productId} | Yes |
+| Update product quantity in Cart of {userId} | PUT | 8080/rest/user/cart/{userId} | Yes |
+| Delete product {productId} from cart of {userId} | DELETE | 8080/rest/user/cart/{userId}/{productId} | Yes |
 | Find all Products | GET | /8080/rest/products/all | Yes |
 | Find Product by id | GET | /8080/rest/products/{id} | Yes |
 | [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | 8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
@@ -101,10 +101,34 @@ test@user.com
 
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
 
+### <mark> After a successful login the user can scan the list, search for specific product<br>(by given text) in the products list and add them to cart (only with the user's Token).<br> </mark>
+## Get {userId} Cart
+```
+Method: GET->http://localhost:8080/rest/user/cart/{userId}
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/userCart.png">
+
+## Add to Cart
+```
+Method: POST->http://localhost:8080/rest/user/cart/{userId}/{productId}
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/addToCart.png">
+
+## Update product
+```
+Method: PUT->http://localhost:8080/rest/user/cart/{userId}
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/updateProduct.png">
+
+## Delete product
+```
+Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
+```
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">
 ## Pagination API  
 
 
-After a successful login the user can scan the list, search for specific product (by given text) in the products list and add them to cart (only with the user's Token).<br>
+
 #### back  
 ## Get All Products ASC in Page 0<br>
 ```
