@@ -124,7 +124,8 @@ Method: PUT->http://localhost:8080/rest/user/cart/{userId}
 ```
 Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 ```
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">  
+
 ## Pagination API  
 
 
@@ -134,7 +135,8 @@ Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 ```
 Method: GET->http://localhost:8080/rest/products/all
 ```
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/allProducts.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/allProducts.png">  
+
 ## Find specific Product
 ```
 Method: GET->http://localhost:8080/rest/products/{productId}
