@@ -104,7 +104,7 @@ test@user.com
 
 After a successful login the user can scan the list, search for specific product (by given text) in the products list and add them to cart (only with the user's Token).<br>
 #### back  
-* Get All Products ASC in Page 0-<br>
+# Get All Products ASC in Page 0-<br>
 ```
 Method: GET->http://localhost:8080/rest/products?pageNumber=0&pageSize=5&sortBy=price&sortDir=asc
 Get all products in the given page number, in this example:
@@ -113,7 +113,7 @@ page=0, products per page=5, sort by=price, direction=ascending
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/paging.png">  
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/paging1.png">  
 
-* Get All Products DESC in Page 4-<br>
+# Get All Products DESC in Page 4-<br>
 ```
 Method: GET->http://localhost:8080/rest/products?pageNumber=4&pageSize=5&sortBy=price&sortDir=desc
 Get all products in the given page number, in this example:
@@ -121,7 +121,7 @@ page=4, products per page=5, sort by=price, direction=descending
 ```  
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/pagingDesc.png"> 
 
-* Search by given text-<br>
+# Search by given text-<br>
 ```
 Method: GET-> http://localhost:8080/rest/products/search/{searchText}
 searchText="samsung"-> http://localhost:8080/rest/products/search/samsung
