@@ -1,7 +1,7 @@
 <center><h1> Products Stock Tracker Compare </h1></center>
 
 ## Description
-The goal of this project is to implement an Restfull API application for <br>tracking and fetching products by implementing a backend app using Spring Boot in addition to a <br>frontend app using Reactjs and other technologies.
+The goal of this project is to implement an Restfull API application for tracking and fetching products by implementing a backend app using Spring Boot in addition to a frontend app using Reactjs and other technologies.
 Authentication and Authorization for securing both apps.
 Spring Data JPA Pagination.
 
