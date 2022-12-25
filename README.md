@@ -1,11 +1,11 @@
 <center><h1> Products Stock Tracker Compare </h1></center>
 
 ## Description
-The goal of this project is to implement an Restfull API application for tracking and fetching products by implementing a backend app using Spring Boot in addition to a frontend app using Reactjs and other technologies.
+The goal of this project is to implement a Restfull API application for tracking and fetching products by implementing a backend app using Spring Boot in addition to a frontend app using Reactjs and other technologies.
 Authentication and Authorization for securing both apps.
 Spring Data JPA Pagination.
 
-<p align="center"> --- Currently working here   --- </p>  
+
 <p align="center"><img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/halfDemo.gif">
 
 
@@ -37,7 +37,7 @@ Spring Data JPA Pagination.
 * Spring Data JPA
 * Maven
 * jsoup library, for fetching products data
-* postman for checking the API
+
 
 >frontend
 * React
