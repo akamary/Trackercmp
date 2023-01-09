@@ -10,23 +10,23 @@ Spring Data JPA Pagination.
 
 
 ## 
-<<<<<<< Updated upstream
+
 * You can watch all other endpoints in the [Description](#description) above.  
 
 | Action | HTTP method | backURI |
 | --- | :---: | --- |
-| [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate |
-| [Sign-Up](#sign-up) | POST | /8080/rest/register |
-| [Get Cart](#get-userid-cart) {userId} | GET | /8080/rest/user/cart/{userId} |
-| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /8080/rest/user/cart|
-| [Update Product](#update-product) quantity in Cart of {userId} | PUT | /8080/rest/user/cart/{userId} |
-| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | /8080/rest/user/cart/{userId} |
-| [Find all Products](#find-all) | GET | /8080/rest/products/all |
-| [Find Product](#find-specific-product) by id | GET | /8080/rest/products/{id} |
-| [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | /8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} |
-| [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | /8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} |
-| [Get all products by given text={searchText}](#search-by-given-text) | GET | /8080/rest/products/search/{searchText} |
-=======
+| [Sign-In](#sign-in) | POST | /rest/user/authenticate |
+| [Sign-Up](#sign-up) | POST | /rest/register |
+| [Get Cart](#get-userid-cart) {userId} | GET | /rest/user/cart/{userId} |
+| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /rest/user/cart|
+| [Update Product](#update-product) quantity in Cart of {userId} | PUT | /rest/user/cart/{userId} |
+| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | /rest/user/cart/{userId} |
+| [Find all Products](#find-all) | GET | /rest/products/all |
+| [Find Product](#find-specific-product) by id | GET | /rest/products/{id} |
+| [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | /rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} |
+| [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | /rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} |
+| [Get all products by given text={searchText}](#search-by-given-text) | GET | /rest/products/search/{searchText} |
+
 
 
 
@@ -52,19 +52,13 @@ Spring Data JPA Pagination.
 ## 
 
 ## Sign-In
-`Method POST-> http://localhost:8080/rest/user/authenticate`
+`POST-> http://localhost:8080/rest/user/authenticate`
 
 USER - Role
 ```
 email: test@user.com
 password: 123456
 ```
-
-
- <br>      
- 
- ADMIN - Role:
-=======
 
  <br>      
 
@@ -77,8 +71,6 @@ password: 123456
 
 ### backend
 
-ADMIN Role - SignIn 
-=======
 ADMIN Role - SignIn
 
 ```
@@ -141,12 +133,6 @@ Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">  
 
 
-## Pagination API  
-
-
-
-#### back  
-=======
 ## Pagination API
 
 
