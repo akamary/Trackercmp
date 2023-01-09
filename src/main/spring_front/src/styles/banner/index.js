@@ -30,10 +30,6 @@ export const BannerContent = styled(Box)((matches, theme) => ({
   maxWidth: 420,
   padding: "30px",
   alignItems: "center",
-  // [theme.breakpoints.down("sm")]: {
-  //   fontSize: "42px",
-  //   maxWidth: "100px",
-  // },
 }));
 
 export const BannerImage = styled("img")(({ src, theme }) => ({
@@ -72,11 +68,9 @@ export const BannerDescription = styled(Typography)(({ theme }) => ({
 }));
 
 export const BannerShopButton = styled(Button, {
-  // Configure which props should be forwarded on DOM
   shouldForwardProp: (prop) => prop !== "color",
   name: "MyShopButton",
   slot: "Root",
-  // We are specifying here how the styleOverrides are being applied based on props
   overridesResolver: (props, styles) => [
     styles.root,
     props.color === "primary" && Colors.primary,
@@ -84,11 +78,9 @@ export const BannerShopButton = styled(Button, {
   ],
 })(({ theme }) => ({
   padding: "20px 0px",
-  //color: Colors.white,
   fontWeight: "bold",
   fontSize: "16px",
   width: "100%",
-  //backgroundColor: Colors.primary,
   background: "linear-gradient(45deg, #30cfd0 0%, #330867 100%)",
   [theme.breakpoints.down("md")]: {
     padding: "10px 0px",

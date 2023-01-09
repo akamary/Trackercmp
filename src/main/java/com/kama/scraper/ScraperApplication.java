@@ -76,7 +76,8 @@ public class ScraperApplication implements CommandLineRunner {
 				// loading URL in docu, fetching title and print to the console
 				final Document document = Jsoup.connect(url).get();
 				// selecting the cssQuery in which the title sits
-				Elements liList = document.select("li.s-item.s-item__pl-on-bottom.s-item--watch-at-corner");
+				//Elements liList = document.select("li.s-item.s-item__pl-on-bottom.s-item--watch-at-corner");
+				Elements liList = document.select("li.s-item.s-item__pl-on-bottom");
 				// printing only for checking how many items fetched
 				System.out.println(liList.size());
 
@@ -87,7 +88,7 @@ public class ScraperApplication implements CommandLineRunner {
 				for (Element e : liList) {
 					// fetching some images
 
-					String img = e.select("div.s-item__image-wrapper img").attr("src");
+					String img = e.select("div.s-item__image-section img").attr("src");
 					String imgSend = img.toString();
 					imgSend=imgSend.replace("s-l225","s-l500");
 					System.out.println(imgSend);

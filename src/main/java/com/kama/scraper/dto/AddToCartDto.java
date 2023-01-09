@@ -6,10 +6,10 @@ public class AddToCartDto {
     private Long id;
     private Long userId;
     private Long productId;
-
+    private String username;
     private Long quantity;
 
-    public AddToCartDto(Long userId, Long productId, Long quantity, String username) {
+    public AddToCartDto(Long userId, String username,Long productId, Long quantity) {
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
@@ -36,7 +36,7 @@ public class AddToCartDto {
         this.username = username;
     }
 
-    private String username;
+
     public AddToCartDto() {
     }
 
@@ -49,9 +49,11 @@ public class AddToCartDto {
 
     public AddToCartDto(Cart cart) {
         this.setId(cart.getId());
+
         this.setProductId(cart.getProductId());
         this.setUserId(cart.getUserId());
         this.setQuantity(cart.getQuantity());
+        this.setUsername(cart.getUser().getUsername());
     }
 
     public AddToCartDto(Long userId, Long productId, Long quantity) {

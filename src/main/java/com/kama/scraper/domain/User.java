@@ -3,9 +3,7 @@ package com.kama.scraper.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,9 +14,9 @@ public class User {
     private Long id;
     @Column(nullable = false)
     private String username;
-    @Column(nullable = false)
+
     private String fullname;
-    @Column(nullable = false)
+
     private String email;
     @Column
     private Long qty;
@@ -28,49 +26,42 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Product> myProducts = new HashSet<>();
 
-    public User(Long id, String username, String fullname, String email, Long qty) {
-        this.id = id;
+    public User(String username, String password) {
         this.username = username;
-        this.fullname = fullname;
-        this.email = email;
-        this.qty = qty;
-    }
-
-    public User(Long id, String username, String fullname, String email, Long qty, String password, Role role) {
-        this.id = id;
-        this.username = username;
-        this.fullname = fullname;
-        this.email = email;
-        this.qty = qty;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String username, String fullname, String email, Long qty, String password) {
-        this.username = username;
-        this.fullname = fullname;
-        this.email = email;
-        this.qty = qty;
         this.password = password;
     }
 
-    public User(String username, String fullname, String email, Long qty, String password, Role role) {
+    public User(String username, String fullname, String email, String password, Role role) {
         this.username = username;
         this.fullname = fullname;
         this.email = email;
-        this.qty = qty;
         this.password = password;
         this.role = role;
     }
 
     public User() {
-
     }
+
+    public User(String username, Role role) {
+        this.username = username;
+        this.role = role;
+    }
+
+    public User(Long id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
 
     public Long getId() {
         return id;
@@ -142,6 +133,8 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
+
+
     public Product getProdDetails(Product product){
         boolean inCart = false;
         for(Product p:myProducts){

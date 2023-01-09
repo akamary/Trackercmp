@@ -74,3 +74,25 @@
   width: 25px;
   height: 25px;
 }
+.product__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1rem;
+}
+.buttons__btn {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.buttons__btn:hover {
+  opacity: 0.7;
+}
+.buttons__view {
+  background: var(--light-color);
+  color: var(--secondary-color);
+}

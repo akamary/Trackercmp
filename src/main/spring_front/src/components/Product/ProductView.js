@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const ProductView = () => {
+const ProductView = (current) => {
   const [qty, setQty] = useState(1);
 
   const productDetails = useSelector((state) => state.product.currentItem);
@@ -31,9 +31,9 @@ const ProductView = () => {
   useEffect(() => {});
 
   return (
-    <div className="productscreen">
+    <div className="Productc">
       <>
-        <div className="productscreen__left">
+        <div className="ProductImage">
           <div className="left__image">
             <img src={product.image} alt={product.name} width="250px" />
           </div>
@@ -62,6 +62,7 @@ const mapStateToProps = (state) => {
   return {
     productObject: state.product,
     cart: state.product.cart,
+    current: state.product.currentItem,
   };
 };
 

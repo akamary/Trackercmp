@@ -1,7 +1,7 @@
 package com.kama.scraper.domain;
 
 import javax.persistence.*;
-
+//
 @Entity
 @Table(name = "t_product")
 public class Product {
@@ -17,8 +17,6 @@ public class Product {
             generator = "product_sequence"
     )
     private Long id;
-
-
     private String name;
     private String price;
     @ManyToOne
@@ -34,10 +32,6 @@ public class Product {
         this.price = price;
     }
 
-
-
-
-
     public Product(String name, String price, String image) {
         this.name = name;
         this.price = price;
@@ -52,7 +46,6 @@ public class Product {
         this.price = price;
         this.image = image;
     }
-
 
     public Product() {}
 

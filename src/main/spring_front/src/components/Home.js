@@ -1,20 +1,17 @@
 import React from "react";
 import authToken from "../utils/authToken";
 import Product from "./product/Product";
-import "./user/backscreens.css";
 import "./Home.css";
 import Banner from "./banner";
 import Categories from "./categories";
 import { Container, Grid } from "@mui/material";
 import { getAllProduct } from "../services/index";
 import { connect, useDispatch } from "react-redux";
-import { useTheme } from "@mui/material/styles";
 
 const Home = () => {
   if (localStorage.jwtToken) {
     authToken(localStorage.jwtToken);
   }
-  const theme = useTheme();
   const userId = localStorage.getItem("id");
   const dispatch = useDispatch();
   dispatch(getAllProduct(userId));

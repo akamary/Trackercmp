@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./RegisterScreen.css";
-import "./background.css";
 import { Colors } from "./../../styles/theme/";
 import { registerUser } from "../../services/index";
 import { Button } from "@mui/material";

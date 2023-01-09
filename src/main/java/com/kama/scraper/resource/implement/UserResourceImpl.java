@@ -2,9 +2,11 @@ package com.kama.scraper.resource.implement;
 
 import com.kama.scraper.config.JwtTokenProvider;
 import com.kama.scraper.domain.User;
+import com.kama.scraper.dto.AuthenticateRequestDTO;
 import com.kama.scraper.repository.RoleRepository;
 import com.kama.scraper.repository.UserRepository;
 import com.kama.scraper.service.IService;
+import com.kama.scraper.service.implement.UserDetailsServiceImpl;
 import com.kama.scraper.utils.ConstantUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class UserResourceImpl {
     private JwtTokenProvider tokenProvider;
 
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -44,9 +49,12 @@ public class UserResourceImpl {
 
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity<String> register(@RequestBody AuthenticateRequestDTO body) {
+
         JSONObject jsonObject = new JSONObject();
-        if(userRepository.findByEmail(user.getEmail()) != null) return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
+        User user = userRepository.findByUsername(body.getUsername());
+
+        if(userRepository.findByUsername(user.getUsername()) != null) return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         log.info("UserResourceImpl : register");
 
         try {
@@ -61,32 +69,33 @@ public class UserResourceImpl {
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> authenticate(@RequestBody User user) {
+    public ResponseEntity<String> authenticate(@RequestBody AuthenticateRequestDTO body) {
         log.info("UserResourceImpl : authenticate");
         JSONObject jsonObject = new JSONObject();
         try {
+            User user = userRepository.findByUsername(body.getUsername());
+
             Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword()));
             if (authentication.isAuthenticated()) {
-                String email = user.getEmail();
                 jsonObject.put("name", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
-                jsonObject.put("token", tokenProvider.createToken(email, userRepository.findByEmail(email).getRole()));
-                jsonObject.put("id", userRepository.findByEmail(email).getId());
+                jsonObject.put("token", tokenProvider.createToken(body.getUsername(), user.getRole()));
+                jsonObject.put("id", user.getId());
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
             try {
-                jsonObject.put("exception", e.getMessage());
+                jsonObject.put("exception in here", e.getMessage());
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         }
         return null;
     }

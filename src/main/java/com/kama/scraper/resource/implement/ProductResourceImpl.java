@@ -60,7 +60,7 @@ public class ProductResourceImpl implements Resource<Product> {
 
     @Override
     public ResponseEntity<Product> update(Product product) {
-        return new ResponseEntity<>(productService.saveOrUpdate(product), HttpStatus.OK);
+        return null;
     }
 
     @Override

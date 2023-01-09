@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Table from "@mui/material/Table";
-import * as AT from "./../../services/index";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -9,15 +8,13 @@ import TableBody from "@mui/material/TableBody";
 import Paper from "@mui/material/Paper";
 import TableHead from "@mui/material/TableHead";
 import { Container } from "@mui/material";
-import "./../user/backscreens.css";
 import { Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import styles from "./../ProductList.css";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { blue, blueGrey } from "@mui/material/colors";
-import { Link } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
+import { Link, useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
 import Categories from "./../categories";
 import PreviewIcon from "@mui/icons-material/Preview";
 import {
@@ -26,10 +23,11 @@ import {
   getAllProduct,
 } from "./../../services/index";
 import { Colors } from "./../../styles/theme/index.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquare } from "@fortawesome/free-solid-svg-icons";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: "white",
-  //background: Colors.primary,
   class: "btn btn-primary btn-lg",
   borderRadius: 20,
   backgroundColor: "#242c71",
@@ -63,6 +61,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 class ProductList extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       products: [],
       search: "",
@@ -115,6 +114,9 @@ class ProductList extends Component {
 
   handleView = (product) => {
     this.props.loadCurrentItem(product);
+    console.log("check1");
+    
+    console.log("check1");
   };
 
   submitProduct = (product) => {
@@ -274,19 +276,17 @@ class ProductList extends Component {
                   {products.map((product) => (
                     <StyledTableRow key={product.id}>
                       <StyledTableCell>
-                        <Link to={`/list/product/${product.id}`}>
-                          <IconButton>
-                            <PreviewIcon
-                              size="medium"
-                              color="primary"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                this.handleView(product);
-                              }}
-                            />
-                          </IconButton>
-                        </Link>
+                            <Link to={`/product/${product.id}`}>
+                              <button
+                              className="btn" size="medium"
+                                onClick={(e) => {
+                                  //e.preventDefault();
+                                  this.handleView(product);
+                                }}
+                              ></button>
+                            </Link>
                       </StyledTableCell>
+
                       <StyledTableCell component="th" scope="row" border="5px">
                         <div className={styles.productItem}>
                           <img
@@ -315,7 +315,7 @@ class ProductList extends Component {
                             this.submitProduct(product);
                           }}
                         >
-                          <IconButton >
+                          <IconButton>
                             <AddShoppingCartOutlinedIcon fontSize="small" />
                           </IconButton>
                         </ColorButton>
@@ -389,12 +389,6 @@ class ProductList extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     productObject: state.product,
-//     products: state.product.products,
-//   };
-// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
