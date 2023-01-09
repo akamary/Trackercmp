@@ -13,7 +13,7 @@ Spring Data JPA Pagination.
 * You can watch all other endpoints in the [Description](#description) above.  
 
 | Action | HTTP method | backURI |
-| --- | :---: | --- | :---: |
+| --- | :---: | --- |
 | [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate |
 | [Sign-Up](#sign-up) | POST | /8080/rest/register |
 | [Get Cart](#get-userid-cart) {userId} | GET | /8080/rest/user/cart/{userId} |
