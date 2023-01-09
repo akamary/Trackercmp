@@ -27,22 +27,7 @@ Spring Data JPA Pagination.
 | [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | /8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} |
 | [Get all products by given text={searchText}](#search-by-given-text) | GET | /8080/rest/products/search/{searchText} |
 =======
-* You can watch all other endpoints in the [Description](#description) above.
 
-| Action | HTTP method | backURI | Token Required?|
-| --- | :---: | --- | :---: |
-| [Sign-In](#sign-in) | POST | /8080/rest/user/authenticate | No |
-| [Sign-Up](#sign-up) | POST | /8080/rest/register | No |
-| [Get Cart](#get-userid-cart) {userId} | GET | /8080/rest/user/cart/{userId} | Yes |
-| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /8080/rest/user/cart/{userId}/{productId} | Yes |
-| [Update Product](#update-product) quantity in Cart of {userId} | PUT | /8080/rest/user/cart/{userId} | Yes |
-| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | /8080/rest/user/cart/{userId}/{productId} | Yes |
-| [Find all Products](#find-all) | GET | /8080/rest/products/all | Yes |
-| [Find Product](#find-specific-product) by id | GET | /8080/rest/products/{id} | Yes |
-| [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | /8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} | Yes |
-| [Get all Products in {page} "desc" order](#get-all-products-desc-in-page-4) | GET | /8080/rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={desc} | Yes |
-| [Get all products by given text={searchText}](#search-by-given-text) | GET | /8080/rest/products/search/{searchText} | Yes |
->>>>>>> Stashed changes
 
 
 ## Technologies used
@@ -74,7 +59,7 @@ USER - Role
 email: test@user.com
 password: 123456
 ```
-<<<<<<< Updated upstream
+
 
  <br>      
  
@@ -84,18 +69,18 @@ password: 123456
  <br>      
 
 ADMIN - Role:
->>>>>>> Stashed changes
+
 ```                
 email: test@admin.com
 password: 123456
 ``` 
 
 ### backend
-<<<<<<< Updated upstream
+
 ADMIN Role - SignIn 
 =======
 ADMIN Role - SignIn
->>>>>>> Stashed changes
+
 ```
 test@admin.com
 123456
@@ -155,7 +140,7 @@ Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 ```
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">  
 
-<<<<<<< Updated upstream
+
 ## Pagination API  
 
 
@@ -167,7 +152,7 @@ Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
 
 
 #### back
->>>>>>> Stashed changes
+
 ## Find All
 ```
 Method: GET->http://localhost:8080/rest/products/all
