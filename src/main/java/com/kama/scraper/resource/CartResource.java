@@ -1,26 +1,25 @@
 package com.kama.scraper.resource;
 
+
 import com.kama.scraper.config.JwtTokenFilter;
-import com.kama.scraper.config.JwtTokenProvider;
 import com.kama.scraper.domain.Cart;
 import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
 import com.kama.scraper.dto.AddToCartDto;
 import com.kama.scraper.dto.CartDto;
-import com.kama.scraper.repository.CartRepository;
 import com.kama.scraper.repository.ProductRepository;
 import com.kama.scraper.repository.UserRepository;
 import com.kama.scraper.service.CartService;
-import com.kama.scraper.service.implement.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -30,72 +29,65 @@ public class CartResource {
     private CartService cartService;
     private static Logger log = LoggerFactory.getLogger(JwtTokenFilter.class);
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(CartResource.class);
 
+    @PreAuthorize("#addToCartDto.username.toString() == authentication.name")
+    @PostMapping(value = "/add",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addToCart(@RequestBody AddToCartDto addToCartDto) {
+        try {
+            User user = userRepository.findById(addToCartDto.getUserId()).orElse(null);
+            Product product = productRepository.findById(addToCartDto.getProductId()).orElse(null);
+            if (user != null && product != null && user.getUsername().equals(addToCartDto.getUsername())) {
 
-    @PostMapping
-    public ResponseEntity<Cart> addToCart(@RequestBody AddToCartDto addToCartDto, @RequestHeader("Authorization") String authorization){
-        User user = userRepository.findById(addToCartDto.getUserId()).get();
-        Product product = productRepository.findById(addToCartDto.getProductId()).get();
-        List<Cart> cartList = cartRepository.findAllByUser(user);
-        String token = authorization.substring("Bearer ".length());
-        if (token != null) {
-            try {
-                String username = jwtTokenProvider.getUsernameFromToken(token);
-                for (Cart cart : cartList) {
-                    if (cart.getProduct().getId().equals(addToCartDto.getProductId())) {
-                        Long qty = cart.getQuantity();
-                        cart.setQuantity(qty + 1L);
-                        addToCartDto.setQuantity(qty + 1L);
-                        cartRepository.save(cart);
-                        return new ResponseEntity<>(cart, HttpStatus.OK);
-                    }
-                }
-                if (addToCartDto.getQuantity() == null) {
-
-                    addToCartDto.setQuantity(1L);
-                }
-
-                System.out.println("product to add" + product.getName());
-                //cartService.addToCart(addToCartDto, product, user);
-                return new ResponseEntity<>(cartService.addToCart(addToCartDto, product, user), HttpStatus.CREATED);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                    cartService.addToCart(user,product,addToCartDto.getQuantity());
+                return new ResponseEntity<>("Product added to cart successfully!", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("You are not allowed to access this resource!", HttpStatus.FORBIDDEN);
             }
-        } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while adding product to cart!", HttpStatus.BAD_REQUEST);
+        }
     }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<CartDto> getCart(@PathVariable Long userId ) {
-        System.out.println(userId);
         User user = userRepository.findById(userId).get();
-        CartDto cartDto = cartService.listCartItems(user);
-        return new ResponseEntity<>(cartDto,HttpStatus.OK);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(user!=null && user.getUsername().equals(auth.getName())){
+            CartDto cartDto = cartService.listCartItems(user);
+            System.out.println("in Cart");
+            return new ResponseEntity<>(cartDto,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+
     }
 
+    @PreAuthorize("#addToCartDto.username.toString() == authentication.name && #userId == #addToCartDto.userId")
     @PutMapping(path = "/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cart> updateCartItem(@PathVariable("userId") Long userId, @RequestBody AddToCartDto cartDto){
+    public ResponseEntity<CartDto> updateCartItem(@RequestBody AddToCartDto addToCartDto,@PathVariable("userId") Long userId){
         try {
-            User user = userRepository.findById(userId).get();
-            Product product = productRepository.findById(cartDto.getProductId()).get();
-            Cart cart = cartService.updateCartItem(cartDto, user,product);
-            return new ResponseEntity<>(cart, HttpStatus.OK);
+            User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+            Product product = productRepository.findById(addToCartDto.getProductId()).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+            Cart cart = cartService.updateCartItem( user,product,addToCartDto.getQuantity());
+            if(cart == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            CartDto cartDto2 = cartService.listCartItems(user);
+            System.out.println(cartDto2);
+            return new ResponseEntity<>(cartDto2, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             logger.error("An error occurred while updating the cart item", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    
     @DeleteMapping("/cart/{userId}/{productId}")
     public ResponseEntity<String> deleteCartItem(@PathVariable Long userId,@PathVariable Long productId) {
         User user = userRepository.findById(userId).get();

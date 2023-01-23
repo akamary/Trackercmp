@@ -28,9 +28,19 @@ public class CartService {
     public CartService() {
     }
 
-    public Cart addToCart(AddToCartDto addToCartDto, Product product, User user){
-        Cart cart = new Cart(product, addToCartDto.getQuantity(), user);
-        return cartRepository.save(cart);
+    public void addToCart(User user, Product product, Long quantity) {
+        Cart cart = cartRepository.findByUserAndProduct(user, product);
+        if (cart == null) {
+            cart = new Cart();
+            cart.setUser(user);
+            cart.setProduct(product);
+            cart.setQuantity(quantity);
+            cartRepository.save(cart);
+        } else {
+            cart.setQuantity(cart.getQuantity() + quantity);
+            cartRepository.save(cart);
+        }
+
     }
 
 
@@ -58,8 +68,25 @@ public class CartService {
     }
 
 
+    public Cart updateCartItem( User user, Product product, Long qty) {
+        Cart cart = new Cart();
+        List<Cart> cartList = cartRepository.findAllByUser(user);
+        for(Cart c : cartList){
+            if(c.getProduct().getId().equals(product.getId())){
+                c.setQuantity(qty);
+                c.setProduct(product);
+                c.setUser(user);
+                return cartRepository.save(c);
+            }
+        }
+        cart.setUser(user);
+        cart.setProduct(product);
+        cart.setQuantity(qty);
+        System.out.println("in update Cart");
+        return cartRepository.save(cart);
+    }
 
-    public Cart updateCartItem(AddToCartDto cartDto, User user, Product product) {
+    /*public Cart updateCartItem(AddToCartDto cartDto, User user, Product product) {
         Cart cart = new Cart();
        List<Cart> cartList = cartRepository.findAllByUser(user);
        for(Cart c : cartList){
@@ -74,8 +101,11 @@ public class CartService {
         cart.setUser(user);
        cart.setProduct(product);
         cart.setQuantity(cartDto.getQuantity());
+        System.out.println("in update Cart");
         return cartRepository.save(cart);
-    }
+    }*/
+
+
 
     public String deleteCartItem(Long productId, Long userId,User user) {
         List<Cart> cartList = cartRepository.findAllByUser(user);

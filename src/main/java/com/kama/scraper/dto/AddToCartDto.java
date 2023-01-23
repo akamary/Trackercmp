@@ -9,7 +9,7 @@ public class AddToCartDto {
     private String username;
     private Long quantity;
 
-    public AddToCartDto(Long userId, String username,Long productId, Long quantity) {
+    public AddToCartDto(Long userId,Long productId, Long quantity, String username) {
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
