@@ -17,14 +17,19 @@ export const saveProduct = (product) => {
       },
     });
     const userId = localStorage.getItem("id");
+    const token = localStorage.getItem("jwtToken");
+    const newQuantity = product.quantity ? product.quantity : 1;
+    console.log("11");
     await axios
       .post(
-        "http://localhost:8080/rest/user/cart/" + userId + "/" + product.id,
+        "http://localhost:8080/rest/cart/add",
         {
           userId: userId,
           productId: product.id,
-          quantity: product.quantity,
-        }
+          quantity: newQuantity,
+          username: localStorage.getItem("username"),
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
       )
 
       .then((response) => response.data)
@@ -49,10 +54,11 @@ export const removeFromCart = (productId) => {
       },
     });
     const userId = localStorage.getItem("id");
+    const token = localStorage.getItem("jwtToken");
     await axios
-      .delete(
-        "http://localhost:8080/rest/user/cart/" + userId + "/" + productId
-      )
+      .delete("http://localhost:8080/rest/cart/" + userId + "/" + productId, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         dispatch(getAllProduct(userId));
@@ -71,14 +77,20 @@ export const adjustQty = (item, value) => {
       },
     });
     const userId = localStorage.getItem("id");
+    const token = localStorage.getItem("jwtToken");
     await axios
-      .put("http://localhost:8080/rest/user/cart/" + userId, {
-        userId: userId,
-        productId: item.product.id,
-        //price: item.price,
-        quantity: value,
-        //image: item.image,
-      })
+      .put(
+        "http://localhost:8080/rest/cart/" + userId,
+        {
+          userId: userId,
+          productId: item.product.id,
+          quantity: value,
+          username: localStorage.getItem("username"),
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => response.data)
       .then((data) => {
         dispatch(updateProductSuccess(data));
@@ -102,8 +114,11 @@ export const getAllProduct = (userId) => {
     dispatch({
       type: PT.GET_CART_REQUEST,
     });
+    const token = localStorage.getItem("jwtToken");
     await axios
-      .get("http://localhost:8080/rest/user/cart/" + userId)
+      .get("http://localhost:8080/rest/cart/" + userId, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         dispatch(cartSuccess({ data }));

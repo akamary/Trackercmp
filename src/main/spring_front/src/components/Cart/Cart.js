@@ -108,44 +108,7 @@ const Cart = ({ cart }) => {
     </div>
   );
 };
-//   return (
-//     <div>
-//       <div className={styles.cart}>
-//         <div className={styles.container}>
-//           <div className={styles.cart__items}>
-//             <h2>Cart</h2>
 
-//             {cart.map(
-//               (item) => (
-//                 item.cart ? (cart = item.cart.data.cartItems) : (cart = item),
-//                 cart.map((gg) => (
-//                   <CartItem
-//                     key={gg.product.id}
-//                     item={gg}
-//                     qtyChangeHandler={qtyChangeHandler}
-//                     removeFromCartHandler={removeFromCartHandler}
-//                   />
-//                 ))
-//               )
-//             )}
-//           </div>
-//         </div>
-
-//         <div className={styles.container} id={styles.cart__sumary}>
-//           <h4 className={styles.summary__title}>Cart Summary</h4>
-//           <div className={styles.summary__price}>
-//             <span>Total items in cart: ({getCartCount()})</span>
-//             <span> {getCartSubTotal().toFixed(2)} ILS</span>
-//           </div>
-//           .
-//           <button className={styles.summary__checkoutBtn}>
-//             Proceed To Checkout
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
 const mapStateToProps = (state) => {
   return {

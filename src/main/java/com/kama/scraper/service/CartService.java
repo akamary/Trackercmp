@@ -53,7 +53,9 @@ public class CartService {
             String str = cartItemDto.getProduct().getPrice();
             str = str.replaceAll("[^\\d.]", "");
             double price = Double.parseDouble(str);
-            double cost = price* cartItemDto.getQuantity();
+            double cost;
+            if(cartItemDto.getQuantity() != null) cost = price* cartItemDto.getQuantity();
+            else cost = price;
             totalCost += cost;
         }
         return new CartDto(cartItems,totalCost);
