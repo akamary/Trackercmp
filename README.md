@@ -1,9 +1,8 @@
+
 <center><h1> Products Stock Tracker Compare </h1></center>
 
 ## Description
-The goal of this project is to implement a Restfull API application for tracking and fetching products by implementing a backend app using Spring Boot in addition to a frontend app using Reactjs and other technologies.
-Authentication and Authorization for securing both apps.
-Spring Data JPA Pagination.
+Implemented a REST API web scraping application that allows users to search and find products from various e-commerce websites, and add them to their cart. The application is built using Spring Boot and utilizes web scraping to retrieve product information. Additionally, it features a frontend app built with ReactJS and other technologies that provides a seamless user experience. The project also includes features for user authentication and authorization to ensure security for both the backend and frontend.
 
 
 <p align="center"><img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/halfDemo.gif">
@@ -17,10 +16,10 @@ Spring Data JPA Pagination.
 | --- | :---: | --- |
 | [Sign-In](#sign-in) | POST | /rest/user/authenticate |
 | [Sign-Up](#sign-up) | POST | /rest/register |
-| [Get Cart](#get-userid-cart) {userId} | GET | /rest/user/cart/{userId} |
-| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /rest/user/cart|
-| [Update Product](#update-product) quantity in Cart of {userId} | PUT | /rest/user/cart/{userId} |
-| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | /rest/user/cart/{userId} |
+| [Get Cart](#get-userid-cart) {userId} | GET | /rest/cart/{userId} |
+| [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /rest/cart/add|
+| [Update Product](#update-product) quantity in Cart of {userId} | PUT | /rest/cart/{userId} |
+| [Delete Product](#delete-product) {productId} from cart of {userId} | DELETE | /rest/cart/{userId}/{productId} |
 | [Find all Products](#find-all) | GET | /rest/products/all |
 | [Find Product](#find-specific-product) by id | GET | /rest/products/{id} |
 | [Get all Products in {page} "asc" order](#get-all-products-asc-in-page-0) | GET | /rest/products?pageNumber={number}&pageSize=5&sortBy=price&sortDir={asc} |
@@ -50,6 +49,8 @@ Spring Data JPA Pagination.
 * Axios
 
 ## 
+
+### <mark> <br>not updated. use the table above for the correct forms. each request must starts with "Bearer {jwtToken}"<br> </mark>
 
 ## Sign-In
 `POST-> http://localhost:8080/rest/user/authenticate`
@@ -107,7 +108,7 @@ test@user.com
 
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
 
-### <mark> After a successful login the user can scan the list, search for specific product<br>(by given text) in the products list and add them to cart (only with the user's Token).<br> </mark>
+### <mark> <br>Only allowed users<br> </mark>
 ## Get {userId} Cart
 ```
 Method: GET->http://localhost:8080/rest/user/cart/{userId}
