@@ -3,7 +3,6 @@ package com.kama.scraper.service;
 import com.kama.scraper.domain.Cart;
 import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
-import com.kama.scraper.dto.AddToCartDto;
 import com.kama.scraper.dto.CartDto;
 import com.kama.scraper.dto.CartItemDto;
 import com.kama.scraper.repository.CartRepository;
@@ -40,9 +39,7 @@ public class CartService {
             cart.setQuantity(cart.getQuantity() + quantity);
             cartRepository.save(cart);
         }
-
     }
-
 
     public CartDto listCartItems(User user) {
         List<Cart> cartList = cartRepository.findAllByUserOrderByProduct(user);
@@ -86,37 +83,14 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    /*public Cart updateCartItem(AddToCartDto cartDto, User user, Product product) {
-        Cart cart = new Cart();
-       List<Cart> cartList = cartRepository.findAllByUser(user);
-       for(Cart c : cartList){
-           if(c.getProduct().getId().equals(cartDto.getProductId())){
-               c.setQuantity(cartDto.getQuantity());
-               c.setProduct(product);
-               c.setUser(user);
-
-               return cartRepository.save(c);
-           }
-       }
-        cart.setUser(user);
-       cart.setProduct(product);
-        cart.setQuantity(cartDto.getQuantity());
-        System.out.println("in update Cart");
-        return cartRepository.save(cart);
-    }*/
-
-
-
-    public String deleteCartItem(Long productId, Long userId,User user) {
+    public boolean deleteCartItem(Long productId, Long userId,User user) {
         List<Cart> cartList = cartRepository.findAllByUser(user);
         for(Cart c : cartList){
             if(c.getProduct().getId().equals(productId)){
                 cartRepository.deleteById(c.getId());
-                return "ok";
+                return true;
             }
         }
-        return "error";
+        return false;
     }
-
-
 }

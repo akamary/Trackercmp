@@ -7,6 +7,7 @@ import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
 import com.kama.scraper.dto.AddToCartDto;
 import com.kama.scraper.dto.CartDto;
+import com.kama.scraper.repository.CartRepository;
 import com.kama.scraper.repository.ProductRepository;
 import com.kama.scraper.repository.UserRepository;
 import com.kama.scraper.service.CartService;
@@ -33,6 +34,8 @@ public class CartResource {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
     private static final Logger logger = LoggerFactory.getLogger(CartResource.class);
 
     @PreAuthorize("#addToCartDto.username.toString() == authentication.name")
@@ -87,11 +90,17 @@ public class CartResource {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    @DeleteMapping("/cart/{userId}/{productId}")
-    public ResponseEntity<String> deleteCartItem(@PathVariable Long userId,@PathVariable Long productId) {
+
+    @DeleteMapping("/{userId}/{productId}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable Long userId, @PathVariable Long productId) {
         User user = userRepository.findById(userId).get();
-        cartService.deleteCartItem(productId, userId,user);
-        return new ResponseEntity<>( "Item has been removed", HttpStatus.OK);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (user != null && auth.getName().equals(user.getUsername())) {
+            if(cartService.deleteCartItem(productId, userId, user)) return new ResponseEntity<>("Item has been removed", HttpStatus.OK);
+            else return new ResponseEntity<>("No such product!", HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>("You are not allowed to access this resource!", HttpStatus.FORBIDDEN);
+        }
     }
 }
+
