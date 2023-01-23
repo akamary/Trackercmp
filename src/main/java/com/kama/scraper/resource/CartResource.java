@@ -7,7 +7,6 @@ import com.kama.scraper.domain.Product;
 import com.kama.scraper.domain.User;
 import com.kama.scraper.dto.AddToCartDto;
 import com.kama.scraper.dto.CartDto;
-import com.kama.scraper.repository.CartRepository;
 import com.kama.scraper.repository.ProductRepository;
 import com.kama.scraper.repository.UserRepository;
 import com.kama.scraper.service.CartService;
@@ -34,8 +33,6 @@ public class CartResource {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private CartRepository cartRepository;
     private static final Logger logger = LoggerFactory.getLogger(CartResource.class);
 
     @PreAuthorize("#addToCartDto.username.toString() == authentication.name")
@@ -55,7 +52,6 @@ public class CartResource {
             return new ResponseEntity<>("An error occurred while adding product to cart!", HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @GetMapping("/{userId}")
     public ResponseEntity<CartDto> getCart(@PathVariable Long userId ) {

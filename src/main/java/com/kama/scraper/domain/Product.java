@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_product")
 public class Product {
-
     @Id
     @SequenceGenerator(
             name = "product_sequence",
@@ -105,16 +104,12 @@ public class Product {
                 '}';
     }
     public User getUserProducts(Long userId) {
-
         return user;
     }
     public void deleteFromUser(User user,Product product){
         user.getMyProducts().remove(product);
-        //userProducts.remove(user);
     }
-    public void setUserProducts(User userProducts) {
-        this.user = userProducts;
-    }
+
 
     public void saveToUser(User user,Product product) {
         this.user=user;

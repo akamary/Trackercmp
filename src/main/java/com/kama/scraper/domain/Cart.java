@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="cart")
 public class Cart {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +19,6 @@ public class Cart {
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id",referencedColumnName = "id")
     private User user;
-
 
     private Long quantity;
 

@@ -22,6 +22,9 @@ public class User {
     private Long qty;
     @Column(nullable = false)
     private String password;
+
+
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -50,6 +53,7 @@ public class User {
         this.username = username;
         this.role = role;
     }
+
 
     public User(Long id, String username) {
         this.id = id;

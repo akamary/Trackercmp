@@ -11,8 +11,9 @@ public class JwtTokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurit
 
     private UserDetailsServiceImpl userDetailsService;
 
-    public JwtTokenConfigurer(JwtTokenProvider tokenProvider) {
+    public JwtTokenConfigurer(JwtTokenProvider tokenProvider, UserDetailsServiceImpl userDetailsService) {
         this.tokenProvider = tokenProvider;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override

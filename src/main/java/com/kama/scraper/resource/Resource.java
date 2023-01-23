@@ -1,6 +1,5 @@
 package com.kama.scraper.resource;
 
-import com.kama.scraper.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -8,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Set;
 
 public interface Resource<T> {
     @GetMapping("/search/{searchText}")
@@ -30,14 +28,4 @@ public interface Resource<T> {
     @DeleteMapping("{id}")
     ResponseEntity<String> deleteById(@PathVariable Long id);
 
-
-    @DeleteMapping("/user/{userId}/{productId}")
-    ResponseEntity<String> deleteFromUser(@PathVariable Long userId, @PathVariable Long productId);
-    @PostMapping("/user/{userId}/{productId}")
-    ResponseEntity<Product> productsToUser(@PathVariable Long userId, @PathVariable Long productId);
-
-    @GetMapping("/user/{userId}")
-    ResponseEntity<Set<Product>> getProducts(@PathVariable Long userId);
-    @PutMapping(path = "/user/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    Product updateProductQty(@PathVariable Long userId,@RequestBody Product product) ;
 }

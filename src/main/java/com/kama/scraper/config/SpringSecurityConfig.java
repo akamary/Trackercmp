@@ -1,6 +1,7 @@
 package com.kama.scraper.config;
 
 
+import com.kama.scraper.service.implement.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenProvider tokenProvider;
-
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,9 +40,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/user/authenticate", "/user/register").permitAll()
+                .antMatchers("/user/authenticate", "/user/register","/products/*").permitAll()
+                .antMatchers("/products/**").permitAll()
                 .anyRequest().authenticated();
-        http.apply(new JwtTokenConfigurer(tokenProvider));
+        http.apply(new JwtTokenConfigurer(tokenProvider,userDetailsService));
     }
 
 }
