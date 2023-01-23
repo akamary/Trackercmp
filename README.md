@@ -1,4 +1,5 @@
 
+
 <center><h1> Products Stock Tracker Compare </h1></center>
 
 ## Description
@@ -15,7 +16,7 @@ Implemented a REST API web scraping application that allows users to search and 
 | Action | HTTP method | backURI |
 | --- | :---: | --- |
 | [Sign-In](#sign-in) | POST | /rest/user/authenticate |
-| [Sign-Up](#sign-up) | POST | /rest/register |
+| [Sign-Up](#sign-up) | POST | /rest/user/register |
 | [Get Cart](#get-userid-cart) {userId} | GET | /rest/cart/{userId} |
 | [Add to Cart product](#add-to-cart) {productId} to Cart of {userId} | POST | /rest/cart/add|
 | [Update Product](#update-product) quantity in Cart of {userId} | PUT | /rest/cart/{userId} |
@@ -57,81 +58,73 @@ Implemented a REST API web scraping application that allows users to search and 
 
 USER - Role
 ```
-email: test@user.com
+username: moshe
 password: 123456
 ```
 
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signInBackend.png">
  <br>      
 
 ADMIN - Role:
 
 ```                
-email: test@admin.com
+email: test
 password: 123456
 ``` 
 
-### backend
-
-ADMIN Role - SignIn
-
-```
-test@admin.com
-123456
-``` 
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBackAdmin.png">
-
-
-```
-USER Role- SignIn
-test@user.com
-123456
-``` 
-
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/POST_signInBack.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signInAdminBackend.png">
 
 
 
 
 ## Sign-Up
 
-* #### back
 
 `Method: POST-> http://localhost:8080/rest/user/register`
-
+simple example of sign-up:
 ```
-    username: ""
-    email: ""
-    fullname: ""
-    password: ""
+{
+	"username":  "mosheperetzO",
+	"email":  "newmoshe@gmail.com",
+	"fullname":  "moshe ha",
+	"password":  "123456"
+}
 ```
 
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUp.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/signUpBackend.png">
 
 ### <mark> <br>Only allowed users<br> </mark>
 ## Get {userId} Cart
 ```
-Method: GET->http://localhost:8080/rest/user/cart/{userId}
+Method: GET->http://localhost:8080/rest/cart/{userId}
+Add Authorization Header starts with "Bearer" and the jwtToken:
+`Bearer ${jwtToken}`
 ```
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/userCart.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/getCartBackend.png">
 
 ## Add to Cart
 ```
-Method: POST->http://localhost:8080/rest/user/cart/{userId}/{productId}
+Method: POST->http://localhost:8080/rest/cart/add
+Add Authorization Header starts with "Bearer" and the jwtToken:
+`Bearer ${jwtToken}`
 ```
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/addToCart.png">
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/addToCartBack.png">
 
 ## Update product
 ```
-Method: PUT->http://localhost:8080/rest/user/cart/{userId}
+Method: PUT->http://localhost:8080/rest/cart/{userId}
+Add Authorization Header starts with "Bearer" and the jwtToken:
+`Bearer ${jwtToken}`
 ```
 <img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/updateProduct.png">
 
 ## Delete product
 ```
-Method: DELETE->http://localhost:8080/rest/user/cart/{userId}/{productId}
+Method: DELETE->http://localhost:8080/rest/cart/{userId}/{productId}
+Add Authorization Header starts with "Bearer" and the jwtToken:
+`Bearer ${jwtToken}`
 ```
-<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/deleteProduct.png">  
+<img width="600" src="https://github.com/akamary/StockTrackerCompare/blob/master/gifs/DeleteProduct.png">  
 
 
 ## Pagination API
