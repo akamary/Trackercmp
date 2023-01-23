@@ -52,7 +52,7 @@ public class UserResourceImpl {
     public ResponseEntity<String> register(@RequestBody AuthenticateRequestDTO body) {
 
         JSONObject jsonObject = new JSONObject();
-        User user = userRepository.findByUsername(body.getUsername());
+        User user = userRepository.findByUsername(body.getUsername()).get();
 
         if(userRepository.findByUsername(user.getUsername()) != null) return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         log.info("UserResourceImpl : register");
@@ -76,16 +76,19 @@ public class UserResourceImpl {
     @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> authenticate(@RequestBody AuthenticateRequestDTO body) {
         log.info("UserResourceImpl : authenticate");
+
         JSONObject jsonObject = new JSONObject();
         try {
-            User user = userRepository.findByUsername(body.getUsername());
-
+            User user = userRepository.findByUsername(body.getUsername()).get();
+            System.out.println("1" + user.getUsername());
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword()));
             if (authentication.isAuthenticated()) {
+                String token = tokenProvider.createToken(body.getUsername(),user.getRole());
                 jsonObject.put("name", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
-                jsonObject.put("token", tokenProvider.createToken(body.getUsername(), user.getRole()));
+                //jsonObject.put("token", tokenProvider.createToken(body.getUsername(), user.getRole()));
+                jsonObject.put("token", token);
                 jsonObject.put("id", user.getId());
                 return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
             }

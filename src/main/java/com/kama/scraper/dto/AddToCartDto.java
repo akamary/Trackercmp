@@ -45,6 +45,7 @@ public class AddToCartDto {
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
+        this.username=username;
     }
 
     public AddToCartDto(Cart cart) {
@@ -62,16 +63,7 @@ public class AddToCartDto {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "AddToCartDto{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", username='" + username + '\'' +
-                '}';
-    }
+
 
     public Long getId() {
         return id;
@@ -103,5 +95,16 @@ public class AddToCartDto {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "AddToCartDto{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", username='" + username + '\'' +
+                '}';
     }
 }

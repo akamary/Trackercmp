@@ -5,7 +5,7 @@ public class AuthenticateRequestDTO {
     private String username;
     private String password;
     private Long quantity;
-    private String productId;
+    private Long productId;
 
     public AuthenticateRequestDTO(Long userId, String username, String password, Long quantity) {
         this.userId = userId;
@@ -23,7 +23,7 @@ public class AuthenticateRequestDTO {
         this.username = username;
     }
 
-    public AuthenticateRequestDTO(Long userId, String username, String password, Long quantity, String productId) {
+    public AuthenticateRequestDTO(Long userId, String username, String password, Long quantity, Long productId) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -66,11 +66,11 @@ public class AuthenticateRequestDTO {
         this.quantity = quantity;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

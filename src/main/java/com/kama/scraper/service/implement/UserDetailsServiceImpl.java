@@ -17,10 +17,13 @@ import java.util.Collection;
 public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
+    private Long userId;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).get();
+        user.setId(user.getId());
         if (user == null) {
             throw new UsernameNotFoundException("username " + username + " not found");
         }
@@ -38,5 +41,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         return authorities;
     }
 
-
+    public Long getId() {
+        return userId;
+    }
+    public void setId(Long id) {
+        this.userId = id;
+    }
 }
