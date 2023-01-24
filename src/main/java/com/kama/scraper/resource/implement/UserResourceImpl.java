@@ -49,26 +49,35 @@ public class UserResourceImpl {
 
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody AuthenticateRequestDTO body) {
-
+    public ResponseEntity<String> register(@RequestBody AuthenticateRequestDTO userBody) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        User user = userRepository.findByUsername(body.getUsername()).get();
-
-        if(userRepository.findByUsername(user.getUsername()) != null) return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
+        if(userRepository.findByUsername(userBody.getUsername()).isPresent()) {
+            jsonObject.put("message", "Username already exists");
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.CONFLICT);
+        }
         log.info("UserResourceImpl : register");
 
         try {
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            User user = new User(userBody.getUsername(), userBody.getFullname(), userBody.getEmail());
+            System.out.println("in try 1");
+            System.out.println(user.toString());
+            user.setPassword(new BCryptPasswordEncoder().encode(userBody.getPassword()));
+            System.out.println("in try 2");
             user.setRole(roleRepository.findByName(ConstantUtils.USER.toString()));
+            System.out.println("in try 3");
             User savedUser = userRepository.saveAndFlush(user);
+            System.out.println("in try 4");
             jsonObject.put("message", savedUser.getUsername() + " saved succesfully");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (JSONException e) {
             try {
+                System.out.println("in catch 1");
                 jsonObject.put("exception", e.getMessage());
             } catch (JSONException e1) {
+                System.out.println("in catch 2");
                 e1.printStackTrace();
             }
+            System.out.println("in ");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -102,7 +111,4 @@ public class UserResourceImpl {
         }
         return null;
     }
-
-
-
 }

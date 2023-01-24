@@ -7,6 +7,11 @@ public class AuthenticateRequestDTO {
     private Long quantity;
     private Long productId;
 
+    private String email;
+
+
+
+    private  String fullname;
     public AuthenticateRequestDTO(Long userId, String username, String password, Long quantity) {
         this.userId = userId;
         this.username = username;
@@ -32,6 +37,13 @@ public class AuthenticateRequestDTO {
     }
 
     public AuthenticateRequestDTO() {
+    }
+
+    public AuthenticateRequestDTO(String username, String password, String email, String fullname) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fullname = fullname;
     }
 
     public String getUsername() {
@@ -73,7 +85,21 @@ public class AuthenticateRequestDTO {
     public void setProductId(Long productId) {
         this.productId = productId;
     }
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
     @Override
     public String toString() {
         return "AuthenticateRequest{" +
