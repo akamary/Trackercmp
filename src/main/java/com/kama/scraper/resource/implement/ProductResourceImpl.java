@@ -12,12 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/products")
@@ -30,16 +28,21 @@ public class ProductResourceImpl implements Resource<Product> {
     @Autowired
     private IPageService<Product> productPageService;
 
+
+
     @Override
     public ResponseEntity<Page<Product>> findAll(Pageable pageable, String searchText) {
+        System.out.println("findAll1");
         return new ResponseEntity<>(productPageService.findAll(pageable, searchText), HttpStatus.OK);
     }
     @Override
     public ResponseEntity<Collection<Product>> findAll(){
+        System.out.println("findAll2");
         return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
     }
     @Override
     public ResponseEntity<Page<Product>> findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
+        System.out.println("findAll3");
         return new ResponseEntity<>(productPageService.findAll(
                 PageRequest.of(
                         pageNumber, pageSize,
@@ -50,41 +53,26 @@ public class ProductResourceImpl implements Resource<Product> {
 
     @Override
     public ResponseEntity<Product> findById(Long id) {
+        System.out.println("findAll4");
         return new ResponseEntity<>(productService.findById(id).get(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Product> save(Product product) {
+        System.out.println("findAll5");
         return new ResponseEntity<>(productService.saveOrUpdate(product), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Product> update(Product product) {
+        System.out.println("findAll6");
         return null;
     }
 
     @Override
     public ResponseEntity<String> deleteById(Long id) {
+        System.out.println("findAll7");
         return new ResponseEntity<>(productService.deleteById(id), HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity deleteFromUser(Long productId, Long userId) {
-        return new ResponseEntity<>(productService.deleteFromUser(productId,userId),HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<Product> productsToUser(@PathVariable Long userId, @PathVariable Long productId){
-        return new ResponseEntity<>(productService.save(userId, productId),HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<Set<Product>> getProducts(Long userId) {
-        return new ResponseEntity<Set<Product>>(productService.getProducts(userId),HttpStatus.OK);
-    }
-
-    @Override
-    public Product updateProductQty(Long userId,Product product){
-        return productService.updateProductQty(userId, product);
-    }
 }
