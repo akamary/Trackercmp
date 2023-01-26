@@ -3,17 +3,18 @@ import axios from "axios";
 
 const AUTH_URL = "http://localhost:8080/rest/user/authenticate";
 
-export const authenticateUser = (email, password) => async (dispatch) => {
+export const authenticateUser = (username, password) => async (dispatch) => {
   dispatch(loginRequest());
   try {
     const response = await axios.post(AUTH_URL, {
-      email: email,
+      username: username,
       password: password,
     });
 
     console.log(JSON.stringify(response.data.id));
     localStorage.setItem("jwtToken", response.data.token);
     localStorage.setItem("id", response.data.id);
+    localStorage.setItem("username", response.data.name);
     dispatch(
       success({
         username: response.data.name,

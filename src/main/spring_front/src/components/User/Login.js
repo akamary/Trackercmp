@@ -16,7 +16,7 @@ const Login = (props) => {
   let navigate = useNavigate();
 
   const initialState = {
-    email: "",
+    username: "",
     password: "",
   };
   const [user, setUser] = useState(initialState);
@@ -29,7 +29,7 @@ const Login = (props) => {
 
   const validateUser = (e) => {
     e.preventDefault();
-    dispatch(authenticateUser(user.email, user.password))
+    dispatch(authenticateUser(user.username, user.password))
       .then((response) => {
         console.log(response.data);
         return navigate("/home");
@@ -38,7 +38,7 @@ const Login = (props) => {
         console.log(error.message);
         setShow(true);
         navigate("/");
-        setError("Invalid email and password");
+        setError("Invalid username and password");
       });
   };
   const ColorButton = styled(Button)(({ theme }) => ({
@@ -58,10 +58,10 @@ const Login = (props) => {
             required
             autoComplete="off"
             type="text"
-            name="email"
-            value={user.email}
+            name="username"
+            value={user.username}
             onChange={credentialChange}
-            placeholder="Email"
+            placeholder="Username"
           />
 
           <input
@@ -115,8 +115,8 @@ const Login = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticateUser: (email, password) =>
-      dispatch(authenticateUser(email, password)),
+    authenticateUser: (username, password) =>
+      dispatch(authenticateUser(username, password)),
   };
 };
 export default connect(null, mapDispatchToProps)(Login);
